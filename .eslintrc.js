@@ -15,7 +15,7 @@ module.exports = {
     'object-curly-spacing': [1, 'always'],
     quotes: [1, 'single', 'avoid-escape'],
     'jsx-quotes': [1, 'prefer-single'],
-    semi: [1, 'always'],
+    // semi: [1, 'always'],
     'comma-dangle': [1, 'never'],
     'react/prop-types': 'off',
     'no-unused-vars': 'off',
