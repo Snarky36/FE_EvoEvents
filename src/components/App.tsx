@@ -3,10 +3,11 @@ import { createTheme, CssBaseline, GlobalStyles, PaletteMode, ThemeProvider } fr
 import { MediatorEventsIdentifiers } from '../events/EventsIdentifiers';
 import Mediator from '../events/Mediator';
 import { AuthContextProvider } from './contexts/AuthContext';
-import VersionTestPage from './pages/version-test-page/VersionTestPage';
+import RegisterUser from './pages/register/RegisterUser';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export const App = () => {
-  const [colorMode, setColorMode] = useState<PaletteMode>('dark');
+  const [colorMode, setColorMode] = useState<PaletteMode>('light');
 
   const theme = useMemo(() => createTheme({ palette: { mode: colorMode } }), [colorMode]);
 
@@ -35,10 +36,16 @@ export const App = () => {
   );
   return (
     <ThemeProvider theme={theme}>
+
       <CssBaseline />
       {globalStyles}
       <AuthContextProvider>
-        <VersionTestPage />
+      <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />} />
+        <Route path='register' element={<RegisterUser />} />
+      </Routes>
+    </BrowserRouter>
       </AuthContextProvider>
     </ThemeProvider>
   );

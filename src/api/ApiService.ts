@@ -11,6 +11,10 @@ class ApiService {
   getReq(url: string) {
     return this.axios.get(url);
   }
+
+  postReq(url: string, obj: any) {
+    return this.axios.post(url, obj);
+  }
 }
 
 export default new ApiService();
