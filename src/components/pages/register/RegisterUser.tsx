@@ -1,4 +1,4 @@
-import { Box, Button, Grid, IconButton, TextField, Tab, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, TextField, Tab, Tooltip, Typography, useTheme } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
@@ -20,6 +20,7 @@ export default function RegisterUser() {
   const [password, setPassword] = useState('');
   const [passwordErrorText, setPasswordErrorText] = useState('');
   const [value, setValue] = React.useState('1');
+  const { palette } = useTheme();
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -119,7 +120,8 @@ export default function RegisterUser() {
             sx={{
               width: '50%',
               height: '80%',
-              backgroundColor: 'gold',
+              backgroundColor: palette.primary.main,
+              color: palette.primary.light,
               position: 'absolute',
               top: '50%',
               left: '50%',
@@ -132,17 +134,44 @@ export default function RegisterUser() {
             }}>
             <Grid item xs={4}
               sx={{
-                textAlign: 'center'
+                textAlign: 'center',
+                color: palette.primary.light
               }}>
               <Typography variant='h4' component='h4'>Request log-in credentials</Typography>
             </Grid>
             <Grid item xs={4}
               sx={{
-                textAlign: 'center'
+                textAlign: 'center',
+                color: palette.primary.light
               }}>
               <TextField
                 sx={{
-                  width: '70%'
+                  width: '70%',
+                  '& fieldset': {
+                    borderColor: palette.primary.light,
+                    borderWidth: 2,
+                    borderRadius: 9999
+                  },
+                  '& label': {
+                    color: 'white'
+                  },
+                  'input': {
+                    '&::placeholder': {
+                      textOverflow: 'ellipsis !important',
+                      color: 'white'
+                    },
+                    color: 'white !important',
+                    backgroundColor: '#64b5f6',
+                    borderRadius: 9999
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white'
+                    }
+                  },
+                  '& label.Mui-focused': {
+                    color: 'white'
+                  }
                 }}
                 id='outlined-basic'
                 label='First Name'
@@ -161,11 +190,37 @@ export default function RegisterUser() {
             </Grid>
             <Grid item xs={4}
               sx={{
-                textAlign: 'center'
+                textAlign: 'center',
+                color: palette.primary.light
               }}>
               <TextField
                 sx={{
-                  width: '70%'
+                  width: '70%',
+                  '& fieldset': {
+                    borderColor: palette.primary.light,
+                    borderWidth: 2,
+                    borderRadius: 9999
+                  },
+                  '& label': {
+                    color: 'white'
+                  },
+                  'input': {
+                    '&::placeholder': {
+                      textOverflow: 'ellipsis !important',
+                      color: 'white'
+                    },
+                    color: 'white !important',
+                    backgroundColor: '#64b5f6',
+                    borderRadius: 9999
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white'
+                    }
+                  },
+                  '& label.Mui-focused': {
+                    color: 'white'
+                  }
                 }}
                 id='outlined-basic'
                 label='Last Name'
@@ -184,11 +239,37 @@ export default function RegisterUser() {
             </Grid>
             <Grid item xs={4}
               sx={{
-                textAlign: 'center'
+                textAlign: 'center',
+                color: palette.primary.light
               }}>
               <TextField
                 sx={{
-                  width: '70%'
+                  width: '70%',
+                  '& fieldset': {
+                    borderColor: palette.primary.light,
+                    borderWidth: 2,
+                    borderRadius: 9999
+                  },
+                  '& label': {
+                    color: 'white'
+                  },
+                  'input': {
+                    '&::placeholder': {
+                      textOverflow: 'ellipsis !important',
+                      color: 'white'
+                    },
+                    color: 'white !important',
+                    backgroundColor: '#64b5f6',
+                    borderRadius: 9999
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white'
+                    }
+                  },
+                  '& label.Mui-focused': {
+                    color: 'white'
+                  }
                 }}
                 id='outlined-basic'
                 label='Email'
@@ -208,10 +289,36 @@ export default function RegisterUser() {
             <Grid item xs={4}
               sx={{
                 textAlign: 'center'
+            
               }}>
               <TextField
                 sx={{
-                  width: '70%'
+                  width: '70%',
+                  '& fieldset': {
+                    borderColor: palette.primary.light,
+                    borderWidth: 2,
+                    borderRadius: 9999
+                  },
+                  '& label': {
+                    color: 'white'
+                  },
+                  'input': {
+                    '&::placeholder': {
+                      textOverflow: 'ellipsis !important',
+                      color: 'white'
+                    },
+                    color: 'white !important',
+                    backgroundColor: '#64b5f6',
+                    borderRadius: 9999
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white'
+                    }
+                  },
+                  '& label.Mui-focused': {
+                    color: 'white'
+                  }
                 }}
                 id='outlined'
                 label='Company'
@@ -230,11 +337,37 @@ export default function RegisterUser() {
             </Grid>
             <Grid item xs={4}
               sx={{
-                textAlign: 'center'
+                textAlign: 'center',
+                color: palette.primary.light
               }}>
               <TextField
                 sx={{
-                  width: '70%'
+                  width: '70%',
+                  '& fieldset': {
+                    borderColor: palette.primary.light,
+                    borderWidth: 2,
+                    borderRadius: 9999
+                  },
+                  '& label': {
+                    color: 'white'
+                  },
+                  'input': {
+                    '&::placeholder': {
+                      textOverflow: 'ellipsis !important',
+                      color: 'white'
+                    },
+                    color: 'white !important',
+                    backgroundColor: '#64b5f6',
+                    borderRadius: 9999
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white'
+                    }
+                  },
+                  '& label.Mui-focused': {
+                    color: 'white'
+                  }
                 }}
                 id='outlined-basic'
                 label='Password'
