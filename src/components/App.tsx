@@ -1,28 +1,32 @@
 import React, { useMemo } from 'react';
 import { createTheme, CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material';
 import { AuthContextProvider } from './contexts/AuthContext';
-import RegisterUser from './pages/register/RegisterUser';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ResponsiveAppBar from './pages/common/NavBar';
-
+import EventsPage from './pages/eventsPage/EventsPage';
+import Homepage from './pages/homePage/Homepage';
 
 export const App = () => {
-  const theme = useMemo(() => createTheme({
-    palette: {
-      primary: {
-        light: 'white',
-        main: '#42a5f5',
-        dark: '#0d47a1',
-        contrastText: '#e3f2fd'
-      },
-      secondary: {
-        light: '#ff7961',
-        main: '#42a5f5',
-        dark: '#ba000d',
-        contrastText: '#000'
-      }
-    }
-  }), []);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          primary: {
+            light: 'white',
+            main: '#42a5f5',
+            dark: '#0d47a1',
+            contrastText: '#e3f2fd'
+          },
+          secondary: {
+            light: '#ff7961',
+            main: '#42a5f5',
+            dark: '#ba000d',
+            contrastText: '#000'
+          }
+        }
+      }),
+    []
+  );
 
   const globalStyles = useMemo(
     () => (
@@ -38,16 +42,16 @@ export const App = () => {
   );
   return (
     <ThemeProvider theme={theme}>
-
       <CssBaseline />
       {globalStyles}
       <AuthContextProvider>
-      <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<RegisterUser />} />
-        <Route path='home' element={<ResponsiveAppBar />} />
-      </Routes>
-    </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Homepage />} />
+            <Route path='home' element={<ResponsiveAppBar />} />
+            <Route path='events' element={<EventsPage />} />
+          </Routes>
+        </BrowserRouter>
       </AuthContextProvider>
     </ThemeProvider>
   );

@@ -6,14 +6,23 @@ class ApiService {
 
   constructor() {
     this.axios = axios.create(httpConfig);
-  }
+
+  };
 
   getReq(url: string) {
     return this.axios.get(url);
   }
 
-  postReq(url: string, obj: any) {
-    return this.axios.post(url, obj);
+  async postReq(url: string, obj: any) {
+
+    try {
+      const response = await this.axios.post(url, obj);
+
+      return response;
+    } catch (e) {
+      throw { errorCode: e.response.status, data: e.response.data };
+    }
+ 
   }
 }
 

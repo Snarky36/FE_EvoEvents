@@ -1,4 +1,4 @@
-import User from '../components/interfaces/User';
+import User from '../interfaces/User';
 import ApiService from './ApiService';
 
 class UserService {
@@ -8,4 +8,3 @@ class UserService {
 }
 
 export default new UserService();
-
