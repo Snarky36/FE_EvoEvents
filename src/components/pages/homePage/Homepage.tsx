@@ -1,29 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TabContext, TabPanel } from '@mui/lab';
-import { Box } from '@mui/material';
-import { AuthTabs } from '../common/AuthTabs';
+import { AuthTabs } from './AuthTabs';
 import RegisterUser from './RegisterUser';
+import Login from './Login';
+import { ContainerStyled, TabBoxStyled } from './StyleComponent';
 
 export default function Homepage() {
-  const [value, setValue] = React.useState('register');
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
+  const [selectedTab, setSelectedTab] = useState('register');
 
   return (
     <div>
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-        <TabContext value={value}>
-          <Box sx={{ borderTop: 1, borderColor: 'divider', position: 'fixed', bottom: 0 }}>
-            <AuthTabs onChange={handleChange}></AuthTabs>
-          </Box>
+      <ContainerStyled>
+        <TabContext value={selectedTab}>
+          <TabBoxStyled>
+            <AuthTabs currentTab={selectedTab} setSelectedTab={setSelectedTab} />
+          </TabBoxStyled>
           <TabPanel value='register'>
             <RegisterUser />
           </TabPanel>
-          <TabPanel value='login'>Login</TabPanel>
+          <TabPanel value='login'>
+            <Login />
+          </TabPanel>
         </TabContext>
-      </Box>
+      </ContainerStyled>
     </div>
   );
 }

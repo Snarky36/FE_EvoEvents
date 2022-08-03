@@ -1,33 +1,46 @@
 import { Button, Typography, Snackbar, Alert } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import UserService from '../../../api/UserService';
 import { GridStyled, TextFieldStyled, GridColorStyled, GridGlobalStyled } from './StyleComponent';
 import { InfoButton } from '../common/InfoButton';
+import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
+import {
+  validateFirstNameRegister,
+  validateLastNameRegister,
+  validateEmailRegister,
+  validateCompanyRegister,
+  validatePasswordRegister
+} from '../../../validators/RegisterValidators';
 
-const validEmailRegex = /^\s*\w+@\w+\.[Cc][Oo][Mm]\s*$/;
-const validNameRegex = /^(\s*([A-Za-z]+\s*-?))*((\s)*[A-Za-z]+\s*)$/;
-const validCompanyRegex = /\s*[a-zA-Z0-9]{2,}\s*$/;
-const noWhiteSpaces = /^\S*$/;
+enum RegisterFormFields {
+  firstName = 'firstName',
+  lastName = 'lastName',
+  email = 'email',
+  company = 'company',
+  password = 'password'
+}
 
 export default function RegisterUser() {
-  const [firstName, setFirstName] = useState('');
-  const [firstNameErrorText, setFirstNameErrorText] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [lastNameErrorText, setLastNameErrorText] = useState('');
-  const [email, setEmail] = useState('');
-  const [emailErrorText, setEmailErrorText] = useState('');
-  const [company, setCompany] = useState('');
-  const [companyErrorText, setCompanyErrorText] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordErrorText, setPasswordErrorText] = useState('');
-  const [open, setOpen] = React.useState(false);
+  const firstName = useTextFieldErrors('', validateFirstNameRegister);
+  const lastName = useTextFieldErrors('', validateLastNameRegister);
+  const email = useTextFieldErrors('', validateEmailRegister);
+  const company = useTextFieldErrors('', validateCompanyRegister);
+  const password = useTextFieldErrors('', validatePasswordRegister);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [backendError, setBackendError] = useState('');
 
   const handleClick = async () => {
     try {
-      await UserService.registerUser({ firstName, lastName, email, company, password });
-      setOpen(true);
+      await UserService.registerUser({
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+        company: company.value,
+        password: password.value
+      });
+      setIsSnackbarOpen(true);
     } catch (e) {
-      setEmailErrorText('Email must be unique');
+      setBackendError(e.data);
     }
   };
 
@@ -35,82 +48,26 @@ export default function RegisterUser() {
     if (reason === 'clickaway') {
       return;
     }
-
-    setOpen(false);
+    setIsSnackbarOpen(false);
   };
 
-  const onChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
+  const formFieldsManagers = useMemo(
+    () => ({
+      [RegisterFormFields.firstName]: firstName,
+      [RegisterFormFields.lastName]: lastName,
+      [RegisterFormFields.email]: email,
+      [RegisterFormFields.company]: company,
+      [RegisterFormFields.password]: password
+    }),
+    [firstName, lastName, email, company, password]
+  );
 
-  const validateEmail = useCallback((event) => {
-    if (event.target.value.length > 6 && event.target.value.length < 75) {
-      if (event.target.value.match(validEmailRegex)) {
-        setEmailErrorText('');
-      } else {
-        setEmailErrorText('Email should have a valid format {alphanumeric and underline}@{string}.com');
-      }
-    } else {
-      setEmailErrorText('Email should have between 7 and 74 characters');
-    }
-  }, []);
-
-  const onChangeFirstName = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const validateFirstName = useCallback((event) => {
-    setFirstName(event.target.value);
-    if (event.target.value.length > 1 && event.target.value.length < 101 && event.target.value.match(validNameRegex)) {
-      setFirstNameErrorText('');
-    } else {
-      setFirstNameErrorText('First Name should have between 2 and 100 alpha characters, including "-" and " "');
-    }
-  }, []);
-
-  const onChangeLastName = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const validateLastName = useCallback((event) => {
-    if (event.target.value.match(validNameRegex) && event.target.value.length > 1 && event.target.value.length < 101) {
-      setLastNameErrorText('');
-    } else {
-      setLastNameErrorText('Last Name should have between 2 and 100 alpha characters, including "-" and " "');
-    }
-  }, []);
-
-  const onChangeCompany = (event) => {
-    setCompany(event.target.value);
-  };
-
-  const validateCompany = useCallback((event) => {
-    if (
-      event.target.value.match(validCompanyRegex) &&
-      event.target.value.length > 1 &&
-      event.target.value.length < 101
-    ) {
-      setCompanyErrorText('');
-    } else {
-      setCompanyErrorText('Company should have between 2 and 100 alphanumeric characters');
-    }
-  }, []);
-
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const validatePassword = useCallback((event) => {
-    if (event.target.value.length > 1 && event.target.value.length < 101) {
-      if (event.target.value.match(noWhiteSpaces)) {
-        setPasswordErrorText('');
-      } else {
-        setPasswordErrorText('Password should not have whitespaces');
-      }
-    } else {
-      setPasswordErrorText('Password should have between 2 and 100 characters');
-    }
-  }, []);
+  const onInputChange = useCallback(
+    (ev) => {
+      formFieldsManagers[ev.target.name].setValue(ev.target.value);
+    },
+    [formFieldsManagers]
+  );
 
   return (
     <div>
@@ -124,11 +81,12 @@ export default function RegisterUser() {
           <TextFieldStyled
             id='outlined-basic'
             label='First Name'
-            helperText={firstNameErrorText}
-            error={firstNameErrorText !== ''}
-            onChange={onChangeFirstName}
-            onBlur={validateFirstName}
-            value={firstName}
+            name={RegisterFormFields.firstName}
+            helperText={firstName.errors}
+            error={firstName.hasErrors}
+            onChange={onInputChange}
+            onBlur={firstName.validate}
+            value={firstName.value}
             variant='outlined'
             placeholder='John'
           />
@@ -138,11 +96,12 @@ export default function RegisterUser() {
           <TextFieldStyled
             id='outlined-basic'
             label='Last Name'
-            helperText={lastNameErrorText}
-            error={lastNameErrorText !== ''}
-            onChange={onChangeLastName}
-            onBlur={validateLastName}
-            value={lastName}
+            name={RegisterFormFields.lastName}
+            helperText={lastName.errors}
+            error={lastName.hasErrors}
+            onChange={onInputChange}
+            onBlur={lastName.validate}
+            value={lastName.value}
             variant='outlined'
             placeholder='Doe'
           />
@@ -152,11 +111,12 @@ export default function RegisterUser() {
           <TextFieldStyled
             id='outlined-basic'
             label='Email'
-            helperText={emailErrorText}
-            error={emailErrorText !== ''}
-            onChange={onChangeEmail}
-            onBlur={validateEmail}
-            value={email}
+            name={RegisterFormFields.email}
+            helperText={email.errors || backendError}
+            error={email.hasErrors || backendError !== ''}
+            onChange={onInputChange}
+            onBlur={email.validate}
+            value={email.value}
             variant='outlined'
             placeholder='john_doe@yahoo.com'
           />
@@ -166,11 +126,12 @@ export default function RegisterUser() {
           <TextFieldStyled
             id='outlined'
             label='Company'
-            helperText={companyErrorText}
-            error={companyErrorText !== ''}
-            onChange={onChangeCompany}
-            onBlur={validateCompany}
-            value={company}
+            name={RegisterFormFields.company}
+            helperText={company.errors}
+            error={company.hasErrors}
+            onChange={onInputChange}
+            onBlur={company.validate}
+            value={company.value}
             variant='outlined'
             placeholder='evozon'
           />
@@ -180,11 +141,12 @@ export default function RegisterUser() {
           <TextFieldStyled
             id='outlined-basic'
             label='Password'
-            helperText={passwordErrorText}
-            error={passwordErrorText !== ''}
-            onChange={onChangePassword}
-            onBlur={validatePassword}
-            value={password}
+            name={RegisterFormFields.password}
+            helperText={password.errors}
+            error={password.hasErrors}
+            onChange={onInputChange}
+            onBlur={password.validate}
+            value={password.value}
             variant='outlined'
             type='password'
             placeholder='******'
@@ -195,9 +157,12 @@ export default function RegisterUser() {
           <Button
             variant='contained'
             disabled={
-              !(email && password && firstName && lastName && company) ||
-              (passwordErrorText || companyErrorText || firstNameErrorText || lastNameErrorText || emailErrorText) !==
-                ''
+              !(email.value && password.value && firstName.value && lastName.value && company.value) ||
+              password.hasErrors ||
+              company.hasErrors ||
+              firstName.hasErrors ||
+              lastName.hasErrors ||
+              email.hasErrors
             }
             onClick={handleClick}
           >
@@ -206,7 +171,7 @@ export default function RegisterUser() {
         </GridStyled>
       </GridGlobalStyled>
       <Snackbar
-        open={open}
+        open={isSnackbarOpen}
         autoHideDuration={6000}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

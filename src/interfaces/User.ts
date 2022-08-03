@@ -6,4 +6,4 @@ export default interface User {
   readonly password?: string;
 }
 
-export const emptyUser: User = { firstName: 'Farcas', lastName: 'Iulia' };
+export const emptyUser: User = { firstName: '', lastName: '' };

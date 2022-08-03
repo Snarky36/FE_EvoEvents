@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { createTheme, CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material';
-import { AuthContextProvider } from './contexts/AuthContext';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ResponsiveAppBar from './pages/common/NavBar';
 import EventsPage from './pages/eventsPage/EventsPage';
 import Homepage from './pages/homePage/Homepage';
+import { UserContextProvider } from './contexts/UserContext';
 
 export const App = () => {
   const theme = useMemo(
@@ -44,7 +44,7 @@ export const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {globalStyles}
-      <AuthContextProvider>
+      <UserContextProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Homepage />} />
@@ -52,7 +52,7 @@ export const App = () => {
             <Route path='events' element={<EventsPage />} />
           </Routes>
         </BrowserRouter>
-      </AuthContextProvider>
+      </UserContextProvider>
     </ThemeProvider>
   );
 };

@@ -20,7 +20,7 @@ class ApiService {
 
       return response;
     } catch (e) {
-      throw { errorCode: e.response.status, data: e.response.data };
+      throw { errorCode: e.response.status, data: e.response.data.message };
     }
  
   }
