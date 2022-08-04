@@ -49,7 +49,7 @@ export const App = () => {
           <Routes>
             <Route path='/' element={<Homepage />} />
             <Route path='home' element={<ResponsiveAppBar />} />
-            <Route path='events' element={<EventsPage />} />
+            <Route path='addEvent' element={<EventsPage />} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>

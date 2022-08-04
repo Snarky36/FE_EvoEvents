@@ -1,21 +1,20 @@
 import { styled } from '@mui/system';
-import { AppBar, Avatar, Typography } from '@mui/material';
+import { Alert, AppBar, Avatar, Box, Button, FormHelperText, IconButton, Typography } from '@mui/material';
 
 export const FullNameStyled = styled(Typography)(({ theme }) => {
   return {
-    textAlign: 'right',
-    paddingTop: '0.4%',
-    float: 'right',
-    paddingRight: '1%',
     color: theme.palette.primary.light,
-    fontFamily: 'Maven Pro'
+    fontFamily: 'Maven Pro',
+    marginRight: '10px',
+    alignItem: 'center'
   };
 });
 
 export const ProfilePicture = styled(Avatar)(({ theme }) => {
   return {
     backgroundColor: theme.palette.primary.light,
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
+    AlignItem: 'center'
   };
 });
 
@@ -23,28 +22,81 @@ export const AppBarStyled = styled(AppBar)(() => {
   return {
     height: '8%',
     width: '100%',
-    float: 'left',
-    paddingTop: '10px',
     position: 'sticky',
-    top: 0
+    top: 0,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   };
 });
 
-export const LogoStyled = styled(Typography)(() => {
+export const IconButtonStyled = styled(IconButton)(() => {
   return {
-    textAlign: 'left',
-    marginLeft: '35px',
-    paddingTop: '0.5%',
-    width: '30%',
-    float: 'left'
+    paddingRight: '30px'
   };
 });
 
-export const IconPositionStyled = styled(Typography)(() => {
+export const FormBoxStyled = styled(Box)(() => {
   return {
-    textAlign: 'right',
-    paddingTop: '0.4%',
-    float: 'right',
-    paddingRight: '3%'
+    width: '100%',
+    display: 'flex', 
+    justifyContent: 'center',
+    alignContent: 'center' 
   };
 });
+
+export const FormHelperTextStyled = styled(FormHelperText)(({ theme }) => {
+  return {
+    color: theme.palette.primary.light
+  };
+});
+
+export const AlertStyled = styled(Alert)(() => {
+  return {
+    width: '100%' 
+  };
+});
+
+
+export const ButtonStyled = styled(Button)(() => {
+  return {
+    marginTop: '15px'
+  };
+});
+
+export const CreateEventButtonStyled = styled(Button)(({ theme }) => {
+  return {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.light,
+    marginLeft: '5px'
+  };
+});
+
+export const LogoFieldsStyled = styled(Box)(() => {
+  return {
+    display: 'flex',
+    flowDirection: 'row',
+    justifyContent: 'start',
+    alignItems: 'center',
+    paddingTop: '10px'
+  }
+})
+
+export const UserBoxStyled = styled(Box)(() => {
+  return {
+    display: 'flex',
+    flowDirection: 'row',
+    width: '180px',
+    alignItems: 'center',
+    marginRight: '20px' 
+  }
+})
+
+
+export const CreateEventBoxStyled = styled(Box)(() => {
+  return {
+    display: 'flex',
+    alignItems: 'center',
+    flowDirection: 'column'
+  }
+})
