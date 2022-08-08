@@ -1,24 +1,28 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import {  Box,  FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
 import { EventTypes } from '../../../enums/EventTypes';
-import { GridColorStyled, TextFieldEventStyled,DescriptionTextFieldStyled, GridStyled } from '../homePage/StyleComponent';
+import {
+  GridColorStyled,
+  TextFieldEventStyled,
+  DescriptionTextFieldStyled,
+  GridStyled
+} from '../homePage/StyleComponent';
 import EventService from '../../../api/EventService';
 import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
-import { validateEventName,validateEventCapacity } from '../../../validators/EventTextFieldValidators';
+import { validateEventName, validateEventCapacity } from '../../../validators/EventTextFieldValidators';
 import { filterIndexedEnumsKeys } from '../../../utils/ObjectUtils';
 import { AlertStyled, ButtonStyled, FormHelperTextStyled } from './StyledComponents';
 
 const CHARACTER_DESCRIPTION_LIMIT = 2000;
 enum AddEventFormFields {
-  type='type',
-  name='name',
-  capacity='capacity',
-  description='description',
+  type = 'type',
+  name = 'name',
+  capacity = 'capacity',
+  description = 'description'
 }
 
-export default function AddEventForm() {
-
-  const [type, setType]= useState('');
+export function AddEventForm() {
+  const [type, setType] = useState('');
   const name = useTextFieldErrors('', validateEventName);
   const capacity = useTextFieldErrors('0', validateEventCapacity);
   const description = useTextFieldErrors('', null);
@@ -41,12 +45,13 @@ export default function AddEventForm() {
     setOpen(false);
   };
 
-  const formFieldsManagers= useMemo(
-    ()=>({
+  const formFieldsManagers = useMemo(
+    () => ({
       [AddEventFormFields.name]: name,
       [AddEventFormFields.description]: description,
       [AddEventFormFields.capacity]: capacity
-    }), [name,description,capacity]
+    }),
+    [name, description, capacity]
   );
 
   const onInputChange = useCallback(
@@ -57,31 +62,37 @@ export default function AddEventForm() {
   );
 
   const trimDescriptionInput = useCallback((event) => {
-
-   return event.replace(/\s+/g, ' ').trim();
+    return event.replace(/\s+/g, ' ').trim();
   }, []);
 
   const handleClick = async () => {
-      const descriptionToSend = trimDescriptionInput(description.value);
-      await EventService.addEvent({ eventType: parseInt(type), name: name.value, description: descriptionToSend.substring(0,2000), maxNoAttendees: parseInt(capacity.value) });
-      setOpen(true);
-    }
+    const descriptionToSend = trimDescriptionInput(description.value);
+    await EventService.addEvent({
+      eventType: parseInt(type),
+      name: name.value,
+      description: descriptionToSend.substring(0, 2000),
+      maxNoAttendees: parseInt(capacity.value)
+    });
+    setOpen(true);
+  };
 
   return (
     <div>
-    <Box sx={{ paddingLeft: '320px', paddingTop: '10px' }}>
-      <FormControl fullWidth>
-        <InputLabel>Event type</InputLabel>
-        <Select 
-          required
-          value={type}
-          label='type'
-          onChange={(e)=>{setType(e.target.value)}}
-        >
-          {eventTypesOptions}
-        </Select>
-        <FormHelperTextStyled>*Required</FormHelperTextStyled>
-      </FormControl>
+      <Box sx={{ paddingLeft: '320px', paddingTop: '10px' }}>
+        <FormControl fullWidth>
+          <InputLabel>Event type</InputLabel>
+          <Select
+            required
+            value={type}
+            label='type'
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
+          >
+            {eventTypesOptions}
+          </Select>
+          <FormHelperTextStyled>*Required</FormHelperTextStyled>
+        </FormControl>
 
         <GridColorStyled>
           <TextFieldEventStyled
@@ -117,7 +128,7 @@ export default function AddEventForm() {
           />
         </GridColorStyled>
 
-        <GridColorStyled >
+        <GridColorStyled>
           <TextFieldEventStyled
             id='outlined-basic'
             label='Capacity'
@@ -134,31 +145,34 @@ export default function AddEventForm() {
           />
           <FormHelperTextStyled>*Required</FormHelperTextStyled>
         </GridColorStyled>
-        
-        <GridStyled  >
+
+        <GridStyled>
           <ButtonStyled
-             variant='contained'
-             disabled={
-               name.hasErrors || capacity.hasErrors || description.hasErrors || type===''  || name.value==='' || capacity.value==='0'
-             }
-             onClick={handleClick}
+            variant='contained'
+            disabled={
+              name.hasErrors ||
+              capacity.hasErrors ||
+              description.hasErrors ||
+              type === '' ||
+              name.value === '' ||
+              capacity.value === '0'
+            }
+            onClick={handleClick}
           >
             Save
           </ButtonStyled>
         </GridStyled>
-
-    </Box>
-    <Snackbar
-    open={open}
-    autoHideDuration={6000}
-    onClose={handleClose}
-    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  >
-    <AlertStyled onClose={handleClose} severity='success'>
-      Event was added successfully!
-    </AlertStyled>
-  </Snackbar>
-  </div>
+      </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <AlertStyled onClose={handleClose} severity='success'>
+          Event was added successfully!
+        </AlertStyled>
+      </Snackbar>
+    </div>
   );
-  
 }

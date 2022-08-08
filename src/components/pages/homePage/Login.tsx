@@ -14,7 +14,7 @@ enum LoginFormFields {
   password = 'password'
 }
 
-export default function Login() {
+export function Login() {
   const { user, setUserData } = useContext(UserContext);
   const email = useTextFieldErrors('', validateEmailLogin);
   const password = useTextFieldErrors('', validatePasswordLogin);

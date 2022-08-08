@@ -20,7 +20,7 @@ enum RegisterFormFields {
   password = 'password'
 }
 
-export default function RegisterUser() {
+export function RegisterUser() {
   const firstName = useTextFieldErrors('', validateFirstNameRegister);
   const lastName = useTextFieldErrors('', validateLastNameRegister);
   const email = useTextFieldErrors('', validateEmailRegister);

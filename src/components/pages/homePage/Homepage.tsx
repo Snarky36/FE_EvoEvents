@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { TabContext, TabPanel } from '@mui/lab';
 import { AuthTabs } from './AuthTabs';
-import RegisterUser from './RegisterUser';
-import Login from './Login';
+import { RegisterUser } from './RegisterUser';
+import { Login } from './Login';
 import { ContainerStyled, TabBoxStyled } from './StyleComponent';
 
-export default function Homepage() {
+export function Homepage() {
   const [selectedTab, setSelectedTab] = useState('register');
 
   return (

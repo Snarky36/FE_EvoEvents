@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react';
 import { createTheme, CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ResponsiveAppBar from './pages/common/NavBar';
-import EventsPage from './pages/eventsPage/EventsPage';
-import Homepage from './pages/homePage/Homepage';
 import { UserContextProvider } from './contexts/UserContext';
+import { EventContextProvider } from './contexts/EventContext';
+import { EventRouter } from '../routes/EventRouter';
 
 export const App = () => {
   const theme = useMemo(
@@ -45,13 +43,9 @@ export const App = () => {
       <CssBaseline />
       {globalStyles}
       <UserContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Homepage />} />
-            <Route path='home' element={<ResponsiveAppBar />} />
-            <Route path='addEvent' element={<EventsPage />} />
-          </Routes>
-        </BrowserRouter>
+        <EventContextProvider>
+          <EventRouter />
+        </EventContextProvider>
       </UserContextProvider>
     </ThemeProvider>
   );
