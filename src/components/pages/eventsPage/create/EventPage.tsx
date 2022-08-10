@@ -1,10 +1,10 @@
 import React from 'react';
-import { AddEventForm } from '../common/AddEventForm';
-import ResponsiveAppBar from '../common/NavBar';
-import { FormBoxStyled } from '../common/StyledComponents';
-import { CreateEventStyled, GridColorStyled, GridGlobalStyled, TitleStyled } from '../homePage/StyleComponent';
+import AddEventForm from './EventForm';
+import ResponsiveAppBar from '../../common/NavBar';
+import { CreateEventStyled, FormBoxStyled, TitleStyled } from './StyledComponents';
+import { GridColorStyled, GridGlobalStyled } from '../../common/StyledComponents';
 
-export function EventsPage() {
+export function EventPage() {
   return (
     <>
       <ResponsiveAppBar />

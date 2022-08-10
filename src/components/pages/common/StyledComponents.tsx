@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Alert, AppBar, Avatar, Box, Button, FormHelperText, IconButton, Typography } from '@mui/material';
+import { Alert, AppBar, Avatar, Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 
 export const FullNameStyled = styled(Typography)(({ theme }) => {
   return {
@@ -36,31 +36,10 @@ export const IconButtonStyled = styled(IconButton)(() => {
   };
 });
 
-export const FormBoxStyled = styled(Box)(() => {
-  return {
-    width: '100%',
-    display: 'flex', 
-    justifyContent: 'center',
-    alignContent: 'center' 
-  };
-});
-
-export const FormHelperTextStyled = styled(FormHelperText)(({ theme }) => {
-  return {
-    color: theme.palette.primary.light
-  };
-});
-
+//we can keep it here as SnackbarAlert will be a common new component
 export const AlertStyled = styled(Alert)(() => {
   return {
-    width: '100%' 
-  };
-});
-
-
-export const ButtonStyled = styled(Button)(() => {
-  return {
-    marginTop: '15px'
+    width: '100%'
   };
 });
 
@@ -79,8 +58,8 @@ export const LogoFieldsStyled = styled(Box)(() => {
     justifyContent: 'start',
     alignItems: 'center',
     paddingTop: '10px'
-  }
-})
+  };
+});
 
 export const UserBoxStyled = styled(Box)(() => {
   return {
@@ -88,15 +67,68 @@ export const UserBoxStyled = styled(Box)(() => {
     flowDirection: 'row',
     width: '180px',
     alignItems: 'center',
-    marginRight: '20px' 
-  }
-})
+    marginRight: '20px'
+  };
+});
 
-
-export const CreateEventBoxStyled = styled(Box)(() => {
+export const TextFieldStyled = styled(TextField)(({ theme }) => {
   return {
+    '& fieldset': {
+      borderColor: theme.palette.primary.light,
+      borderWidth: 2,
+      borderRadius: 9999
+    },
+    '& label': {
+      color: 'white'
+    },
+    input: {
+      '&::placeholder': {
+        textOverflow: 'ellipsis !important',
+        color: 'white'
+      },
+      color: 'white !important',
+      backgroundColor: '#64b5f6',
+      borderRadius: 9999
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: 'white'
+      }
+    },
+    '& label.Mui-focused': {
+      color: 'white'
+    }
+  };
+});
+
+export const GridStyled = styled(Grid)(() => {
+  return {
+    textAlign: 'center'
+  };
+});
+
+export const GridColorStyled = styled(Grid)(({ theme }) => {
+  return {
+    textAlign: 'center',
+    color: theme.palette.primary.light
+  };
+});
+
+export const GridGlobalStyled = styled(Grid)(({ theme }) => {
+  return {
+    width: '70%',
+    height: '90%',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.light,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
     display: 'flex',
-    alignItems: 'center',
-    flowDirection: 'column'
-  }
-})
+    alignContent: 'center',
+    justifyContent: 'justify',
+    marginTop: '4%',
+    marginBottom: '4%'
+  };
+});

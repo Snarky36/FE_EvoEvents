@@ -2,8 +2,13 @@ import React, { useMemo } from 'react';
 import { createTheme, CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material';
 import { UserContextProvider } from './contexts/UserContext';
 import { EventContextProvider } from './contexts/EventContext';
+<<<<<<< HEAD
 import { AppRouter } from '../routes/AppRouter';
+import RegisterToEventForm from './pages/common/DialogRegisterEvent';
 import { BrowserRouter } from 'react-router-dom';
+=======
+import { EventRouter } from '../routes/EventRouter';
+>>>>>>> 5c99a50 (rebase?)
 
 export const App = () => {
   const theme = useMemo(
@@ -43,13 +48,22 @@ export const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {globalStyles}
+<<<<<<< HEAD
       <BrowserRouter>
         <UserContextProvider>
           <EventContextProvider>
             <AppRouter />
           </EventContextProvider>
+            <Route path='registerToEvent' element={<RegisterToEventForm />} />
         </UserContextProvider>
       </BrowserRouter>
+=======
+      <UserContextProvider>
+        <EventContextProvider>
+          <EventRouter />
+        </EventContextProvider>
+      </UserContextProvider>
+>>>>>>> 5c99a50 (rebase?)
     </ThemeProvider>
   );
 };

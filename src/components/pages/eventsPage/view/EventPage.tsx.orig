@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import eventPicture from '../../../assets/img/eventPicture.jpeg';
+import eventPicture from '../../../../assets/img/eventPicture.jpeg';
 import { useNavigate, useParams } from 'react-router-dom';
-import EventService from '../../../api/EventService';
-import EventObject from '../../../interfaces/Event';
-import { EventContext } from '../../contexts/EventContext';
-import { EventTypes } from '../../../enums/EventTypes';
+import EventService from '../../../../api/EventService';
+import EventObject from '../../../../interfaces/Event';
+import { EventContext } from '../../../contexts/EventContext';
+import { EventTypes } from '../../../../enums/EventTypes';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { CityEnum } from '../../../enums/CityEnum';
 import { CountryEnum } from '../../../enums/CountryEnum';
@@ -23,9 +23,15 @@ export function EventPage() {
         eventType: res.data.eventType,
         description: res.data.description,
         maxNoAttendees: res.data.maxNoAttendees,
+<<<<<<< HEAD:src/components/pages/eventsPage/EventPage.tsx
         city: res.data.address.city,
         country: res.data.address.country,
         location: res.data.address.location
+=======
+        city: res.data.city,
+        country: res.data.country,
+        location: res.data.location
+>>>>>>> 050ae9f (code review feedback implementation):src/components/pages/eventsPage/view/EventPage.tsx
       };
       setEventObjectData(currentEvent);
     } catch (e) {

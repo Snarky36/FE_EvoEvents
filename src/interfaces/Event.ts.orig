@@ -8,18 +8,24 @@ export default interface EventObject {
   readonly name: string;
   readonly description?: string;
   readonly maxNoAttendees: number;
+<<<<<<< HEAD
+  readonly country: number,
+  readonly city: number,
+ readonly location?: string;
+=======
   readonly country: number;
   readonly city: number;
-  readonly location?: string;
+  readonly location: string;
+>>>>>>> 050ae9f (code review feedback implementation)
 }
 
-export const emptyEvent: EventObject = {
+export const emptyEvent: EventObject = { id:0, eventType:0, name:'', description:'', maxNoAttendees:0, city: 0, country: 0, location: '' };
   id: 0,
   eventType: 0,
   name: '',
   description: '',
   maxNoAttendees: 0,
-  city: 0,
   country: 0,
+  city: 0,
   location: ''
 };

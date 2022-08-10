@@ -4,9 +4,4 @@ import { App } from './components/App';
 import './types/global.d.ts';
 
 const root = createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
+root.render(<App />);

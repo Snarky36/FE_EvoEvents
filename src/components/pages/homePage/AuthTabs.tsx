@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { TabList } from '@mui/lab';
-import { TabStyled } from './StyleComponent';
+import { TabStyled } from './StyledComponents';
 
 export interface AuthTabsProps {
   readonly currentTab: string;

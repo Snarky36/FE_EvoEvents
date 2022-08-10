@@ -1,14 +1,22 @@
 import React, { useMemo, useState } from 'react';
 import { Alert, Button, Snackbar, Typography } from '@mui/material';
 import { useCallback } from 'react';
+<<<<<<< HEAD
+import { GridColorStyled, GridGlobalStyled, GridStyled } from './StyleComponents';
+=======
+import { useNavigate } from 'react-router-dom';
+>>>>>>> 79d31b6 (register to events is not working)
 import UserService from '../../../api/UserService';
 import { UserContextProvider } from '../../contexts/UserContext';
 import User from '../../../interfaces/User';
 import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
 import { validateEmailLogin, validatePasswordLogin } from '../../../validators/LoginValidators';
+<<<<<<< HEAD
 import { MediatorEventsIdentifiers } from '../../../events/EventsIdentifiers';
-import { GridColorStyled, GridGlobalStyled, GridStyled, TextFieldStyled } from '../common/StyledComponents';
 import Mediator from '../../../events/Mediator';
+=======
+import { GridColorStyled, GridGlobalStyled, GridStyled, TextFieldStyled } from '../common/StyledComponents';
+>>>>>>> 79d31b6 (register to events is not working)
 
 enum LoginFormFields {
   email = 'email',

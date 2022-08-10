@@ -1,37 +1,73 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
-import { EventTypes } from '../../../enums/EventTypes';
+import { EventTypes } from '../../../../enums/EventTypes';
+import EventService from '../../../../api/EventService';
+import useTextFieldErrors from '../../../../hooks/UseTextFieldErrors';
 import {
-  GridColorStyled,
+  validateEventName,
+  validateEventCapacity,
+  validateLocation,
+  validateDescription
+} from '../../../../validators/EventTextFieldValidators';
+import { filterIndexedEnumsKeys } from '../../../../utils/ObjectUtils';
+import { CityEnum } from '../../../../enums/CityEnum';
+import { CountryEnum } from '../../../../enums/CountryEnum';
+import { CHARACTER_DESCRIPTION_LIMIT } from '../../../../constants/CommonConstants';
+import { EventDescriptionHelperText } from '../view/register/EventDescriptionHelperText';
+import { AlertStyled, GridColorStyled, GridStyled } from '../../common/StyledComponents';
+import {
+  FormHelperTextStyled,
+  ButtonStyled,
   TextFieldEventStyled,
-  DescriptionTextFieldStyled,
-  GridStyled
-} from '../homePage/StyleComponent';
-import EventService from '../../../api/EventService';
-import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
-import { validateEventName, validateEventCapacity } from '../../../validators/EventTextFieldValidators';
-import { filterIndexedEnumsKeys } from '../../../utils/ObjectUtils';
-import { AlertStyled, ButtonStyled, FormHelperTextStyled } from './StyledComponents';
+  DescriptionTextFieldStyled
+} from './StyledComponents';
 
-const CHARACTER_DESCRIPTION_LIMIT = 2000;
 enum AddEventFormFields {
   type = 'type',
   name = 'name',
   capacity = 'capacity',
-  description = 'description'
+  description = 'description',
+  city = 'city',
+  country = 'country',
+  location = 'location'
 }
 
-export function AddEventForm() {
+export default function AddEventForm() {
   const [type, setType] = useState('');
   const name = useTextFieldErrors('', validateEventName);
-  const capacity = useTextFieldErrors('0', validateEventCapacity);
-  const description = useTextFieldErrors('', null);
+  const capacity = useTextFieldErrors('', validateEventCapacity);
+  const description = useTextFieldErrors('', validateDescription);
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const location = useTextFieldErrors('', validateLocation);
   const [open, setOpen] = React.useState(false);
   const eventTypesOptions = useMemo(() => {
     return filterIndexedEnumsKeys(EventTypes).map((typeName) => {
       const typeId = EventTypes[typeName];
       return (
         <MenuItem key={`event-type-option-${typeId}`} value={typeId}>
+          {typeName}
+        </MenuItem>
+      );
+    });
+  }, []);
+
+  const cityTypesOptions = useMemo(() => {
+    return filterIndexedEnumsKeys(CityEnum).map((typeName) => {
+      const typeId = CityEnum[typeName];
+      return (
+        <MenuItem key={`city-type-option-${typeId}`} value={typeId}>
+          {typeName}
+        </MenuItem>
+      );
+    });
+  }, []);
+
+  const countryTypesOptions = useMemo(() => {
+    return filterIndexedEnumsKeys(CountryEnum).map((typeName) => {
+      const typeId = CountryEnum[typeName];
+      return (
+        <MenuItem key={`country-type-option-${typeId}`} value={typeId}>
           {typeName}
         </MenuItem>
       );
@@ -49,9 +85,12 @@ export function AddEventForm() {
     () => ({
       [AddEventFormFields.name]: name,
       [AddEventFormFields.description]: description,
-      [AddEventFormFields.capacity]: capacity
+      [AddEventFormFields.capacity]: capacity,
+      [AddEventFormFields.country]: country,
+      [AddEventFormFields.city]: city,
+      [AddEventFormFields.location]: location
     }),
-    [name, description, capacity]
+    [name, description, capacity, country, city, location]
   );
 
   const onInputChange = useCallback(
@@ -62,7 +101,7 @@ export function AddEventForm() {
   );
 
   const trimDescriptionInput = useCallback((event) => {
-    return event.replace(/\s+/g, ' ').trim();
+    return event.trim();
   }, []);
 
   const handleClick = async () => {
@@ -72,9 +111,9 @@ export function AddEventForm() {
       name: name.value,
       description: descriptionToSend.substring(0, 2000),
       maxNoAttendees: parseInt(capacity.value),
-      city: 0,
-      country: 0,
-      location: ''
+      city: parseInt(city),
+      country: parseInt(country),
+      location: location.value
     });
     setOpen(true);
   };
@@ -119,8 +158,15 @@ export function AddEventForm() {
             inputProps={{
               maxLength: CHARACTER_DESCRIPTION_LIMIT
             }}
-            helperText={`${description.value.length}/${CHARACTER_DESCRIPTION_LIMIT}`}
+            helperText={
+              <EventDescriptionHelperText
+                characterDescriptionLimit={CHARACTER_DESCRIPTION_LIMIT}
+                description={description.value}
+                errorText={description.errors as string}
+              />
+            }
             error={description.hasErrors}
+            onBlur={description.validate}
             onChange={onInputChange}
             value={description.value}
             variant='outlined'
@@ -149,16 +195,63 @@ export function AddEventForm() {
           <FormHelperTextStyled>*Required</FormHelperTextStyled>
         </GridColorStyled>
 
+        <Select
+          required
+          label='City'
+          value={city}
+          sx={{ width: '100%' }}
+          onChange={(e) => {
+            setCity(e.target.value);
+          }}
+        >
+          {cityTypesOptions}
+        </Select>
+        <FormHelperTextStyled>*Required</FormHelperTextStyled>
+
+        <div>
+          <InputLabel>Country</InputLabel>
+          <Select
+            label='Country'
+            required
+            value={country}
+            sx={{ width: '100%' }}
+            onChange={(e) => {
+              setCountry(e.target.value);
+            }}
+          >
+            {countryTypesOptions}
+          </Select>
+        </div>
+        <FormHelperTextStyled>*Required</FormHelperTextStyled>
+
+        <GridColorStyled>
+          <TextFieldEventStyled
+            label='Location'
+            name={AddEventFormFields.location}
+            helperText={location.errors}
+            error={location.hasErrors}
+            onChange={onInputChange}
+            onBlur={location.validate}
+            value={location.value}
+            variant='outlined'
+            placeholder='Location'
+          />
+        </GridColorStyled>
+
         <GridStyled>
           <ButtonStyled
             variant='contained'
             disabled={
               name.hasErrors ||
+              location.hasErrors ||
+              city === '' ||
+              country === '' ||
               capacity.hasErrors ||
               description.hasErrors ||
               type === '' ||
               name.value === '' ||
-              capacity.value === '0'
+              capacity.value === '0' ||
+              capacity.value === ''
             }
             onClick={handleClick}
           >

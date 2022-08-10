@@ -1,7 +1,7 @@
 import { Button, Typography, Snackbar, Alert } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import UserService from '../../../api/UserService';
-import { GridStyled, TextFieldStyled, GridColorStyled, GridGlobalStyled } from './StyleComponent';
+import { TextFieldRegisterUserStyled } from './StyledComponents';
 import { InfoButton } from '../common/InfoButton';
 import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
 import {
@@ -11,6 +11,7 @@ import {
   validateCompanyRegister,
   validatePasswordRegister
 } from '../../../validators/RegisterValidators';
+import { GridColorStyled, GridGlobalStyled, GridStyled } from '../common/StyledComponents';
 
 enum RegisterFormFields {
   firstName = 'firstName',
@@ -78,7 +79,7 @@ export function RegisterUser() {
           </Typography>
         </GridColorStyled>
         <GridColorStyled item xs={4}>
-          <TextFieldStyled
+          <TextFieldRegisterUserStyled
             id='outlined-basic'
             label='First Name'
             name={RegisterFormFields.firstName}
@@ -93,7 +94,7 @@ export function RegisterUser() {
           <InfoButton title='between 2-100 alpha characters, including "-" and " "' />
         </GridColorStyled>
         <GridColorStyled item xs={4}>
-          <TextFieldStyled
+          <TextFieldRegisterUserStyled
             id='outlined-basic'
             label='Last Name'
             name={RegisterFormFields.lastName}
@@ -108,7 +109,7 @@ export function RegisterUser() {
           <InfoButton title='between 2-100 alpha characters, including "-" and " "' />
         </GridColorStyled>
         <GridColorStyled item xs={4}>
-          <TextFieldStyled
+          <TextFieldRegisterUserStyled
             id='outlined-basic'
             label='Email'
             name={RegisterFormFields.email}
@@ -123,7 +124,7 @@ export function RegisterUser() {
           <InfoButton title='between 7-74 characters and {alphanumeric and underline}@{string}.com format' />
         </GridColorStyled>
         <GridStyled item xs={4}>
-          <TextFieldStyled
+          <TextFieldRegisterUserStyled
             id='outlined'
             label='Company'
             name={RegisterFormFields.company}
@@ -138,7 +139,7 @@ export function RegisterUser() {
           <InfoButton title='between 2-100 alphanumeric characters' />
         </GridStyled>
         <GridColorStyled item xs={4}>
-          <TextFieldStyled
+          <TextFieldRegisterUserStyled
             id='outlined-basic'
             label='Password'
             name={RegisterFormFields.password}

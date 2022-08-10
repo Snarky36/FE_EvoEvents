@@ -1,0 +1,14 @@
+export enum CityEnum {
+  Sibiu = 1,
+  Cluj,
+  Bistrita,
+  Frankfurt,
+  Milano,
+  Roma,
+  Hamburg,
+  Zalau
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> a453904 (update create event with address)
