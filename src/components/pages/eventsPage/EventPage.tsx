@@ -7,6 +7,8 @@ import EventObject from '../../../interfaces/Event';
 import { EventContext } from '../../contexts/EventContext';
 import { EventTypes } from '../../../enums/EventTypes';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import { CityEnum } from '../../../enums/CityEnum';
+import { CountryEnum } from '../../../enums/CountryEnum';
 
 export function EventPage() {
   const { eventObject, setEventObjectData } = useContext(EventContext);
@@ -20,7 +22,10 @@ export function EventPage() {
         name: res.data.name,
         eventType: res.data.eventType,
         description: res.data.description,
-        maxNoAttendees: res.data.maxNoAttendees
+        maxNoAttendees: res.data.maxNoAttendees,
+        city: res.data.address.city,
+        country: res.data.address.country,
+        location: res.data.address.location
       };
       setEventObjectData(currentEvent);
     } catch (e) {
@@ -54,6 +59,15 @@ export function EventPage() {
                     <PermContactCalendarIcon />
                     {eventObject.maxNoAttendees}
                   </Box>
+                </Grid>
+                <Grid item xs={4}>
+                  <Box>{CityEnum[eventObject.city]}</Box>
+                </Grid>
+                <Grid item xs={4}>
+                  <Box>{CountryEnum[eventObject.country]}</Box>
+                </Grid>
+                <Grid item xs={4}>
+                  <Box>{eventObject.location}</Box>
                 </Grid>
               </Grid>
             </Grid>

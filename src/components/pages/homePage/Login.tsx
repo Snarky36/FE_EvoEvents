@@ -1,13 +1,14 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Alert, Button, Snackbar, Typography } from '@mui/material';
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { GridColorStyled, GridGlobalStyled, GridStyled, TextFieldStyled } from './StyleComponent';
 import UserService from '../../../api/UserService';
-import { UserContext, UserContextProvider } from '../../contexts/UserContext';
+import { UserContextProvider } from '../../contexts/UserContext';
 import User from '../../../interfaces/User';
 import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
 import { validateEmailLogin, validatePasswordLogin } from '../../../validators/LoginValidators';
+import { MediatorEventsIdentifiers } from '../../../events/EventsIdentifiers';
+import Mediator from '../../../events/Mediator';
 
 enum LoginFormFields {
   email = 'email',
@@ -15,12 +16,10 @@ enum LoginFormFields {
 }
 
 export function Login() {
-  const { user, setUserData } = useContext(UserContext);
   const email = useTextFieldErrors('', validateEmailLogin);
   const password = useTextFieldErrors('', validatePasswordLogin);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [backendError, setBackendError] = useState('');
-  const navigate = useNavigate();
 
   const handleClick = async () => {
     try {
@@ -31,8 +30,7 @@ export function Login() {
         email: res.data.email,
         company: res.data.company
       };
-      setUserData(currentUser);
-      navigate('/home', { replace: true });
+      Mediator.publish(MediatorEventsIdentifiers.userLoggedIn, { userData: currentUser });
     } catch (e) {
       if (e.errorCode === 400) {
         setBackendError('Wrong credentials');

@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { createTheme, CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material';
 import { UserContextProvider } from './contexts/UserContext';
 import { EventContextProvider } from './contexts/EventContext';
-import { EventRouter } from '../routes/EventRouter';
+import { AppRouter } from '../routes/AppRouter';
+import { BrowserRouter } from 'react-router-dom';
 
 export const App = () => {
   const theme = useMemo(
@@ -42,11 +43,13 @@ export const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {globalStyles}
-      <UserContextProvider>
-        <EventContextProvider>
-          <EventRouter />
-        </EventContextProvider>
-      </UserContextProvider>
+      <BrowserRouter>
+        <UserContextProvider>
+          <EventContextProvider>
+            <AppRouter />
+          </EventContextProvider>
+        </UserContextProvider>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };

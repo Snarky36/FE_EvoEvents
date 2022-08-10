@@ -5,5 +5,3 @@ export default interface User {
   readonly company?: string;
   readonly password?: string;
 }
-
-export const emptyUser: User = { firstName: '', lastName: '' };

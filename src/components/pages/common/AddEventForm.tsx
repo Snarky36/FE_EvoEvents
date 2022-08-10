@@ -71,7 +71,10 @@ export function AddEventForm() {
       eventType: parseInt(type),
       name: name.value,
       description: descriptionToSend.substring(0, 2000),
-      maxNoAttendees: parseInt(capacity.value)
+      maxNoAttendees: parseInt(capacity.value),
+      city: 0,
+      country: 0,
+      location: ''
     });
     setOpen(true);
   };

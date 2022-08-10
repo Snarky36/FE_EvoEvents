@@ -24,8 +24,8 @@ export class Mediator {
     }
   }
 
-  publish(eventName: MediatorEventsIdentifiers, args: CommandArgument) {
-    this.subject.next({ eventId: eventName, args });
+  publish(eventName: MediatorEventsIdentifiers, args?: CommandArgument) {
+    this.subject.next({ eventId: eventName, args: args || {} });
   }
 
   subscribe(eventName: MediatorEventsIdentifiers, observer: (args: CommandArgument) => void) {
