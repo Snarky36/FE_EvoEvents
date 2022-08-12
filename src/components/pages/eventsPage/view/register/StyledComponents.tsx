@@ -51,11 +51,23 @@ export const RadioGroupStyled = styled(RadioGroup)(() => {
   };
 });
 
-export const TextFieldRegisterEventStyled = styled(TextFieldStyled)(({ theme }) => {
+export const TextFieldRegisterEventStyled = styled(TextFieldStyled)(() => {
   return {
     paddingTop: '0.5%',
     minWidth: '300px',
     width: '100%',
     marginBottom: '7px'
+  };
+});
+
+export const PersonalInfoRegisterEventStyled = styled(TextFieldStyled)(() => {
+  return {
+    paddingTop: '0.5%',
+    minWidth: '300px',
+    width: '100%',
+    marginBottom: '7px',
+    '& .MuiInputBase-input.Mui-disabled': {
+      WebkitTextFillColor: 'black'
+    }
   };
 });

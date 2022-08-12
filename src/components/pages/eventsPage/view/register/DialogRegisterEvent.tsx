@@ -2,20 +2,23 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { UserContext } from '../../../../contexts/UserContext';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   AccompanyingGridStyled,
   ButtonRegisterEventStyled,
   DialogTitleStyled,
   MainGridStyled,
   PersonalInfoGridStyled,
-  TextFieldRegisterEventStyled
+  PersonalInfoRegisterEventStyled
 } from './StyledComponents';
 import { AccompanyingPerson } from './AccompanyingPerson';
-import { GridStyled } from '../../../common/StyledComponents';
+import { AlertStyled, GridStyled } from '../../../common/StyledComponents';
 import EventService from '../../../../../api/EventService';
 import ReservationInfo from '../../../../../interfaces/ReservationInfo';
-import EmailsForReservation from '../../../../../interfaces/EmailsForReservation';
+import { useParams } from 'react-router-dom';
+import { Snackbar } from '@mui/material';
+import useTextFieldErrors from '../../../../../hooks/UseTextFieldErrors';
+import { validateEmailRegister } from '../../../../../validators/RegisterValidators';
 
 export interface SimpleDialogProps {
   readonly isDialogOpen: boolean;
@@ -24,33 +27,44 @@ export interface SimpleDialogProps {
 
 function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
   const [hasAcompanyingPerson, setHasAcompanyingPerson] = useState('');
-  const [accompanyingPersonEmail, setAccompanyingPersonEmail] = useState('');
+  const accompanyingPersonEmail = useTextFieldErrors('', validateEmailRegister);
   const { user } = React.useContext(UserContext);
+  const { id } = useParams();
+  const [openSnackBar, setOpenSnackBar] = React.useState(false);
 
   const handleClick = async () => {
     const reservationInfo: ReservationInfo = {
-      eventId: 1,
+      eventId: Number(id),
       userEmail: user.email,
-      accompanyingPersonEmail: accompanyingPersonEmail
+      accompanyingPerson: accompanyingPersonEmail.value
     };
     await EventService.registerToEvent(reservationInfo);
+    setOpenSnackBar(true);
   };
 
   const handleClose = () => {
     onClose();
   };
 
-  const onInputChange = React.useCallback(
-    (event) => {
-      setAccompanyingPersonEmail(event.target.value);
+  const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackBar(false);
+  };
+
+  const onInputChange = useCallback(
+    (ev) => {
+      accompanyingPersonEmail.setValue(ev.target.value);
     },
     [accompanyingPersonEmail]
   );
+
   React.useEffect(() => {
     if (hasAcompanyingPerson) return;
 
-    setAccompanyingPersonEmail('');
-  }, [hasAcompanyingPerson]);
+    accompanyingPersonEmail.setValue('');
+  }, [accompanyingPersonEmail]);
 
   return (
     <>
@@ -65,20 +79,24 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
         <MainGridStyled container direction='row'>
           <PersonalInfoGridStyled item>
             <h1> Personal info </h1>
-            <TextFieldRegisterEventStyled disabled label='Last name' value={`${user.lastName}`} />
-            <TextFieldRegisterEventStyled disabled label='First name' defaultValue={`${user.firstName}`} />
-            <TextFieldRegisterEventStyled disabled label='Company' defaultValue={`${user.company}`} />
-            <TextFieldRegisterEventStyled disabled label='email' defaultValue={`${user.email}`} />
+            <PersonalInfoRegisterEventStyled disabled label='Last name' value={`${user.lastName}`} />
+            <PersonalInfoRegisterEventStyled disabled label='First name' defaultValue={`${user.firstName}`} />
+            <PersonalInfoRegisterEventStyled disabled label='Company' defaultValue={`${user.company}`} />
+            <PersonalInfoRegisterEventStyled disabled label='email' defaultValue={`${user.email}`} />
           </PersonalInfoGridStyled>
 
           <AccompanyingGridStyled item>
             <h1> Accompanying person </h1>
             <AccompanyingPerson setHasAcompanyingPerson={setHasAcompanyingPerson} />
-            <TextFieldRegisterEventStyled
+            <PersonalInfoRegisterEventStyled
               label='Insert their email here...'
               disabled={!hasAcompanyingPerson}
-              value={accompanyingPersonEmail}
+              value={accompanyingPersonEmail.value}
               onChange={onInputChange}
+              name='accompanyingPersonEmail'
+              helperText={accompanyingPersonEmail.errors}
+              error={accompanyingPersonEmail.hasErrors}
+              onBlur={accompanyingPersonEmail.validate}
             />
           </AccompanyingGridStyled>
         </MainGridStyled>
@@ -86,14 +104,22 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
         <GridStyled>
           <ButtonRegisterEventStyled
             variant='contained'
-            // disabled={
-
-            // }
+            disabled={accompanyingPersonEmail.hasErrors}
             onClick={handleClick}
           >
             Save
           </ButtonRegisterEventStyled>
         </GridStyled>
+        <Snackbar
+          open={openSnackBar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <AlertStyled onClose={handleClose} severity='success'>
+            Registration was successful!
+          </AlertStyled>
+        </Snackbar>
       </Dialog>
     </>
   );
@@ -111,7 +137,7 @@ export default function RegisterToEventForm() {
   return (
     <div>
       <Button variant='outlined' onClick={handleClickOpen}>
-        Open simple dialog
+        Register
       </Button>
       <SimpleDialog isDialogOpen={isDialogOpen} onClose={handleClose} />
     </div>

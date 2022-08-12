@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ErrorPage } from '../components/pages/common/ErrorPage';
-import ResponsiveAppBar from '../components/pages/common/NavBar';
 import { ProtectedPage } from '../components/pages/common/ProtectedPage';
 import { EventPage as CreateEventPage } from '../components/pages/eventsPage/create/EventPage';
 import { EventPage as ViewEventPage } from '../components/pages/eventsPage/view/EventPage';
@@ -14,10 +13,18 @@ export function AppRouter() {
     <Routes>
       <Route path='/' element={<Homepage />} />
       <Route
-        path='home'
+        path='events/:currentPage'
         element={
           <ProtectedPage>
-            <ResponsiveAppBar />
+            <ViewAllEventsPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path='events'
+        element={
+          <ProtectedPage>
+            <Navigate to='1' />
           </ProtectedPage>
         }
       />
@@ -29,11 +36,30 @@ export function AppRouter() {
           </ProtectedPage>
         }
       />
-      <Route path='event/:id' element={<ViewEventPage />} />
-      <Route path='error' element={<ErrorPage />} />
-      <Route path='events/:currentPage' element={<ViewAllEventsPage />} />
-      <Route path='events' element={<Navigate to='1' />} />
-      <Route path='registerToEvent' element={<RegisterToEventForm />} />
+      <Route
+        path='event/:id'
+        element={
+          <ProtectedPage>
+            <ViewEventPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path='error'
+        element={
+          <ProtectedPage>
+            <ErrorPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path='registerToEvent'
+        element={
+          <ProtectedPage>
+            <RegisterToEventForm />
+          </ProtectedPage>
+        }
+      />
     </Routes>
   );
 }

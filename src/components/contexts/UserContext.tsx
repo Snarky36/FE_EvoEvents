@@ -28,7 +28,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const subscription = Mediator.subscribe(MediatorEventsIdentifiers.userLoggedIn, ({ userData: user }) => {
       setUserData(user);
-      navigate('/home', { replace: true });
+      navigate('/events', { replace: true });
     });
 
     return () => subscription.unsubscribe();

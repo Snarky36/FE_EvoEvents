@@ -195,18 +195,21 @@ export default function AddEventForm() {
           <FormHelperTextStyled>*Required</FormHelperTextStyled>
         </GridColorStyled>
 
-        <Select
-          required
-          label='City'
-          value={city}
-          sx={{ width: '100%' }}
-          onChange={(e) => {
-            setCity(e.target.value);
-          }}
-        >
-          {cityTypesOptions}
-        </Select>
-        <FormHelperTextStyled>*Required</FormHelperTextStyled>
+        <div>
+          <InputLabel>City</InputLabel>
+          <Select
+            required
+            label='City'
+            value={city}
+            sx={{ width: '100%' }}
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+          >
+            {cityTypesOptions}
+          </Select>
+          <FormHelperTextStyled>*Required</FormHelperTextStyled>
+        </div>
 
         <div>
           <InputLabel>Country</InputLabel>
@@ -221,8 +224,9 @@ export default function AddEventForm() {
           >
             {countryTypesOptions}
           </Select>
+
+          <FormHelperTextStyled>*Required</FormHelperTextStyled>
         </div>
-        <FormHelperTextStyled>*Required</FormHelperTextStyled>
 
         <GridColorStyled>
           <TextFieldEventStyled

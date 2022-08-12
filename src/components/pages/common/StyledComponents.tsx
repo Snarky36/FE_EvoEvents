@@ -1,5 +1,6 @@
 import { styled } from '@mui/system';
 import { Alert, AppBar, Avatar, Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const FullNameStyled = styled(Typography)(({ theme }) => {
   return {
@@ -130,5 +131,19 @@ export const GridGlobalStyled = styled(Grid)(({ theme }) => {
     justifyContent: 'justify',
     marginTop: '4%',
     marginBottom: '4%'
+  };
+});
+
+export const LinkStyled = styled(Link)(() => {
+  return {
+    textDecoration: 'none'
+  };
+});
+
+export const PictureBoxStyled = styled('img')(() => {
+  return {
+    maxHeight: '50px',
+    marginLeft: '40px',
+    marginRight: '10px'
   };
 });

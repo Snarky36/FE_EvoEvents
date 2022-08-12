@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Button, FormHelperText, Grid, InputLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, FormHelperText, InputLabel, Typography } from '@mui/material';
 import { TextFieldStyled } from '../../common/StyledComponents';
 
 export const FormBoxStyled = styled(Box)(() => {
@@ -23,13 +23,13 @@ export const ButtonStyled = styled(Button)(() => {
   };
 });
 
-export const TextFieldEventStyled = styled(TextFieldStyled)(({ theme }) => {
+export const TextFieldEventStyled = styled(TextFieldStyled)(() => {
   return {
     paddingTop: '0.5%',
     width: '100%'
   };
 });
-export const DescriptionTextFieldStyled = styled(TextFieldStyled)(({ theme }) => {
+export const DescriptionTextFieldStyled = styled(TextFieldStyled)(() => {
   return {
     paddingTop: '10%',
     width: '100%',

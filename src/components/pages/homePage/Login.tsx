@@ -7,8 +7,9 @@ import User from '../../../interfaces/User';
 import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
 import { validateEmailLogin, validatePasswordLogin } from '../../../validators/LoginValidators';
 import { MediatorEventsIdentifiers } from '../../../events/EventsIdentifiers';
-import { GridColorStyled, GridGlobalStyled, GridStyled, TextFieldStyled } from '../common/StyledComponents';
+import { GridColorStyled, GridGlobalStyled, GridStyled } from '../common/StyledComponents';
 import Mediator from '../../../events/Mediator';
+import { TextFieldRegisterUserStyled } from './StyledComponents';
 
 enum LoginFormFields {
   email = 'email',
@@ -73,7 +74,7 @@ export function Login() {
           </Typography>
         </GridColorStyled>
         <GridColorStyled item xs={4}>
-          <TextFieldStyled
+          <TextFieldRegisterUserStyled
             required
             id='outlined-basic'
             label='Email'
@@ -88,7 +89,7 @@ export function Login() {
           />
         </GridColorStyled>
         <GridColorStyled item xs={4}>
-          <TextFieldStyled
+          <TextFieldRegisterUserStyled
             required
             id='outlined-basic'
             label='Password'

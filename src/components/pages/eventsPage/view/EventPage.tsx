@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import eventPicture from '../../../../assets/img/eventPicture.jpeg';
 import { useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
@@ -9,6 +9,7 @@ import { EventTypes } from '../../../../enums/EventTypes';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { CityEnum } from '../../../../enums/CityEnum';
 import { CountryEnum } from '../../../../enums/CountryEnum';
+import RegisterToEventForm from './register/DialogRegisterEvent';
 
 export function EventPage() {
   const { eventObject, setEventObjectData } = useContext(EventContext);
@@ -72,12 +73,19 @@ export function EventPage() {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <Button variant='contained'>Register</Button>
+              <RegisterToEventForm />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={4}>
-          <Grid container spacing={2} direction='row' justifyContent='center' alignItems='center'>
+          <Grid
+            container
+            spacing={2}
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+            sx={{ wordWrap: 'break-word' }}
+          >
             <Grid item xs={4}>
               {eventObject.description}
             </Grid>

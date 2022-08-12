@@ -1,4 +1,4 @@
-import { Card, CardContent, Grid, Pagination, PaginationItem, Typography } from '@mui/material';
+import { Button, Card, CardContent, Grid, Pagination, PaginationItem, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
@@ -7,6 +7,7 @@ import { CountryEnum } from '../../../../enums/CountryEnum';
 import { EventTypes } from '../../../../enums/EventTypes';
 import { EventObjectTemp } from '../../../../interfaces/EventObject';
 import PaginatedEvents from '../../../../interfaces/PaginatedEvents';
+import ResponsiveAppBar from '../../common/NavBar';
 
 export function ViewAllEventsPage() {
   const { currentPage } = useParams();
@@ -42,8 +43,17 @@ export function ViewAllEventsPage() {
     fetchAllEvents(value);
   };
 
+  const truncateDescription = (description) => {
+    if (description.length === 150) {
+      return description.substring(0, 146) + '...';
+    }
+
+    return description;
+  };
+
   return (
     <>
+      <ResponsiveAppBar />
       <h1>All events</h1>
       <h5>{totalNoEvents} results</h5>
       <Grid container spacing={2} columns={1}>
@@ -52,13 +62,22 @@ export function ViewAllEventsPage() {
             <Grid item xs={4} key={event.id}>
               <Card variant='outlined'>
                 <CardContent>
-                  <Typography>{event.name}</Typography>
-                  <Typography>{EventTypes[event.eventType]}</Typography>
-                  <Typography>{event.description}</Typography>
-                  <Typography>{event.maxNoAttendees} attendees</Typography>
-                  <Typography>{CityEnum[event.address.city]}</Typography>
-                  <Typography>{CountryEnum[event.address.country]}</Typography>
-                  <Typography>{event.address.location}</Typography>
+                  <Grid container spacing={2} direction='row'>
+                    <Grid item xs={4}>
+                      <Typography>{event.name}</Typography>
+                      <Typography>{EventTypes[event.eventType]}</Typography>
+                      <Typography sx={{ wordWrap: 'break-word' }}>{truncateDescription(event.description)}</Typography>
+                      <Typography>{event.maxNoAttendees} attendees</Typography>
+                      <Typography>{CityEnum[event.address.city]}</Typography>
+                      <Typography>{CountryEnum[event.address.country]}</Typography>
+                      <Typography>{event.address.location}</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button onClick={() => navigate('/event/' + Number(event.id), { replace: true })}>
+                        More info
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </CardContent>
               </Card>
             </Grid>

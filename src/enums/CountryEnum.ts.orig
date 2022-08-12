@@ -1,9 +1,0 @@
-export enum CountryEnum {
-  Romania = 1,
-  Germania,
-  Italia
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> a453904 (update create event with address)

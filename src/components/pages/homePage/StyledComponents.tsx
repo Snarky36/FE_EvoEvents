@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Tab, InputLabel, Typography, Grid } from '@mui/material';
+import { Box, Tab } from '@mui/material';
 import { TextFieldStyled } from '../common/StyledComponents';
 
 // to add one TextFieldStyled component in common styled components
@@ -8,7 +8,7 @@ import { TextFieldStyled } from '../common/StyledComponents';
 //overwrite one for the register
 //overwrite one for the create
 
-export const TextFieldRegisterUserStyled = styled(TextFieldStyled)(({ theme }) => {
+export const TextFieldRegisterUserStyled = styled(TextFieldStyled)(() => {
   return {
     width: '75%'
   };
