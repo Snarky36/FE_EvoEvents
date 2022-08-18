@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 import { EventTypes } from '../../../../enums/EventTypes';
 import EventService from '../../../../api/EventService';
 import useTextFieldErrors from '../../../../hooks/UseTextFieldErrors';
@@ -19,8 +19,21 @@ import {
   FormHelperTextStyled,
   ButtonStyled,
   TextFieldEventStyled,
-  DescriptionTextFieldStyled
+  DescriptionTextFieldStyled,
+  FormHelperTextCapacityStyled,
+  CreateEventGridStyled,
+  MainInfoEventGridStyled,
+  LocationGridStyled,
+  DescriptionGridStyled,
+  DateGridStyled,
+  StartingDateGridStyled,
+  EndingDateGridStyled
 } from './StyledComponents';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import useTimeframe from '../../../../hooks/UseTimeframe';
+import { DateRangeModel } from '../../../../interfaces/DateRangeModel';
 
 enum AddEventFormFields {
   type = 'type',
@@ -41,6 +54,8 @@ export default function AddEventForm() {
   const [country, setCountry] = useState('');
   const location = useTextFieldErrors('', validateLocation);
   const [open, setOpen] = React.useState(false);
+  const currentDate = new Date();
+  const timeframe = useTimeframe(currentDate, currentDate);
   const eventTypesOptions = useMemo(() => {
     return filterIndexedEnumsKeys(EventTypes).map((typeName) => {
       const typeId = EventTypes[typeName];
@@ -106,6 +121,7 @@ export default function AddEventForm() {
 
   const handleClick = async () => {
     const descriptionToSend = trimDescriptionInput(description.value);
+    const dateRangeModel: DateRangeModel = { fromDate: timeframe.firstValue, toDate: timeframe.secondValue };
     await EventService.addEvent({
       eventType: parseInt(type),
       name: name.value,
@@ -113,156 +129,197 @@ export default function AddEventForm() {
       maxNoAttendees: parseInt(capacity.value),
       city: parseInt(city),
       country: parseInt(country),
-      location: location.value
+      location: location.value,
+      dateRangeModel: dateRangeModel
     });
     setOpen(true);
   };
 
+  const handleStartingDateTimeChange = useCallback(
+    (newValue: Date | null) => {
+      timeframe.setFirstValue(newValue);
+    },
+    [timeframe.firstValue]
+  );
+
+  const handleEndingDateTimeChange = useCallback(
+    (newValue: Date | null) => {
+      timeframe.setSecondValue(newValue);
+    },
+    [timeframe.secondValue]
+  );
+
   return (
     <div>
-      <Box sx={{ paddingLeft: '320px', paddingTop: '10px' }}>
-        <FormControl fullWidth>
-          <InputLabel>Event type</InputLabel>
-          <Select
-            required
-            value={type}
-            label='type'
-            onChange={(e) => {
-              setType(e.target.value);
-            }}
-          >
-            {eventTypesOptions}
-          </Select>
-          <FormHelperTextStyled>*Required</FormHelperTextStyled>
-        </FormControl>
+      <CreateEventGridStyled container direction='row'>
+        <MainInfoEventGridStyled>
+          <FormControl fullWidth>
+            <InputLabel>Event type*</InputLabel>
+            <Select
+              required
+              value={type}
+              label='type'
+              onChange={(e) => {
+                setType(e.target.value);
+              }}
+            >
+              {eventTypesOptions}
+            </Select>
+          </FormControl>
 
-        <GridColorStyled>
-          <TextFieldEventStyled
-            id='outlined-basic'
-            label='Event name'
-            name={AddEventFormFields.name}
-            helperText={name.errors}
-            error={name.hasErrors}
-            onChange={onInputChange}
-            onBlur={name.validate}
-            value={name.value}
-            variant='outlined'
-            placeholder='Event name'
-          />
-        </GridColorStyled>
+          <GridColorStyled>
+            <TextFieldEventStyled
+              id='outlined-basic'
+              label='Event name*'
+              name={AddEventFormFields.name}
+              helperText={name.errors}
+              error={name.hasErrors}
+              onChange={onInputChange}
+              onBlur={name.validate}
+              value={name.value}
+              variant='outlined'
+              placeholder='Event name*'
+            />
+          </GridColorStyled>
 
-        <GridColorStyled>
-          <DescriptionTextFieldStyled
-            label='Description'
-            name={AddEventFormFields.description}
-            inputProps={{
-              maxLength: CHARACTER_DESCRIPTION_LIMIT
-            }}
-            helperText={
-              <EventDescriptionHelperText
-                characterDescriptionLimit={CHARACTER_DESCRIPTION_LIMIT}
-                description={description.value}
-                errorText={description.errors as string}
-              />
-            }
-            error={description.hasErrors}
-            onBlur={description.validate}
-            onChange={onInputChange}
-            value={description.value}
-            variant='outlined'
-            placeholder='Description'
-            multiline
-            rows={7}
-            InputLabelProps={{ shrink: false }}
-          />
-        </GridColorStyled>
+          <GridColorStyled>
+            <TextFieldEventStyled
+              id='outlined-basic'
+              label='Capacity*'
+              helperText={capacity.errors}
+              error={capacity.hasErrors}
+              name={AddEventFormFields.capacity}
+              onChange={onInputChange}
+              onBlur={capacity.validate}
+              value={capacity.value}
+              variant='outlined'
+              type='number'
+              InputProps={{ inputProps: { min: 1 } }}
+              placeholder='Capacity*'
+            />
+          </GridColorStyled>
+        </MainInfoEventGridStyled>
 
-        <GridColorStyled>
-          <TextFieldEventStyled
-            id='outlined-basic'
-            label='Capacity'
-            helperText={capacity.errors}
-            error={capacity.hasErrors}
-            name={AddEventFormFields.capacity}
-            onChange={onInputChange}
-            onBlur={capacity.validate}
-            value={capacity.value}
-            variant='outlined'
-            type='number'
-            InputProps={{ inputProps: { min: 1 } }}
-            placeholder='Capacity'
-          />
-          <FormHelperTextStyled>*Required</FormHelperTextStyled>
-        </GridColorStyled>
+        <LocationGridStyled>
+          <FormControl fullWidth>
+            <InputLabel>City*</InputLabel>
+            <Select
+              required
+              label='City'
+              value={city}
+              sx={{ width: '100%' }}
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+            >
+              {cityTypesOptions}
+            </Select>
+          </FormControl>
+          <br></br>
+          <FormControl fullWidth>
+            <InputLabel>Country*</InputLabel>
+            <Select
+              label='Country'
+              required
+              value={country}
+              sx={{ width: '100%' }}
+              onChange={(e) => {
+                setCountry(e.target.value);
+              }}
+            >
+              {countryTypesOptions}
+            </Select>
+          </FormControl>
 
-        <div>
-          <InputLabel>City</InputLabel>
-          <Select
-            required
-            label='City'
-            value={city}
-            sx={{ width: '100%' }}
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
-          >
-            {cityTypesOptions}
-          </Select>
-          <FormHelperTextStyled>*Required</FormHelperTextStyled>
-        </div>
+          <GridColorStyled>
+            <TextFieldEventStyled
+              label='Location*'
+              name={AddEventFormFields.location}
+              helperText={location.errors}
+              error={location.hasErrors}
+              onChange={onInputChange}
+              onBlur={location.validate}
+              value={location.value}
+              variant='outlined'
+              placeholder='Location'
+            />
+          </GridColorStyled>
+        </LocationGridStyled>
+      </CreateEventGridStyled>
 
-        <div>
-          <InputLabel>Country</InputLabel>
-          <Select
-            label='Country'
-            required
-            value={country}
-            sx={{ width: '100%' }}
-            onChange={(e) => {
-              setCountry(e.target.value);
-            }}
-          >
-            {countryTypesOptions}
-          </Select>
+      <DescriptionGridStyled>
+        <DescriptionTextFieldStyled
+          label='Description'
+          name={AddEventFormFields.description}
+          inputProps={{
+            maxLength: CHARACTER_DESCRIPTION_LIMIT
+          }}
+          helperText={
+            <EventDescriptionHelperText
+              characterDescriptionLimit={CHARACTER_DESCRIPTION_LIMIT}
+              description={description.value}
+              errorText={description.errors as string}
+            />
+          }
+          error={description.hasErrors}
+          onBlur={description.validate}
+          onChange={onInputChange}
+          value={description.value}
+          variant='outlined'
+          placeholder='Description*'
+          multiline
+          rows={7}
+          InputLabelProps={{ shrink: false }}
+        />
+      </DescriptionGridStyled>
 
-          <FormHelperTextStyled>*Required</FormHelperTextStyled>
-        </div>
+      <DateGridStyled container direction='row'>
+        <StartingDateGridStyled>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              label='Starting date'
+              value={timeframe.firstValue}
+              disablePast
+              onChange={handleStartingDateTimeChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        </StartingDateGridStyled>
 
-        <GridColorStyled>
-          <TextFieldEventStyled
-            label='Location'
-            name={AddEventFormFields.location}
-            helperText={location.errors}
-            error={location.hasErrors}
-            onChange={onInputChange}
-            onBlur={location.validate}
-            value={location.value}
-            variant='outlined'
-            placeholder='Location'
-          />
-        </GridColorStyled>
+        <EndingDateGridStyled>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              label='Ending date'
+              value={timeframe.secondValue}
+              disablePast
+              onChange={handleEndingDateTimeChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        </EndingDateGridStyled>
+      </DateGridStyled>
 
-        <GridStyled>
-          <ButtonStyled
-            variant='contained'
-            disabled={
-              name.hasErrors ||
-              location.hasErrors ||
-              city === '' ||
-              country === '' ||
-              capacity.hasErrors ||
-              description.hasErrors ||
-              type === '' ||
-              name.value === '' ||
-              capacity.value === '0' ||
-              capacity.value === ''
-            }
-            onClick={handleClick}
-          >
-            Save
-          </ButtonStyled>
-        </GridStyled>
-      </Box>
+      <GridStyled>
+        <ButtonStyled
+          variant='contained'
+          disabled={
+            name.hasErrors ||
+            location.hasErrors ||
+            city === '' ||
+            country === '' ||
+            capacity.hasErrors ||
+            description.hasErrors ||
+            type === '' ||
+            name.value === '' ||
+            capacity.value === '0' ||
+            capacity.value === '' ||
+            timeframe.firstValue === timeframe.secondValue
+          }
+          onClick={handleClick}
+        >
+          Save
+        </ButtonStyled>
+      </GridStyled>
       <Snackbar
         open={open}
         autoHideDuration={6000}

@@ -12,7 +12,7 @@ const useTextFieldErrors = (initialValue: string, validator: (value) => string |
 
   useEffect(() => {
     if (!hasErrors) return;
-    
+
     validate();
   }, [hasErrors, validate]);
 

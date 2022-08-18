@@ -147,3 +147,13 @@ export const PictureBoxStyled = styled('img')(() => {
     marginRight: '10px'
   };
 });
+
+export const EventTitleStyled = styled(Typography)(() => {
+  return {
+    fontWeight: 'bold',
+    fontSize: '40px',
+    color: 'white',
+    fontFamily: 'Work Sans',
+    marginTop: '50px'
+  };
+});

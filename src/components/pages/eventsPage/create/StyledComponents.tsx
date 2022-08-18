@@ -1,6 +1,6 @@
 import { styled } from '@mui/system';
-import { Box, Button, FormHelperText, InputLabel, Typography } from '@mui/material';
-import { TextFieldStyled } from '../../common/StyledComponents';
+import { Box, Button, FormHelperText, Grid, InputLabel, Typography } from '@mui/material';
+import { GridColorStyled, TextFieldStyled } from '../../common/StyledComponents';
 
 export const FormBoxStyled = styled(Box)(() => {
   return {
@@ -14,6 +14,13 @@ export const FormBoxStyled = styled(Box)(() => {
 export const FormHelperTextStyled = styled(FormHelperText)(({ theme }) => {
   return {
     color: theme.palette.primary.light
+  };
+});
+
+export const FormHelperTextCapacityStyled = styled(FormHelperText)(({ theme }) => {
+  return {
+    color: theme.palette.primary.light,
+    marginLeft: '10px'
   };
 });
 
@@ -31,6 +38,9 @@ export const TextFieldEventStyled = styled(TextFieldStyled)(() => {
 });
 export const DescriptionTextFieldStyled = styled(TextFieldStyled)(() => {
   return {
+    '& label': {
+      paddingTop: '20px'
+    },
     paddingTop: '10%',
     width: '100%',
     '& fieldset': {
@@ -51,6 +61,7 @@ export const TitleStyled = styled(Typography)(({ theme }) => {
 export const CreateEventStyled = styled(InputLabel)(({ theme }) => {
   return {
     width: '70%',
+    minWidth: '100%',
     '& fieldset': {
       borderColor: theme.palette.primary.light,
       borderWidth: 2,
@@ -76,5 +87,94 @@ export const CreateEventStyled = styled(InputLabel)(({ theme }) => {
     '& label.Mui-focused': {
       color: 'white'
     }
+  };
+});
+
+export const GridCreateEventStyled = styled(Grid)(({ theme }) => {
+  return {
+    width: '35%',
+    height: '75%',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.light,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    display: 'flex',
+    alignContent: 'center',
+    justifyContent: 'justify',
+    marginTop: '4%',
+    marginBottom: '4%'
+  };
+});
+
+export const EventInfoStyled = styled(Grid)(({ theme }) => {
+  return {
+    width: '35%',
+    height: '75%',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.light,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    display: 'flex',
+    alignContent: 'center',
+    justifyContent: 'justify',
+    marginTop: '4%',
+    marginBottom: '4%'
+  };
+});
+
+export const CreateEventGridStyled = styled(Grid)(() => {
+  return {
+    display: 'flex',
+    justifyContent: 'justify',
+    alignContent: 'center',
+    marginTop: '50px',
+    marginLeft: '90px'
+  };
+});
+
+export const MainInfoEventGridStyled = styled(Grid)(() => {
+  return {
+    width: '300px'
+  };
+});
+
+export const LocationGridStyled = styled(Grid)(() => {
+  return {
+    width: '300px',
+    marginLeft: '60px'
+  };
+});
+
+export const DescriptionGridStyled = styled(GridColorStyled)(() => {
+  return {
+    marginLeft: '90px',
+    marginRight: '90px'
+  };
+});
+
+export const DateGridStyled = styled(Grid)(() => {
+  return {
+    marginLeft: '90px',
+    marginTop: '40px',
+    marginBottom: '20px'
+  };
+});
+
+export const StartingDateGridStyled = styled(Grid)(() => {
+  return {
+    width: '400px'
+  };
+});
+
+export const EndingDateGridStyled = styled(Grid)(() => {
+  return {
+    width: '400px',
+    marginLeft: '20px'
   };
 });

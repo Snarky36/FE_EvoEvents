@@ -18,7 +18,7 @@ export const validateEventCapacity = (value: number) => {
 
   if (capacity.isSmaller(0)) return 'Capacity should be positive';
 
-  if (capacity.isBigger(100000)) return 'Maximum number of participants is 100.000';
+  if (capacity.isBigger(100001)) return 'Maximum number of participants is 100.000';
 
   return '';
 };
@@ -38,3 +38,4 @@ export const validateDescription = (value: string) => {
 
   return '';
 };
+
