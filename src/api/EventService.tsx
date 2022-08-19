@@ -15,9 +15,9 @@ class EventService {
   registerToEvent(obj: ReservationInfo) {
     return ApiService.postReq('/api/event/' + obj.eventId + '/register ', obj);
   }
-  viewAllEvents(itemsPerPage: number, pageNumber: number) {
-    const paginationModel: PaginatedRequest = { paginationModel: { pageNumber, itemsPerPage } };
-    return ApiService.postReq('api/event/view-all-events', paginationModel);
+
+  viewAllEvents(obj: PaginatedRequest) {
+    return ApiService.postReq('api/event/view-all-events', obj);
   }
 }
 

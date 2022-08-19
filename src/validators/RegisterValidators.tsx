@@ -42,7 +42,7 @@ export const validateCompanyRegister = (value: string) => {
 export const validatePasswordRegister = (value: string) => {
   const stringComparer = new StringComparer(value);
 
-  if (stringComparer.hasLengthBetween(2, 100)) return 'Password should have between 2 and 100 characters';
+  if (stringComparer.hasLengthBetween(2, 20)) return 'Password should have between 2 and 20 characters';
 
   if (!value.match(noWhiteSpaces)) return 'Password should not have whitespaces';
 

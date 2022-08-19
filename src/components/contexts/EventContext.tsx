@@ -1,15 +1,15 @@
 import React, { createContext, useMemo, useState } from 'react';
-import EventObject, { emptyEvent } from '../../interfaces/Event';
+import { EventObjectTemp, emptyEvent } from '../../interfaces/EventObject';
 
 interface EventContextModel {
-  eventObject: EventObject;
-  setEventObjectData: (value: EventObject) => void;
+  eventObject: EventObjectTemp;
+  setEventObjectData: (value: EventObjectTemp) => void;
 }
 
 export const EventContext = createContext<EventContextModel>({ eventObject: emptyEvent, setEventObjectData: null });
 
 export const EventContextProvider = ({ children }) => {
-  const [eventObjectData, setEventObjectData] = useState<EventObject>(emptyEvent);
+  const [eventObjectData, setEventObjectData] = useState<EventObjectTemp>(emptyEvent);
 
   const contextValue = useMemo(() => {
     return { eventObject: eventObjectData, setEventObjectData: setEventObjectData };

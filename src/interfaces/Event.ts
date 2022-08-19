@@ -1,5 +1,3 @@
-import { CityEnum } from '../enums/CityEnum';
-import { CountryEnum } from '../enums/CountryEnum';
 import { EventTypes } from '../enums/EventTypes';
 import { DateRangeModel } from './DateRangeModel';
 
@@ -13,6 +11,7 @@ export default interface EventObject {
   readonly city: number;
   readonly location?: string;
   readonly dateRangeModel?: DateRangeModel;
+  readonly eventImage?: string;
 }
 
 export const emptyEvent: EventObject = {

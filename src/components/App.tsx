@@ -4,6 +4,7 @@ import { UserContextProvider } from './contexts/UserContext';
 import { EventContextProvider } from './contexts/EventContext';
 import { AppRouter } from '../routes/AppRouter';
 import { BrowserRouter } from 'react-router-dom';
+import { FilterContextProvider } from './contexts/FilterContext';
 
 export const App = () => {
   const theme = useMemo(
@@ -31,8 +32,8 @@ export const App = () => {
     () => (
       <GlobalStyles
         styles={{
-          html: { height: '100%' },
-          body: { height: '100%' },
+          html: { height: '100%', overflowX: 'hidden' },
+          body: { height: '100%', overflowX: 'hidden' },
           '#root': { height: '100%' }
         }}
       />
@@ -46,7 +47,9 @@ export const App = () => {
       <BrowserRouter>
         <UserContextProvider>
           <EventContextProvider>
-            <AppRouter />
+            <FilterContextProvider>
+              <AppRouter />
+            </FilterContextProvider>
           </EventContextProvider>
         </UserContextProvider>
       </BrowserRouter>
