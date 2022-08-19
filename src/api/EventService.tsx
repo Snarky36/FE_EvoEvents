@@ -13,6 +13,8 @@ class EventService {
   }
 
   registerToEvent(obj: ReservationInfo) {
+    if (obj.accompanyingPerson === '') obj.accompanyingPerson = null;
+
     return ApiService.postReq('/api/event/' + obj.eventId + '/register ', obj);
   }
 

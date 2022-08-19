@@ -3,11 +3,12 @@ import { Box, CardContent, Grid } from '@mui/material';
 import eventPicture from '../../../../assets/img/eventPicture.jpeg';
 import { useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
+import EventObject from '../../../../interfaces/Event';
 import { EventContext } from '../../../contexts/EventContext';
 import { EventTypes } from '../../../../enums/EventTypes';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { CityEnum } from '../../../../enums/CityEnum';
 import { CountryEnum } from '../../../../enums/CountryEnum';
-import RegisterToEventForm from './register/DialogRegisterEvent';
 import ResponsiveAppBar from '../../common/NavBar';
 import {
   CalendarMonthIconStyled,
@@ -23,6 +24,7 @@ import {
   PermContactCalendarIconStyled
 } from './StyledComponents';
 import { EventObjectTemp } from '../../../../interfaces/EventObject';
+import RegisterToEventForm from './register/EventRegistrationDialog';
 
 export function EventPage() {
   const { eventObject, setEventObjectData } = useContext(EventContext);
@@ -43,7 +45,6 @@ export function EventPage() {
         eventImage: res.data.eventImage
       };
       setEventObjectData(currentEvent);
-      console.log(currentEvent);
     } catch (e) {
       navigate('/error', { replace: true });
     }

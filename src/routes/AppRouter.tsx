@@ -4,7 +4,7 @@ import { ErrorPage } from '../components/pages/common/ErrorPage';
 import { ProtectedPage } from '../components/pages/common/ProtectedPage';
 import { EventPage as CreateEventPage } from '../components/pages/eventsPage/create/EventPage';
 import { EventPage as ViewEventPage } from '../components/pages/eventsPage/view/EventPage';
-import RegisterToEventForm from '../components/pages/eventsPage/view/register/DialogRegisterEvent';
+import RegisterToEventForm from '../components/pages/eventsPage/view/register/EventRegistrationDialog';
 import { ViewAllEventsPage } from '../components/pages/eventsPage/viewAll/ViewAllEventsPage';
 import { Homepage } from '../components/pages/homePage/Homepage';
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 import { EventTypes } from '../../../../enums/EventTypes';
 import EventService from '../../../../api/EventService';
 import useTextFieldErrors from '../../../../hooks/UseTextFieldErrors';

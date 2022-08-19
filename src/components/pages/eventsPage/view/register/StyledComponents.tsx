@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Button, DialogTitle, Grid, RadioGroup } from '@mui/material';
+import { Button, DialogTitle, Grid, RadioGroup, TextField } from '@mui/material';
 import { TextFieldStyled } from '../../../common/StyledComponents';
 
 export const DialogTitleStyled = styled(DialogTitle)(({ theme }) => {
@@ -9,10 +9,19 @@ export const DialogTitleStyled = styled(DialogTitle)(({ theme }) => {
     fontSize: '40px',
     textAlign: 'center',
     fontWeight: 'bold',
-    color: theme.palette.secondary.dark
+    // color: '#446291',
+    fontFamily: 'Work Sans'
   };
 });
 
+export const DialogLittleTitlesStyled = styled(DialogTitle)(({ theme }) => {
+  return {
+    fontFamily: 'Work Sans',
+    fontSize: '30px',
+    fontWeight: 'bold',
+    paddingLeft: 0
+  };
+});
 export const ButtonRegisterEventStyled = styled(Button)(() => {
   return {
     marginTop: '15px',
@@ -25,8 +34,7 @@ export const MainGridStyled = styled(Grid)(() => {
   return {
     display: 'flex',
     justifyContent: 'justify',
-    alignContent: 'center',
-    marginLeft: '75px'
+    alignContent: 'center'
   };
 });
 
@@ -60,14 +68,41 @@ export const TextFieldRegisterEventStyled = styled(TextFieldStyled)(() => {
   };
 });
 
-export const PersonalInfoRegisterEventStyled = styled(TextFieldStyled)(() => {
+export const PersonalInfoRegisterEventStyled = styled(TextField)(({ theme }) => {
   return {
     paddingTop: '0.5%',
     minWidth: '300px',
     width: '100%',
     marginBottom: '7px',
     '& .MuiInputBase-input.Mui-disabled': {
-      WebkitTextFillColor: 'black'
+      WebkitTextFillColor: 'theme.palette.primary.main'
+    },
+    '& .MuiInputBase-root.Mui-disabled': {
+      '& > fieldset': {
+        borderColor: theme.palette.primary.main
+      }
+    },
+
+    '& fieldset': {
+      borderColor: theme.palette.primary.main,
+      borderWidth: 1,
+      borderRadius: 0
+    },
+    '& label': {
+      color: 'black'
+    },
+    input: {
+      '&:disabled': {
+        color: 'red'
+      }
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: theme.palette.primary.main
+      }
+    },
+    '& label.Mui-focused': {
+      color: theme.palette.primary.main
     }
   };
 });
