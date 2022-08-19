@@ -3,10 +3,8 @@ import { Box, CardContent, Grid } from '@mui/material';
 import eventPicture from '../../../../assets/img/eventPicture.jpeg';
 import { useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
-import EventObject from '../../../../interfaces/Event';
 import { EventContext } from '../../../contexts/EventContext';
 import { EventTypes } from '../../../../enums/EventTypes';
-import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { CityEnum } from '../../../../enums/CityEnum';
 import { CountryEnum } from '../../../../enums/CountryEnum';
 import ResponsiveAppBar from '../../common/NavBar';
@@ -65,7 +63,7 @@ export function EventPage() {
       <ResponsiveAppBar />
       <MainGridStyled container spacing={10}>
         <Grid item xs={4}>
-          <Box component='img' src={eventPicture} />
+          <img src={`data:image/jpeg;base64,${eventObject.eventImage}`} height='310px' width='430px' />
         </Grid>
         <Grid item xs={4}>
           <Grid container spacing={2} direction='column'>

@@ -23,5 +23,6 @@ export const emptyEvent: EventObject = {
   city: 0,
   country: 0,
   location: '',
-  dateRangeModel: { fromDate: new Date(), toDate: new Date() }
+  dateRangeModel: { fromDate: new Date(), toDate: new Date() },
+  eventImage: ''
 };

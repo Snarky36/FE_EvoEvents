@@ -130,7 +130,8 @@ export default function AddEventForm() {
       city: parseInt(city),
       country: parseInt(country),
       location: location.value,
-      dateRangeModel: dateRangeModel
+      dateRangeModel: dateRangeModel,
+      eventImage: ''
     });
     setOpen(true);
   };

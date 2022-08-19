@@ -1,5 +1,5 @@
-import { Grid, PaginationItem } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Button, Card, CardContent, Grid, Pagination, PaginationItem, Typography } from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
 import { EventObjectTemp } from '../../../../interfaces/EventObject';
