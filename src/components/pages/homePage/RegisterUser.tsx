@@ -1,7 +1,7 @@
-import { Button, Typography, Snackbar, Alert } from '@mui/material';
+import { Button, Snackbar, Alert } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import UserService from '../../../api/UserService';
-import { TextFieldRegisterUserStyled } from './StyledComponents';
+import { TextFieldRegisterUserStyled, TitleStyled } from './StyledComponents';
 import { InfoButton } from '../common/InfoButton';
 import useTextFieldErrors from '../../../hooks/UseTextFieldErrors';
 import {
@@ -70,6 +70,8 @@ export function RegisterUser() {
   const onInputChange = useCallback(
     (ev) => {
       formFieldsManagers[ev.target.name].setValue(ev.target.value);
+
+      if (ev.target.name === 'email') setBackendError('');
     },
     [formFieldsManagers]
   );
@@ -78,9 +80,7 @@ export function RegisterUser() {
     <div>
       <GridGlobalStyled container spacing={2} columns={2}>
         <GridColorStyled item xs={4}>
-          <Typography variant='h4' component='h4'>
-            Request log-in credentials
-          </Typography>
+          <TitleStyled variant='h5'>Request log-in credentials</TitleStyled>
         </GridColorStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
@@ -94,6 +94,7 @@ export function RegisterUser() {
             value={firstName.value}
             variant='outlined'
             placeholder='John'
+            autoComplete='off'
           />
           <InfoButton title='between 2-100 alpha characters, including "-" and " "' />
         </GridColorStyled>
@@ -109,6 +110,7 @@ export function RegisterUser() {
             value={lastName.value}
             variant='outlined'
             placeholder='Doe'
+            autoComplete='off'
           />
           <InfoButton title='between 2-100 alpha characters, including "-" and " "' />
         </GridColorStyled>
@@ -124,6 +126,7 @@ export function RegisterUser() {
             value={email.value}
             variant='outlined'
             placeholder='john_doe@yahoo.com'
+            autoComplete='off'
           />
           <InfoButton title='between 7-74 characters and {alphanumeric and underline}@{string}.com format' />
         </GridColorStyled>
@@ -139,6 +142,7 @@ export function RegisterUser() {
             value={company.value}
             variant='outlined'
             placeholder='evozon'
+            autoComplete='off'
           />
           <InfoButton title='between 2-100 alphanumeric characters' />
         </GridStyled>
@@ -155,6 +159,7 @@ export function RegisterUser() {
             variant='outlined'
             type='password'
             placeholder='******'
+            autoComplete='off'
           />
           <InfoButton title='between 2-100 characters and no whitespaces' />
         </GridColorStyled>

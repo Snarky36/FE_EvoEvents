@@ -24,7 +24,7 @@ export function AppRouter() {
         path='events'
         element={
           <ProtectedPage>
-            <Navigate to='1' />
+            <Navigate to='1' replace />
           </ProtectedPage>
         }
       />

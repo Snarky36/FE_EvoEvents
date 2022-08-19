@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Alert, Button, Snackbar, Typography } from '@mui/material';
+import { Alert, Button, Snackbar } from '@mui/material';
 import { useCallback } from 'react';
 import UserService from '../../../api/UserService';
 import { UserContextProvider } from '../../contexts/UserContext';
@@ -9,7 +9,7 @@ import { validateEmailLogin, validatePasswordLogin } from '../../../validators/L
 import { MediatorEventsIdentifiers } from '../../../events/EventsIdentifiers';
 import { GridColorStyled, GridGlobalStyled, GridStyled } from '../common/StyledComponents';
 import Mediator from '../../../events/Mediator';
-import { TextFieldRegisterUserStyled } from './StyledComponents';
+import { TextFieldRegisterUserStyled, TitleStyled } from './StyledComponents';
 
 enum LoginFormFields {
   email = 'email',
@@ -65,13 +65,17 @@ export function Login() {
     [formFieldsManagers]
   );
 
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      handleClick();
+    }
+  };
+
   return (
     <UserContextProvider>
       <GridGlobalStyled container spacing={2} columns={2}>
         <GridColorStyled item xs={4}>
-          <Typography variant='h4' component='h4'>
-            Log-in
-          </Typography>
+          <TitleStyled variant='h5'>Log-in</TitleStyled>
         </GridColorStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
@@ -86,6 +90,7 @@ export function Login() {
             value={email.value}
             variant='outlined'
             placeholder='johndoe@yahoo.com'
+            autoComplete='off'
           />
         </GridColorStyled>
         <GridColorStyled item xs={4}>
@@ -98,10 +103,12 @@ export function Login() {
             error={password.hasErrors}
             onChange={onInputChange}
             onBlur={password.validate}
+            onKeyUp={handleKeyPress}
             value={password.value}
             variant='outlined'
             type='password'
             placeholder='******'
+            autoComplete='off'
           />
         </GridColorStyled>
         <GridStyled item xs={4}>
@@ -109,6 +116,7 @@ export function Login() {
             variant='contained'
             disabled={!(email.value && password.value) || password.hasErrors || email.hasErrors}
             onClick={handleClick}
+            type='submit'
           >
             Login
           </Button>

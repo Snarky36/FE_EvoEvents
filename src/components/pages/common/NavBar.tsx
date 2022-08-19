@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
 import {
   AppBarStyled,
   FullNameStyled,
@@ -14,9 +12,10 @@ import {
 } from './StyledComponents';
 import { Link } from 'react-router-dom';
 import EvozonLogo from '../../../assets/img/EvozonLogo.png';
+import { UserContext } from '../../contexts/UserContext';
 
 const ResponsiveAppBar = () => {
-  const { user } = useContext(UserContext);
+  const { user } = React.useContext(UserContext);
 
   return (
     <AppBarStyled>

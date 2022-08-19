@@ -4,12 +4,19 @@ import { AuthTabs } from './AuthTabs';
 import { RegisterUser } from './RegisterUser';
 import { Login } from './Login';
 import { ContainerStyled, TabBoxStyled } from './StyledComponents';
+import Background from '../../../assets/img/Background.jpg';
 
 export function Homepage() {
-  const [selectedTab, setSelectedTab] = useState('register');
+  const [selectedTab, setSelectedTab] = useState('login');
 
   return (
-    <div>
+    <div style={{
+      backgroundImage: `url(${Background})`,
+      height: '100%',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+    }}>
       <ContainerStyled>
         <TabContext value={selectedTab}>
           <TabBoxStyled>

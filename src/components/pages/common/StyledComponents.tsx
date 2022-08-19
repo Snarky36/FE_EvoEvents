@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const FullNameStyled = styled(Typography)(({ theme }) => {
   return {
     color: theme.palette.primary.light,
-    fontFamily: 'Maven Pro',
+    fontFamily: 'Work Sans',
     marginRight: '10px',
     alignItem: 'center'
   };
@@ -75,29 +75,29 @@ export const UserBoxStyled = styled(Box)(() => {
 export const TextFieldStyled = styled(TextField)(({ theme }) => {
   return {
     '& fieldset': {
-      borderColor: theme.palette.primary.light,
+      borderColor: '#42a5f5',
       borderWidth: 2,
       borderRadius: 9999
     },
     '& label': {
-      color: 'white'
+      color: '#42a5f5'
     },
     input: {
       '&::placeholder': {
         textOverflow: 'ellipsis !important',
-        color: 'white'
+        color: 'black'
       },
-      color: 'white !important',
+      color: 'black !important',
       backgroundColor: '#64b5f6',
       borderRadius: 9999
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: 'white'
+        borderColor: '#42a5f5'
       }
     },
     '& label.Mui-focused': {
-      color: 'white'
+      color: '#42a5f5'
     }
   };
 });
@@ -111,7 +111,7 @@ export const GridStyled = styled(Grid)(() => {
 export const GridColorStyled = styled(Grid)(({ theme }) => {
   return {
     textAlign: 'center',
-    color: theme.palette.primary.light
+    color: 'black'
   };
 });
 
@@ -119,8 +119,8 @@ export const GridGlobalStyled = styled(Grid)(({ theme }) => {
   return {
     width: '70%',
     height: '90%',
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.light,
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    color: 'black',
     position: 'absolute',
     top: '50%',
     left: '50%',

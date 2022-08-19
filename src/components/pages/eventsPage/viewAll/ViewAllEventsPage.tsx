@@ -69,7 +69,18 @@ export function ViewAllEventsPage() {
     }
   };
 
+  const truncateDescription = (description) => {
+    if (description.length === 150) {
+      return description.substring(0, 146) + '...';
+    }
+    return description;
+  };
+
   const handleClick = async (page: number, eventType: number, attending: boolean, viewAll: boolean) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     const paginationModel: PaginatedRequest = {
       paginationModel: { pageNumber: page, itemsPerPage: ITEMS_PER_PAGE },
       filters: { eventType: eventType, attending: attending }

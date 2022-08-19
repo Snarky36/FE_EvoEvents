@@ -16,7 +16,8 @@ import {
   LocationOnIconStyled,
   LocationCityIconStyled,
   EventDescriptionStyled,
-  CalendarMonthIconStyled
+  CalendarMonthIconStyled,
+  MoreInfoButtonStyled
 } from './StyledComponents';
 
 export interface EventCardProps {
@@ -94,7 +95,9 @@ export function EventCard({ event }: EventCardProps) {
             <EventDescriptionStyled>{truncateDescription(event.description)}</EventDescriptionStyled>
           </Grid>
           <Grid item xs={4}>
-            <Button onClick={() => navigate('/event/' + Number(event.id), { replace: true })}>More info</Button>
+            <MoreInfoButtonStyled onClick={() => navigate('/event/' + Number(event.id))}>
+              More info
+            </MoreInfoButtonStyled>
           </Grid>
         </EventCardContentStyled>
       </CardContent>

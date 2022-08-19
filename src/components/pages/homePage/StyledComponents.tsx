@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Tab } from '@mui/material';
+import { Box, Tab, Typography } from '@mui/material';
 import { TextFieldStyled } from '../common/StyledComponents';
 
 // to add one TextFieldStyled component in common styled components
@@ -8,18 +8,35 @@ import { TextFieldStyled } from '../common/StyledComponents';
 //overwrite one for the register
 //overwrite one for the create
 
-export const TextFieldRegisterUserStyled = styled(TextFieldStyled)(() => {
+export const TextFieldRegisterUserStyled = styled(TextFieldStyled)(({ theme }) => {
   return {
-    width: '75%'
+    paddingTop: '0.5%',
+    width: '75%',
+    '& fieldset': {
+      borderColor: theme.palette.primary.main,
+      borderWidth: 2
+    },
+    '& label': {
+      color: theme.palette.primary.main
+    },
+    input: {
+      '&::placeholder': {
+        textOverflow: 'ellipsis !important',
+        color: theme.palette.primary.main
+      },
+      color: theme.palette.primary.main,
+      backgroundColor: 'white'
+    }
   };
 });
 
-export const ContainerStyled = styled(Box)(({ theme }) => {
+export const ContainerStyled = styled(Box)(() => {
   return {
     width: '50%',
     height: '95%',
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.light,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    color: 'black',
+    border: '1px solid #42a5f5',
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -50,5 +67,12 @@ export const TabStyled = styled(Tab)(({ theme }) => {
       color: theme.palette.primary.light,
       backgroundColor: '#64b5f6'
     }
+  };
+});
+
+export const TitleStyled = styled(Typography)(() => {
+  return {
+    fontFamily: 'Work Sans',
+    fontWeight: '25px'
   };
 });

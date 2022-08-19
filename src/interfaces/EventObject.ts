@@ -1,5 +1,5 @@
-import { EventTypes } from "../enums/EventTypes";
-import Address from "./Address";
+import { EventTypes } from '../enums/EventTypes';
+import Address from './Address';
 
 export interface EventObjectTemp {
   readonly id?: number;

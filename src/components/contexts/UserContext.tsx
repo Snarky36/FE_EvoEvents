@@ -14,7 +14,7 @@ interface UserContextModel {
 export const UserContext = createContext<UserContextModel>({ user: {}, setUserData: null, isUserLoggedIn: false });
 
 export const UserContextProvider = ({ children }) => {
-  const [userData, setUserData] = useState<User>({});
+  const [userData, setUserData] = useState<User>(JSON.parse(sessionStorage.getItem('user')) || {});
   const navigate = useNavigate();
 
   const isUserLoggedIn = useMemo(() => {
@@ -28,7 +28,8 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const subscription = Mediator.subscribe(MediatorEventsIdentifiers.userLoggedIn, ({ userData: user }) => {
       setUserData(user);
-      navigate('/events', { replace: true });
+      sessionStorage.setItem('user', JSON.stringify(user));
+      navigate('/events/1', { replace: true });
     });
 
     return () => subscription.unsubscribe();

@@ -1,4 +1,4 @@
-import { Card, Grid, Pagination, Typography } from '@mui/material';
+import { Card, Grid, Pagination, Typography, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
@@ -105,6 +105,13 @@ export const CenteredTitlesStyled = styled(Grid)(() => {
     fontFamily: 'Work Sans'
   };
 });
+
+export const MoreInfoButtonStyled = styled(Button)(({ theme }) => {
+	return {
+		color: theme.palette.primary.dark,
+		fontFamily:'Work Sans'
+		};
+	});
 
 export const PermContactCalendarIconStyled = styled(PermContactCalendarIcon)(({ theme }) => {
   return {
