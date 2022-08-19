@@ -13,6 +13,22 @@ class ApiService {
     return this.axios.get(url);
   }
 
+  async postReqForm(url: string, obj: any) {
+
+    try {
+      const response = await this.axios.post(url, obj, {
+        headers: {
+          "Content-type": "multipart/form-data"
+        }
+      });
+
+      return response;
+    } catch (e) {
+      throw { errorCode: e.response.status, data: e.response.data.message };
+    }
+
+  }
+
   async postReq(url: string, obj: any) {
 
     try {
@@ -22,7 +38,7 @@ class ApiService {
     } catch (e) {
       throw { errorCode: e.response.status, data: e.response.data.message };
     }
- 
+
   }
 }
 

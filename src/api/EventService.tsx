@@ -5,8 +5,8 @@ import ReservationInfo from '../interfaces/ReservationInfo';
 import ApiService from './ApiService';
 
 class EventService {
-  addEvent(obj: EventObject) {
-    return ApiService.postReq('/api/event/create-event', obj);
+  addEvent(obj: FormData) {
+    return ApiService.postReqForm('/api/event/create-event', obj);
   }
 
   viewEvent(id: number, obj: EmailModel) {
