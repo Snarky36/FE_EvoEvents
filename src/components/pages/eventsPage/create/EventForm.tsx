@@ -36,8 +36,6 @@ import useTimeframe from '../../../../hooks/UseTimeframe';
 import { DateRangeModel } from '../../../../interfaces/DateRangeModel';
 import { toDate } from 'date-fns';
 
-
-
 enum AddEventFormFields {
   type = 'type',
   name = 'name',
@@ -128,12 +126,12 @@ export default function AddEventForm() {
     const formData = new FormData();
     formData.append('location', location.value);
     formData.append('eventType', type.toString());
-    formData.append('description', descriptionToSend.value);
+    formData.append('description', descriptionToSend);
     formData.append('maxNoAttendees', capacity.value);
     formData.append('city', city);
     formData.append('name', name.value);
     formData.append('country', country);
-    formData.append('eventImage',null);
+    formData.append('eventImage', null);
     formData.append('dateRangeModel[fromDate]', dateRangeModel.fromDate.toLocaleString());
     formData.append('dateRangeModel[toDate]', dateRangeModel.toDate.toLocaleString());
     await EventService.addEvent(formData);
