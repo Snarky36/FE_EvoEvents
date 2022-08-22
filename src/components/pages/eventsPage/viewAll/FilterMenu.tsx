@@ -47,18 +47,23 @@ export function FilterMenu({ email, fetchFilteredEvents }: FilterMenuProps) {
 
   return (
     <FormControl>
-      <FormLabel>Event type</FormLabel>
-      <RadioGroup defaultValue='0' name='radio-buttons-group' onChange={handleClickEventType}>
-        <FormControlLabel value='0' control={<Radio />} label='All events' />
-        <FormControlLabel value='1' control={<Radio />} label='Movie' />
-        <FormControlLabel value='2' control={<Radio />} label='Concert' />
-        <FormControlLabel value='3' control={<Radio />} label='Talk' />
+      <FormLabel id='eventTypeHeader'>Event type</FormLabel>
+      <RadioGroup defaultValue='0' name='radio-buttons-group' onChange={handleClickEventType} id='eventTypeFilterMenu'>
+        <FormControlLabel id='allEventsOptionEventType' value='0' control={<Radio />} label='All events' />
+        <FormControlLabel id='movieOption' value='1' control={<Radio />} label='Movie' />
+        <FormControlLabel id='concertOption' value='2' control={<Radio />} label='Concert' />
+        <FormControlLabel id='talkOption' value='3' control={<Radio />} label='Talk' />
       </RadioGroup>
-      <FormLabel>Registration status</FormLabel>
-      <RadioGroup defaultValue='all' name='radio-buttons-group' onChange={handleClickRegistration}>
-        <FormControlLabel value='all' control={<Radio />} label='All events' />
-        <FormControlLabel value='true' control={<Radio />} label='Attending' />
-        <FormControlLabel value='' control={<Radio />} label='Not attending' />
+      <FormLabel id='registrationStatusHeader'>Registration status</FormLabel>
+      <RadioGroup
+        defaultValue='all'
+        name='radio-buttons-group'
+        onChange={handleClickRegistration}
+        id='registrationStatusFilterMenu'
+      >
+        <FormControlLabel id='allEventsOptionRegistration' value='all' control={<Radio />} label='All events' />
+        <FormControlLabel id='attendingOption' value='true' control={<Radio />} label='Attending' />
+        <FormControlLabel id='notAttendingOption' value='' control={<Radio />} label='Not attending' />
       </RadioGroup>
     </FormControl>
   );

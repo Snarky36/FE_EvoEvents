@@ -3,11 +3,12 @@ import { TabList } from '@mui/lab';
 import { TabStyled } from './StyledComponents';
 
 export interface AuthTabsProps {
+  readonly id: string;
   readonly currentTab: string;
   setSelectedTab: (string) => void;
 }
 
-export function AuthTabs({ currentTab, setSelectedTab }: AuthTabsProps) {
+export function AuthTabs({ id, currentTab, setSelectedTab }: AuthTabsProps) {
   const handleChange = useCallback(
     (event: React.SyntheticEvent, currentTab) => {
       setSelectedTab(currentTab);
@@ -16,7 +17,7 @@ export function AuthTabs({ currentTab, setSelectedTab }: AuthTabsProps) {
   );
 
   return (
-    <TabList onChange={handleChange}>
+    <TabList onChange={handleChange} id={id}>
       <TabStyled label='Register' value='register' />
       <TabStyled label='Login' value='login' />
     </TabList>

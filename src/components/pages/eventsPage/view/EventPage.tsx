@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import { Box, CardContent, Grid } from '@mui/material';
-import eventPicture from '../../../../assets/img/eventPicture.jpeg';
+import { CardContent, Grid } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
 import { EventContext } from '../../../contexts/EventContext';
@@ -61,64 +60,64 @@ export function EventPage() {
   return (
     <>
       <ResponsiveAppBar />
-      <MainGridStyled container spacing={10}>
-        <Grid item xs={4}>
-          <img src={`data:image/jpeg;base64,${eventObject.eventImage}`} height='310px' width='430px' />
+      <MainGridStyled container spacing={10} id='eventContainer'>
+        <Grid item xs={4} id='eventImageContainer'>
+          <img id='eventImage' src={`data:image/jpeg;base64,${eventObject.eventImage}`} height='310px' width='430px' />
         </Grid>
-        <Grid item xs={4}>
-          <Grid container spacing={2} direction='column'>
-            <Grid item>
-              <EventNameStyled>{eventObject.name}</EventNameStyled>
+        <Grid item xs={4} id='eventDetailsContainer'>
+          <Grid container spacing={2} direction='column' id='eventDetails'>
+            <Grid item id='eventNameContainer'>
+              <EventNameStyled id='eventName'>{eventObject.name}</EventNameStyled>
+            </Grid>
+            <Grid item id='eventTypeContainer'>
+              <EventTypeStyled id='eventType'>{EventTypes[eventObject.eventType]}</EventTypeStyled>
             </Grid>
             <Grid item>
-              <EventTypeStyled>{EventTypes[eventObject.eventType]}</EventTypeStyled>
-            </Grid>
-            <Grid item>
-              <EventCardStyled variant='outlined'>
+              <EventCardStyled variant='outlined' id='eventInformationCard'>
                 <CardContent>
-                  <EventCardContentStyled container>
+                  <EventCardContentStyled container id='eventInformation'>
                     <Grid item>
-                      <p>Event details</p>
-                      <Grid container spacing={2}>
-                        <Grid item xs={6}>
+                      <p id='eventDetailsHeader'>Event details</p>
+                      <Grid container spacing={2} id='eventInformationItems'>
+                        <Grid item xs={6} id='eventCityAndCountry'>
                           <Grid container>
-                            <Grid item>
+                            <Grid item id='eventCityAndCountryIcon'>
                               <LocationOnIconStyled />
                             </Grid>
-                            <Grid item>
+                            <Grid item id='eventCityAndCountryDetails'>
                               <EventItemStyled>
                                 {CityEnum[eventObject.address.city]}, {CountryEnum[eventObject.address.country]}
                               </EventItemStyled>
                             </Grid>
                           </Grid>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} id='eventAttendees'>
                           <Grid container>
-                            <Grid item>
+                            <Grid item id='eventAttendeesIcon'>
                               <PermContactCalendarIconStyled />
                             </Grid>
-                            <Grid item>
+                            <Grid item id='eventAttendeesDetails'>
                               <EventItemStyled>{eventObject.maxNoAttendees} attendees</EventItemStyled>
                             </Grid>
                           </Grid>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} id='eventDateAndTime'>
                           <Grid container>
-                            <Grid item>
+                            <Grid item id='eventDateAndTimeIcon'>
                               <CalendarMonthIconStyled />
                             </Grid>
-                            <Grid item>
+                            <Grid item id='eventDateAndTimeDetails'>
                               <EventItemStyled>{addZ(eventObject.fromDate).toLocaleString('ro-RO')}</EventItemStyled>
                               <EventItemStyled>{addZ(eventObject.toDate).toLocaleString('ro-RO')}</EventItemStyled>
                             </Grid>
                           </Grid>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} id='eventLocation'>
                           <Grid container>
-                            <Grid item>
+                            <Grid item id='eventLocationIcon'>
                               <LocationCityIconStyled />
                             </Grid>
-                            <Grid item>
+                            <Grid item id='eventLocationDetails'>
                               <EventItemStyled>{eventObject.address.location}</EventItemStyled>
                             </Grid>
                           </Grid>
@@ -131,14 +130,14 @@ export function EventPage() {
             </Grid>
           </Grid>
         </Grid>
-        <CenteredButtonStyled item xs={4}>
+        <CenteredButtonStyled item xs={4} id='registerToEventButton'>
           <RegisterToEventForm />
         </CenteredButtonStyled>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={4} sx={{ wordWrap: 'break-word' }}>
+        <Grid item xs={4} id='emptyColumnLeft'></Grid>
+        <Grid item xs={4} sx={{ wordWrap: 'break-word' }} id='eventDescriptionWrapped'>
           {eventObject.description}
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={4} id='emptyColumnRight'></Grid>
       </MainGridStyled>
     </>
   );

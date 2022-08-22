@@ -2,7 +2,7 @@ import { styled } from '@mui/system';
 import { Button, DialogTitle, Grid, RadioGroup, TextField } from '@mui/material';
 import { TextFieldStyled } from '../../../common/StyledComponents';
 
-export const DialogTitleStyled = styled(DialogTitle)(({ theme }) => {
+export const DialogTitleStyled = styled(DialogTitle)(() => {
   return {
     paddingTop: '30px',
     paddingLeft: '30px',
@@ -14,7 +14,7 @@ export const DialogTitleStyled = styled(DialogTitle)(({ theme }) => {
   };
 });
 
-export const DialogLittleTitlesStyled = styled(DialogTitle)(({ theme }) => {
+export const DialogLittleTitlesStyled = styled(DialogTitle)(() => {
   return {
     fontFamily: 'Work Sans',
     fontSize: '30px',

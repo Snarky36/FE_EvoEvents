@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Button, Card, CardContent, Grid, Pagination, PaginationItem, Typography } from '@mui/material';
+import { Grid, PaginationItem } from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
 import { EventObjectTemp } from '../../../../interfaces/EventObject';
@@ -98,31 +98,31 @@ export function ViewAllEventsPage() {
     <>
       <FilterContextProvider>
         <ResponsiveAppBar />
-        <MainGridStyled container>
-          <StickyFilterMenuStyled item>
+        <MainGridStyled container id='viewAllEventsPageContainer'>
+          <StickyFilterMenuStyled item id='stickyFilterMenu'>
             <Grid container direction='column' spacing={2}>
-              <Grid item>
+              <Grid item id='fitlerMenuHeader'>
                 <h1>Filters</h1>
               </Grid>
-              <Grid item>
+              <Grid item id='filterMenuContentContainer'>
                 <Grid container direction='column'>
-                  <Grid item>
+                  <Grid item id='filterMenuContent'>
                     <FilterMenu email={user.email} fetchFilteredEvents={fetchFilteredEvents} />
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </StickyFilterMenuStyled>
-          <Grid item>
-            <CenteredTitlesStyled container>
-              <Grid item>
+          <Grid item id='viewAllEventsContainer'>
+            <CenteredTitlesStyled container id='viewAllEventsBasicInformation'>
+              <Grid item id='allEventsHeader'>
                 <h1>All events</h1>
               </Grid>
-              <Grid item>
+              <Grid item id='totalNoEventsHeader'>
                 <h3>{totalNoEvents} results</h3>
               </Grid>
             </CenteredTitlesStyled>
-            <EventsGridStyled container spacing={2}>
+            <EventsGridStyled container spacing={2} id='allEventsGridContainer'>
               {eventList.map((event: EventObjectTemp) => {
                 return (
                   <Grid item key={event.id}>
@@ -134,6 +134,7 @@ export function ViewAllEventsPage() {
             <FilterContext.Consumer>
               {({ eventType, attending, viewAll }) => (
                 <CenteredPaginationStyled
+                  id='paginationElement'
                   page={Number(currentPage)}
                   count={totalNoPages}
                   onChange={(_, page) => {

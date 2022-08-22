@@ -73,14 +73,16 @@ export function Login() {
 
   return (
     <UserContextProvider>
-      <GridGlobalStyled container spacing={2} columns={2}>
+      <GridGlobalStyled container spacing={2} columns={2} id='loginForm'>
         <GridColorStyled item xs={4}>
-          <TitleStyled variant='h5'>Log-in</TitleStyled>
+          <TitleStyled variant='h5' id='loginFormTitle'>
+            Log-in
+          </TitleStyled>
         </GridColorStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
+            id='loginFormEmailField'
             required
-            id='outlined-basic'
             label='Email'
             name={LoginFormFields.email}
             helperText={email.errors}
@@ -95,8 +97,8 @@ export function Login() {
         </GridColorStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
+            id='loginFormPasswordField'
             required
-            id='outlined-basic'
             label='Password'
             name={LoginFormFields.password}
             helperText={password.errors}
@@ -114,6 +116,7 @@ export function Login() {
         <GridStyled item xs={4}>
           <Button
             variant='contained'
+            id='loginFormSubmitButton'
             disabled={!(email.value && password.value) || password.hasErrors || email.hasErrors}
             onClick={handleClick}
             type='submit'
@@ -123,16 +126,16 @@ export function Login() {
         </GridStyled>
       </GridGlobalStyled>
       <Snackbar
+        id='errorMessageForLoginSnackbar'
         open={isSnackbarOpen}
         autoHideDuration={6000}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
+        <Alert id='errorMessageForLogin' onClose={handleClose} severity='error' sx={{ width: '100%' }}>
           {backendError}
         </Alert>
       </Snackbar>
-      
     </UserContextProvider>
   );
 }

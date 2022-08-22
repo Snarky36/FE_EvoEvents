@@ -19,6 +19,7 @@ export const emptyEvent: EventObjectTemp = {
   name: '',
   description: '',
   maxNoAttendees: 0,
-  address: { city: 0, country: 0, location: ''},
-fromDate: new Date(), toDate: new Date() 
+  address: { city: 0, country: 0, location: '' },
+  fromDate: new Date(), 
+  toDate: new Date() 
 };

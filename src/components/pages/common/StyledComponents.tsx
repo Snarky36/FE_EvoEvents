@@ -72,7 +72,7 @@ export const UserBoxStyled = styled(Box)(() => {
   };
 });
 
-export const TextFieldStyled = styled(TextField)(({ theme }) => {
+export const TextFieldStyled = styled(TextField)(() => {
   return {
     '& fieldset': {
       borderColor: '#42a5f5',
@@ -108,14 +108,14 @@ export const GridStyled = styled(Grid)(() => {
   };
 });
 
-export const GridColorStyled = styled(Grid)(({ theme }) => {
+export const GridColorStyled = styled(Grid)(() => {
   return {
     textAlign: 'center',
     color: 'black'
   };
 });
 
-export const GridGlobalStyled = styled(Grid)(({ theme }) => {
+export const GridGlobalStyled = styled(Grid)(() => {
   return {
     width: '70%',
     height: '90%',

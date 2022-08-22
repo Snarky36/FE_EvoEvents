@@ -1,4 +1,4 @@
-import { CardContent, Grid, Button } from '@mui/material';
+import { CardContent, Grid } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CityEnum } from '../../../../enums/CityEnum';
@@ -42,65 +42,70 @@ export function EventCard({ event }: EventCardProps) {
   };
 
   return (
-    <EventCardStyled variant='outlined'>
+    <EventCardStyled variant='outlined' id='eventCardContainer'>
       <CardContent>
         <Grid container direction='row'>
-          <Grid item xs={6}>
-            <img src={`data:image/jpeg;base64,${event.eventImage}`} height='200px' width='300px' />
+          <Grid item xs={6} id='eventCardImageContainer'>
+            <img id='eventCardImage' src={`data:image/jpeg;base64,${event.eventImage}`} height='200px' width='300px' />
           </Grid>
-          <Grid item xs={6}>
-            <EventCardContentStyled container spacing={2}>
-              <Grid item>
-                <EventTypeStyled>{EventTypes[event.eventType]}</EventTypeStyled>
-                <EventNameStyled>{event.name}</EventNameStyled>
-                <EventDetailsStyled container spacing={2} direction='row'>
-                  <Grid item>
+          <Grid item xs={6} id='eventCardContentContainer'>
+            <EventCardContentStyled container spacing={2} id='eventCardContent'>
+              <Grid item id='eventCardContentDetails'>
+                <EventTypeStyled id='eventCardType'>{EventTypes[event.eventType]}</EventTypeStyled>
+                <EventNameStyled id='eventCardName'>{event.name}</EventNameStyled>
+                <EventDetailsStyled container spacing={2} direction='row' id='eventCardDetails'>
+                  <Grid item id='eventCardToDate'>
                     <Grid container direction='row'>
-                      <Grid item>
+                      <Grid item id='eventCardToDateIcon'>
                         <CalendarMonthIconStyled />
                       </Grid>
-                      <Grid item>
+                      <Grid item id='eventCardToDateDetails'>
                         <EventItemStyled>{addZ(event.fromDate).toLocaleString('ro-RO')}</EventItemStyled>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item>
+                  <Grid item id='eventCardAttendees'>
                     <Grid container direction='row'>
-                      <Grid item>
+                      <Grid item id='eventCardAttendeesIcon'>
                         <PermContactCalendarIconStyled />
                       </Grid>
-                      <Grid item>
+                      <Grid item id='eventCardAttendeesDetails'>
                         <EventItemStyled>{event.maxNoAttendees} attendees</EventItemStyled>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item>
+                  <Grid item id='eventCardCityAndCountry'>
                     <Grid container direction='row'>
-                      <Grid item>
+                      <Grid item id='eventCardCityAndCountryIcon'>
                         <LocationOnIconStyled />
                       </Grid>
-                      <Grid item>
+                      <Grid item id='eventCardCityAndCountryDetails'>
                         <EventItemStyled>
                           {CityEnum[event.address.city]}, {CountryEnum[event.address.country]}
                         </EventItemStyled>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item>
+                  <Grid item id='eventCardLocation'>
                     <Grid container direction='row'>
-                      <Grid item>
+                      <Grid item id='eventCardLocationicon'>
                         <LocationCityIconStyled />
                       </Grid>
-                      <Grid item>
+                      <Grid item id='eventCardLocationDetails'>
                         <EventItemStyled>{event.address.location}</EventItemStyled>
                       </Grid>
                     </Grid>
                   </Grid>
                 </EventDetailsStyled>
-                <EventDescriptionStyled>{truncateDescription(event.description)}</EventDescriptionStyled>
+                <EventDescriptionStyled id='eventCardDescriptionTruncated'>
+                  {truncateDescription(event.description)}
+                </EventDescriptionStyled>
               </Grid>
-              <Grid item xs={4}>
-                <MoreInfoButtonStyled onClick={() => navigate('/event/' + Number(event.id))}>
+              <Grid item xs={4} id='eventCardMoreInforContainer'>
+                <MoreInfoButtonStyled
+                  id='eventCardMoreInfoButton'
+                  onClick={() => navigate('/event/' + Number(event.id))}
+                >
                   More info
                 </MoreInfoButtonStyled>
               </Grid>

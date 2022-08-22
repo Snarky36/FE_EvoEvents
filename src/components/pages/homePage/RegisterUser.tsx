@@ -78,13 +78,15 @@ export function RegisterUser() {
 
   return (
     <div>
-      <GridGlobalStyled container spacing={2} columns={2}>
+      <GridGlobalStyled container spacing={2} columns={2} id='registerForm'>
         <GridColorStyled item xs={4}>
-          <TitleStyled variant='h5'>Request log-in credentials</TitleStyled>
+          <TitleStyled variant='h5' id='registerFormTitle'>
+            Request log-in credentials
+          </TitleStyled>
         </GridColorStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
-            id='outlined-basic'
+            id='registerUserFormFirstNameField'
             label='First Name'
             name={RegisterFormFields.firstName}
             helperText={firstName.errors}
@@ -96,11 +98,11 @@ export function RegisterUser() {
             placeholder='John'
             autoComplete='off'
           />
-          <InfoButton title='between 2-100 alpha characters, including "-" and " "' />
+          <InfoButton id='infoButtonForFirstName' title='between 2-100 alpha characters, including "-" and " "' />
         </GridColorStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
-            id='outlined-basic'
+            id='registerUserFormLastNameField'
             label='Last Name'
             name={RegisterFormFields.lastName}
             helperText={lastName.errors}
@@ -112,11 +114,11 @@ export function RegisterUser() {
             placeholder='Doe'
             autoComplete='off'
           />
-          <InfoButton title='between 2-100 alpha characters, including "-" and " "' />
+          <InfoButton id='infoButtonForLastName' title='between 2-100 alpha characters, including "-" and " "' />
         </GridColorStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
-            id='outlined-basic'
+            id='registerUserFormEmailField'
             label='Email'
             name={RegisterFormFields.email}
             helperText={email.errors || backendError}
@@ -128,11 +130,14 @@ export function RegisterUser() {
             placeholder='john_doe@yahoo.com'
             autoComplete='off'
           />
-          <InfoButton title='between 7-74 characters and {alphanumeric and underline}@{string}.com format' />
+          <InfoButton
+            id='infoButtonForEmail'
+            title='between 7-74 characters and {alphanumeric and underline}@{string}.com format'
+          />
         </GridColorStyled>
         <GridStyled item xs={4}>
           <TextFieldRegisterUserStyled
-            id='outlined'
+            id='registerUserFormCompanyField'
             label='Company'
             name={RegisterFormFields.company}
             helperText={company.errors}
@@ -144,11 +149,11 @@ export function RegisterUser() {
             placeholder='evozon'
             autoComplete='off'
           />
-          <InfoButton title='between 2-100 alphanumeric characters' />
+          <InfoButton id='infoButtonForCompany' title='between 2-100 alphanumeric characters' />
         </GridStyled>
         <GridColorStyled item xs={4}>
           <TextFieldRegisterUserStyled
-            id='outlined-basic'
+            id='registerUserFormPasswordField'
             label='Password'
             name={RegisterFormFields.password}
             helperText={password.errors}
@@ -161,10 +166,11 @@ export function RegisterUser() {
             placeholder='******'
             autoComplete='off'
           />
-          <InfoButton title='between 2-100 characters and no whitespaces' />
+          <InfoButton id='infoButtonForPassword' title='between 2-100 characters and no whitespaces' />
         </GridColorStyled>
         <GridStyled item xs={4}>
           <Button
+            id='registerUserFormSubmitButton'
             variant='contained'
             disabled={
               !(email.value && password.value && firstName.value && lastName.value && company.value) ||
@@ -181,12 +187,13 @@ export function RegisterUser() {
         </GridStyled>
       </GridGlobalStyled>
       <Snackbar
+        id='successMessageForRegisterUserSnackbar'
         open={isSnackbarOpen}
         autoHideDuration={6000}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+        <Alert id='successMessageForRegisterUser' onClose={handleClose} severity='success' sx={{ width: '100%' }}>
           Registration was successful!
         </Alert>
       </Snackbar>
