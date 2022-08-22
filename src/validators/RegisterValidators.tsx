@@ -3,8 +3,13 @@ import { noWhiteSpaces, validCompanyRegex, validEmailRegex, validNameRegex } fro
 
 export const validateFirstNameRegister = (value: string) => {
   const stringComparer = new StringComparer(value);
+  const stringComparerTruncated = new StringComparer(stringComparer.truncateString());
 
-  if (stringComparer.hasLengthBetween(2, 100) || !value.match(validNameRegex))
+  if (
+    stringComparer.hasLengthBetween(2, 100) ||
+    stringComparerTruncated.hasLengthBetween(2, 100) ||
+    !value.match(validNameRegex)
+  )
     return 'First Name should have between 2 and 100 alpha characters, including "-" and " "';
 
   return '';
@@ -12,8 +17,13 @@ export const validateFirstNameRegister = (value: string) => {
 
 export const validateLastNameRegister = (value: string) => {
   const stringComparer = new StringComparer(value);
+  const stringComparerTruncated = new StringComparer(stringComparer.truncateString());
 
-  if (stringComparer.hasLengthBetween(2, 100) || !value.match(validNameRegex))
+  if (
+    stringComparer.hasLengthBetween(2, 100) ||
+    stringComparerTruncated.hasLengthBetween(2, 100) ||
+    !value.match(validNameRegex)
+  )
     return 'Last Name should have between 2 and 100 alpha characters, including "-" and " "';
 
   return '';
@@ -32,8 +42,12 @@ export const validateEmailRegister = (value: string) => {
 
 export const validateCompanyRegister = (value: string) => {
   const stringComparer = new StringComparer(value);
+  const stringComparerTruncated = new StringComparer(stringComparer.truncateString());
 
-  if (!value.match(validCompanyRegex) && stringComparer.hasLengthBetween(2, 100))
+  if (
+    (!value.match(validCompanyRegex) && stringComparer.hasLengthBetween(2, 100)) ||
+    stringComparerTruncated.hasLengthBetween(2, 100)
+  )
     return 'Company should have between 2 and 100 alphanumeric characters';
 
   return '';

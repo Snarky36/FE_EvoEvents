@@ -8,6 +8,10 @@ class StringComparer {
   isSmaller(integer: number) {
     return this.value.length < integer;
   }
+
+  truncateString() {
+    return this.value.replace(/\s+/g, ' ').trim();
+  }
 }
 
 export default StringComparer;

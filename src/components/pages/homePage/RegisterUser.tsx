@@ -30,17 +30,17 @@ export function RegisterUser() {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [backendError, setBackendError] = useState('');
 
-  const truncateName = useCallback((event) => {
+  const truncateString = useCallback((event) => {
     return event.replace(/\s+/g, ' ').trim();
   }, []);
 
   const handleClick = async () => {
     try {
       await UserService.registerUser({
-        firstName: truncateName(firstName.value),
-        lastName: truncateName(lastName.value),
+        firstName: truncateString(firstName.value),
+        lastName: truncateString(lastName.value),
         email: email.value,
-        company: company.value,
+        company: truncateString(company.value),
         password: password.value
       });
       setIsSnackbarOpen(true);
