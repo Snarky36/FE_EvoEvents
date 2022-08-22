@@ -77,18 +77,21 @@ export function ViewAllEventsPage() {
   };
 
   const handleClick = async (page: number, eventType: number, attending: boolean, viewAll: boolean) => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
     const paginationModel: PaginatedRequest = {
       paginationModel: { pageNumber: page, itemsPerPage: ITEMS_PER_PAGE },
       filters: { eventType: eventType, attending: attending }
     };
+
     if (viewAll === false) {
       paginationModel.filters.email = user.email;
     }
+
     fetchFilteredEvents(paginationModel);
+
+    document.body.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
 
   return (
