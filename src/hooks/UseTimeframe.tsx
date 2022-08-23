@@ -5,11 +5,11 @@ const useTimeframe = (firstValueInit: Date, secondValueInit: Date) => {
   const [secondValue, setSecondValue] = useState(secondValueInit);
 
   useEffect(() => {
-    if (firstValue <= secondValue) return;
-    
-    const auxValue = firstValue;
-    setFirstValue(secondValue);
-    setSecondValue(auxValue);
+    if (firstValue > secondValue) {
+      const auxValue = firstValue;
+      setFirstValue(secondValue);
+      setSecondValue(auxValue);
+    }
   }, [firstValue, secondValue]);
 
   return { firstValue, secondValue, setSecondValue, setFirstValue };

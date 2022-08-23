@@ -43,8 +43,14 @@ enum AddEventFormFields {
   description = 'description',
   city = 'city',
   country = 'country',
-  location = 'location'
+  location = 'location',
+  eventImage = 'eventImage'
 }
+
+const startingDate = new Date();
+const endingDate = new Date();
+startingDate.setHours(startingDate.getHours() + 1);
+endingDate.setHours(endingDate.getHours() + 2);
 
 export default function AddEventForm() {
   const [type, setType] = useState('');
@@ -56,9 +62,8 @@ export default function AddEventForm() {
   const location = useTextFieldErrors('', validateLocation);
   const [open, setOpen] = React.useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const currentDate = new Date();
-  currentDate.setHours(currentDate.getHours() + 1);
-  const timeframe = useTimeframe(currentDate, currentDate);
+
+  const timeframe = useTimeframe(startingDate, endingDate);
   const eventTypesOptions = useMemo(() => {
     return filterIndexedEnumsKeys(EventTypes).map((typeName) => {
       const typeId = EventTypes[typeName];
@@ -106,9 +111,10 @@ export default function AddEventForm() {
       [AddEventFormFields.capacity]: capacity,
       [AddEventFormFields.country]: country,
       [AddEventFormFields.city]: city,
-      [AddEventFormFields.location]: location
+      [AddEventFormFields.location]: location,
+      [AddEventFormFields.eventImage]: selectedImage
     }),
-    [name, description, capacity, country, city, location]
+    [name, description, capacity, country, city, location, selectedImage]
   );
 
   const onInputChange = useCallback(
@@ -134,25 +140,19 @@ export default function AddEventForm() {
       country: Number(country),
       location: location.value,
       dateRangeModel: { fromDate: dateRangeModel.fromDate, toDate: dateRangeModel.toDate },
-      eventImage: null
+      eventImage: selectedImage
     };
     await EventService.addEvent(eventObject);
     setOpen(true);
   };
 
-  const handleStartingDateTimeChange = useCallback(
-    (newValue: Date | null) => {
-      timeframe.setFirstValue(newValue);
-    },
-    [timeframe.firstValue]
-  );
+  const handleStartingDateTimeChange = useCallback((newValue: Date | null) => {
+    timeframe.setFirstValue(newValue);
+  }, []);
 
-  const handleEndingDateTimeChange = useCallback(
-    (newValue: Date | null) => {
-      timeframe.setSecondValue(newValue);
-    },
-    [timeframe.secondValue]
-  );
+  const handleEndingDateTimeChange = useCallback((newValue: Date | null) => {
+    timeframe.setSecondValue(newValue);
+  }, []);
 
   return (
     <div>
@@ -314,7 +314,7 @@ export default function AddEventForm() {
 
       <FileUploader
         successMessage='File uploaded successfully'
-        toolTipMessage='File cannot exceed more than 1MB, must be .png/.jpg./jpeg'
+        toolTipMessage='File cannot exceed more than 5MB, must be .png/.jpg./jpeg'
         validator={validateImage}
         onFileChange={setSelectedImage}
       />
