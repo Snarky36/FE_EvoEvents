@@ -12,7 +12,7 @@ export const MainGridStyled = styled(Grid)(() => {
     justifyContent: 'justify',
     alignContent: 'center',
     margin: '0 250px',
-    gap: '215px'
+    gap: '175px'
   };
 });
 
@@ -34,7 +34,8 @@ export const EventCardStyled = styled(Card)(() => {
     justifyContent: 'justify',
     alignContent: 'left',
     fontFamily: 'Work Sans',
-    width: '700px'
+    width: '750px',
+    flexWrap: 'wrap'
   };
 });
 
@@ -43,7 +44,11 @@ export const EventCardContentStyled = styled(Grid)(() => {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'justify',
-    alignContent: 'left'
+    alignContent: 'left',
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
+    wordBreak: 'break-all',
+    hyphens: 'auto'
   };
 });
 
@@ -107,11 +112,11 @@ export const CenteredTitlesStyled = styled(Grid)(() => {
 });
 
 export const MoreInfoButtonStyled = styled(Button)(({ theme }) => {
-	return {
-		color: theme.palette.primary.dark,
-		fontFamily:'Work Sans'
-		};
-	});
+  return {
+    color: theme.palette.primary.dark,
+    fontFamily: 'Work Sans'
+  };
+});
 
 export const PermContactCalendarIconStyled = styled(PermContactCalendarIcon)(({ theme }) => {
   return {
