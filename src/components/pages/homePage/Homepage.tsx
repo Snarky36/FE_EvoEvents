@@ -10,22 +10,24 @@ export function Homepage() {
   const [selectedTab, setSelectedTab] = useState('login');
 
   return (
-    <div style={{
-      backgroundImage: `url(${Background})`,
-      height: '100%',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'
-    }}>
+    <div
+      style={{
+        backgroundImage: `url(${Background})`,
+        height: '100%',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
+      }}
+    >
       <ContainerStyled id='registerAndLoginContainer'>
         <TabContext value={selectedTab}>
           <TabBoxStyled id='currentTabSelector'>
-            <AuthTabs id={selectedTab} currentTab={selectedTab} setSelectedTab={setSelectedTab} />
+            <AuthTabs currentTab={selectedTab} setSelectedTab={setSelectedTab} />
           </TabBoxStyled>
-          <TabPanel value='register' id='registerTab'>
+          <TabPanel value='register' id='register'>
             <RegisterUser />
           </TabPanel>
-          <TabPanel value='login' id='loginTab'>
+          <TabPanel value='login' id='login'>
             <Login />
           </TabPanel>
         </TabContext>
