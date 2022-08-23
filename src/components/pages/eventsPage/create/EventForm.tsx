@@ -35,6 +35,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import useTimeframe from '../../../../hooks/UseTimeframe';
 import { DateRangeModel } from '../../../../interfaces/DateRangeModel';
 import { toDate } from 'date-fns';
+import EventObject from '../../../../interfaces/Event';
 
 enum AddEventFormFields {
   type = 'type',
@@ -123,18 +124,18 @@ export default function AddEventForm() {
   const handleClick = async () => {
     const descriptionToSend = trimDescriptionInput(description.value);
     const dateRangeModel: DateRangeModel = { fromDate: timeframe.firstValue, toDate: timeframe.secondValue };
-    const formData = new FormData();
-    formData.append('location', location.value);
-    formData.append('eventType', type.toString());
-    formData.append('description', descriptionToSend);
-    formData.append('maxNoAttendees', capacity.value);
-    formData.append('city', city);
-    formData.append('name', name.value);
-    formData.append('country', country);
-    formData.append('eventImage', null);
-    formData.append('dateRangeModel[fromDate]', dateRangeModel.fromDate.toLocaleString());
-    formData.append('dateRangeModel[toDate]', dateRangeModel.toDate.toLocaleString());
-    await EventService.addEvent(formData);
+    const eventObject: EventObject = {
+      name: name.value,
+      eventType: Number(type),
+      description: descriptionToSend,
+      maxNoAttendees: Number(capacity.value),
+      city: Number(city),
+      country: Number(country),
+      location: location.value,
+      dateRangeModel: { fromDate: dateRangeModel.fromDate, toDate: dateRangeModel.toDate },
+      eventImage: null
+    };
+    await EventService.addEvent(eventObject);
     setOpen(true);
   };
 
