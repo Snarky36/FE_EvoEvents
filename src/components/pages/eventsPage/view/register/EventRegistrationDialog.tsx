@@ -106,6 +106,7 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
             <b>Register to event</b>
           </DialogTitleStyled>
           <Box
+            id='fadingLine'
             sx={{
               width: '65%',
               height: '3px',
@@ -114,7 +115,7 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
             }}
           ></Box>
           <MainGridStyled container direction='row' sx={{ display: 'flex', textAlign: 'rigth' }}>
-            <PersonalInfoGridStyled item sx={{ marginLeft: '70px' }}>
+            <PersonalInfoGridStyled item sx={{ marginLeft: '70px' }} id='gridForPersonalInfo'>
               <DialogLittleTitlesStyled> Personal info </DialogLittleTitlesStyled>
               <PersonalInfoRegisterEventStyled
                 sx={{ marginBottom: '25px' }}
@@ -122,28 +123,34 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
                 inputProps={{ readOnly: true }}
                 label='Last name'
                 value={`${user.lastName}`}
+                id='lastNameForRegistrationToEvent'
               />
               <PersonalInfoRegisterEventStyled
                 sx={{ marginBottom: '25px' }}
                 inputProps={{ readOnly: true }}
                 label='First name'
                 defaultValue={`${user.firstName}`}
+                id='firstNameForRegistrationToEvent'
               />
               <PersonalInfoRegisterEventStyled
                 sx={{ marginBottom: '25px' }}
                 inputProps={{ readOnly: true }}
                 label='Company'
                 defaultValue={`${user.company}`}
+                id='companyForRegistrationToEvent'
               />
               <PersonalInfoRegisterEventStyled
                 inputProps={{ readOnly: true }}
                 label='Email'
                 defaultValue={`${user.email}`}
+                id='emailForRegistrationToEvent'
               />
             </PersonalInfoGridStyled>
 
-            <AccompanyingGridStyled item sx={{ marginLeft: '45px' }}>
-              <DialogLittleTitlesStyled> Accompanying person </DialogLittleTitlesStyled>
+            <AccompanyingGridStyled item sx={{ marginLeft: '45px' }} id='gridForAccompanyingPersonRegisterToEvent'>
+              <DialogLittleTitlesStyled id='titleForAccompanyingPersonRegisterToEvent'>
+                Accompanying person
+              </DialogLittleTitlesStyled>
               <AccompanyingPerson setHasAcompanyingPerson={setHasAcompanyingPerson} />
               <PersonalInfoRegisterEventStyled
                 label='Insert their email here...'
@@ -154,15 +161,17 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
                 helperText={accompanyingPersonEmail.errors}
                 error={accompanyingPersonEmail.hasErrors}
                 onBlur={accompanyingPersonEmail.validate}
+                id='fieldForAccompanyingPersonEmail'
               />
             </AccompanyingGridStyled>
           </MainGridStyled>
-          <DialogActions sx={{ marginRight: '70px' }}>
+          <DialogActions sx={{ marginRight: '70px' }} id='buttonsForSaveAndClose'>
             <ButtonRegisterEventStyled
               sx={{ width: '100px', fontFamily: 'Work Sans', backgroundColor: 'rgba(249,183,0,1)', color: 'white' }}
               variant='outlined'
               disabled={accompanyingPersonEmail.hasErrors}
               onClick={handleClick}
+              id='saveButtonRegisterToEvent'
             >
               Save
             </ButtonRegisterEventStyled>
@@ -171,6 +180,7 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
               sx={{ width: '100px', fontFamily: 'Work Sans' }}
               variant='outlined'
               onClick={handleClose}
+              id='closeButtonRegisterToEvent'
             >
               Close
             </ButtonRegisterEventStyled>
@@ -208,7 +218,7 @@ export default function RegisterToEventForm() {
 
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpen}>
+      <Button variant='outlined' onClick={handleClickOpen} id='registerToEventButton'>
         Register
       </Button>
       <SimpleDialog isDialogOpen={isDialogOpen} onClose={handleClose} />

@@ -14,11 +14,12 @@ export const EventDescriptionHelperText = ({
   if (errorText === '') return <span>{`${description.length}/${characterDescriptionLimit}`}</span>;
   return (
     <>
-      <Typography paragraph sx={{ marginBottom: '0px' }}>
-        {' '}
-        {`${description.length}/${characterDescriptionLimit}`}{' '}
+      <Typography paragraph sx={{ marginBottom: '0px' }} id='countCharactersDescription'>
+        {`${description.length}/${characterDescriptionLimit}`}
       </Typography>
-      <Typography paragraph> {`${errorText}`} </Typography>
+      <Typography paragraph id='errorTextForDescriptionField'>
+        {`${errorText}`}
+      </Typography>
     </>
   );
 };

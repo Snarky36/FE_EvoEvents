@@ -154,8 +154,8 @@ export default function AddEventForm() {
     <div>
       <CreateEventGridStyled container direction='row'>
         <MainInfoEventGridStyled>
-          <FormControl fullWidth>
-            <InputLabel>Event type*</InputLabel>
+          <FormControl fullWidth id='formForEventType'>
+            <InputLabel id='inputLabelForEventType'>Event type*</InputLabel>
             <Select
               required
               value={type}
@@ -163,14 +163,15 @@ export default function AddEventForm() {
               onChange={(e) => {
                 setType(e.target.value);
               }}
+              id='selectForEventType'
             >
               {eventTypesOptions}
             </Select>
           </FormControl>
 
-          <GridColorStyled>
+          <GridColorStyled id='gridForEventName'>
             <TextFieldEventStyled
-              id='outlined-basic'
+              id='inputForEventName'
               label='Event name*'
               name={AddEventFormFields.name}
               helperText={name.errors}
@@ -183,9 +184,9 @@ export default function AddEventForm() {
             />
           </GridColorStyled>
 
-          <GridColorStyled>
+          <GridColorStyled id='gridForEventCapacity'>
             <TextFieldEventStyled
-              id='outlined-basic'
+              id='inputForCapacity'
               label='Capacity*'
               helperText={capacity.errors}
               error={capacity.hasErrors}
@@ -201,10 +202,11 @@ export default function AddEventForm() {
           </GridColorStyled>
         </MainInfoEventGridStyled>
 
-        <LocationGridStyled>
-          <FormControl fullWidth>
+        <LocationGridStyled id='addressContainerForEvent'>
+          <FormControl fullWidth id='formForCity'>
             <InputLabel>City*</InputLabel>
             <Select
+              id='dropdownForCity'
               required
               label='City'
               value={city}
@@ -217,9 +219,10 @@ export default function AddEventForm() {
             </Select>
           </FormControl>
           <br></br>
-          <FormControl fullWidth>
+          <FormControl fullWidth id='formForCountry'>
             <InputLabel>Country*</InputLabel>
             <Select
+              id='dropdownForCountry'
               label='Country'
               required
               value={country}
@@ -232,8 +235,9 @@ export default function AddEventForm() {
             </Select>
           </FormControl>
 
-          <GridColorStyled>
+          <GridColorStyled id='gridForLocation'>
             <TextFieldEventStyled
+              id='inputForLocation'
               label='Location*'
               name={AddEventFormFields.location}
               helperText={location.errors}
@@ -248,8 +252,9 @@ export default function AddEventForm() {
         </LocationGridStyled>
       </CreateEventGridStyled>
 
-      <DescriptionGridStyled>
+      <DescriptionGridStyled id='descriptionContainerForEvent'>
         <DescriptionTextFieldStyled
+          id='inputForDescription'
           label='Description'
           name={AddEventFormFields.description}
           inputProps={{
@@ -274,9 +279,9 @@ export default function AddEventForm() {
         />
       </DescriptionGridStyled>
 
-      <DateGridStyled container direction='row'>
+      <DateGridStyled container direction='row' id='containerForDateEvent'>
         <StartingDateGridStyled>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDateFns} id='providerForStartingDateEvent'>
             <DateTimePicker
               label='Starting date'
               value={timeframe.firstValue}
@@ -288,7 +293,7 @@ export default function AddEventForm() {
         </StartingDateGridStyled>
 
         <EndingDateGridStyled>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDateFns} id='providerForEndDateEvent'>
             <DateTimePicker
               label='Ending date'
               value={timeframe.secondValue}
@@ -302,6 +307,7 @@ export default function AddEventForm() {
 
       <GridStyled>
         <ButtonStyled
+          id='createEventButton'
           variant='contained'
           disabled={
             name.hasErrors ||
@@ -322,12 +328,13 @@ export default function AddEventForm() {
         </ButtonStyled>
       </GridStyled>
       <Snackbar
+        id='snackbarForCreateEvent'
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <AlertStyled onClose={handleClose} severity='success'>
+        <AlertStyled onClose={handleClose} severity='success' id='alertForSuccessfulCreationOfEvent'>
           Event was added successfully!
         </AlertStyled>
       </Snackbar>

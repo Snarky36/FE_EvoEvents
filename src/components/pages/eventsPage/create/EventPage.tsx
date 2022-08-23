@@ -12,7 +12,9 @@ export function EventPage() {
         <GridCreateEventStyled>
           <CreateEventStyled>
             <GridColorStyled>
-              <EventTitleStyled variant='h4'>Create a new event</EventTitleStyled>
+              <EventTitleStyled variant='h4' id='addEventTitle'>
+                Create a new event
+              </EventTitleStyled>
             </GridColorStyled>
             <AddEventForm />
           </CreateEventStyled>

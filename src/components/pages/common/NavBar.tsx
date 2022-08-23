@@ -20,21 +20,21 @@ const ResponsiveAppBar = () => {
   return (
     <AppBarStyled>
       <LogoFieldsStyled>
-        <Link to='/events'>
-          <PictureBoxStyled src={EvozonLogo} />
+        <Link to='/events' id='linkToEvents'>
+          <PictureBoxStyled src={EvozonLogo} id='pictureFromNavbar' />
         </Link>
 
-        <LinkStyled to='/addEvent'>
-          <CreateEventButtonStyled> Create event</CreateEventButtonStyled>
+        <LinkStyled to='/addEvent' id='addEventId'>
+          <CreateEventButtonStyled id='createEventButton'> Create event</CreateEventButtonStyled>
         </LinkStyled>
       </LogoFieldsStyled>
 
       <UserBoxStyled>
-        <FullNameStyled variant='h6' noWrap>
+        <FullNameStyled variant='h6' noWrap id='fullnameFromNavbar'>
           {`${user.firstName} ${user.lastName}`}
         </FullNameStyled>
-        <IconButtonStyled disabled sx={{ p: 0 }}>
-          <ProfilePicture alt='Remy Sharp' />
+        <IconButtonStyled disabled sx={{ p: 0 }} id='fullnameFromNavbar'>
+          <ProfilePicture alt='Remy Sharp' id='profilePictureFromNavbar' />
         </IconButtonStyled>
       </UserBoxStyled>
     </AppBarStyled>

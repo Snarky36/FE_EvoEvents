@@ -18,9 +18,21 @@ export function AccompanyingPerson({ setHasAcompanyingPerson }: AccompanyingPers
   return (
     <FormControl>
       <FormLabel> Will you bring an accompanying person to this event?</FormLabel>
-      <RadioGroupStyled defaultValue='No'>
-        <FormControlLabel control={<Radio />} label='Yes' value='Yes' onChange={handleChange} />
-        <FormControlLabel control={<Radio />} label='No' value='No' onChange={handleChange} />
+      <RadioGroupStyled defaultValue='No' id='radioGroupAcompanyingPerson'>
+        <FormControlLabel
+          control={<Radio />}
+          label='Yes'
+          value='Yes'
+          id='yesValueForAcompanyingPerson'
+          onChange={handleChange}
+        />
+        <FormControlLabel
+          control={<Radio />}
+          label='No'
+          value='No'
+          id='noValueAcompanyingPerson'
+          onChange={handleChange}
+        />
       </RadioGroupStyled>
     </FormControl>
   );
