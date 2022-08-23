@@ -54,7 +54,7 @@ export const TabBoxStyled = styled(Box)(() => {
     borderTop: 1,
     borderColor: 'divider',
     position: 'fixed',
-    top: '3.5%',
+    top: '3.3%',
     left: '50%',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)'
