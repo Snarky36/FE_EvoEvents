@@ -5,6 +5,7 @@ import { CityEnum } from '../../../../enums/CityEnum';
 import { CountryEnum } from '../../../../enums/CountryEnum';
 import { EventTypes } from '../../../../enums/EventTypes';
 import { EventObjectTemp } from '../../../../interfaces/EventObject';
+import fallbackImage from '../../../../assets/img/fallbackImage.jpg';
 import {
   EventCardStyled,
   EventCardContentStyled,
@@ -41,12 +42,15 @@ export function EventCard({ event }: EventCardProps) {
     return newDate;
   };
 
+  const imageUrl = `data:image/jpeg;base64,${event.eventImage}`;
+  const imageToDisplay = event.eventImage ? imageUrl : fallbackImage;
+
   return (
     <EventCardStyled variant='outlined' id='eventCardContainer'>
       <CardContent>
         <Grid container direction='row'>
           <Grid item xs={6} id='eventCardImageContainer'>
-            <img id='eventCardImage' src={`data:image/jpeg;base64,${event.eventImage}`} height='200px' width='300px' />
+            <img id='eventCardImage' src={imageToDisplay} height='200px' width='300px' />
           </Grid>
           <Grid item xs={6} id='eventCardContentContainer'>
             <EventCardContentStyled container spacing={2} id='eventCardContent'>

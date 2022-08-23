@@ -25,6 +25,7 @@ import RegisterToEventForm from './register/EventRegistrationDialog';
 import { UserContext } from '../../../contexts/UserContext';
 import { EmailModel } from '../../../../interfaces/EmailModel';
 import UnregisterFromEventForm from './unregister/EventUnregistrationDialog';
+import fallbackImage from '../../../../assets/img/fallbackImage.jpg';
 
 export function EventPage() {
   const { eventObject, setEventObjectData } = useContext(EventContext);
@@ -70,12 +71,15 @@ export function EventPage() {
     return <UnregisterFromEventForm />;
   };
 
+  const imageUrl = `data:image/jpeg;base64,${eventObject.eventImage}`;
+  const imageToDisplay = eventObject.eventImage ? imageUrl : fallbackImage;
+
   return (
     <>
       <ResponsiveAppBar />
       <MainGridStyled container spacing={10} id='eventContainer'>
         <Grid item xs={4} id='eventImageContainer'>
-          <img id='eventImage' src={`data:image/jpeg;base64,${eventObject.eventImage}`} height='310px' width='430px' />
+          <img id='eventImage' src={imageToDisplay} height='310px' width='430px' />
         </Grid>
         <Grid item xs={4} id='eventDetailsContainer'>
           <Grid container spacing={2} direction='column' id='eventDetails'>
