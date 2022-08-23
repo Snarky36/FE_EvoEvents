@@ -51,7 +51,7 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
       }, 2500);
     } catch (e) {
       if (e.errorCode === 409) {
-        setSnackbarMessage('User is already registered to that event');
+        setSnackbarMessage(e.data);
       } else if (e.errorCode === 400) setSnackbarMessage('Email should have a valid format');
       else setSnackbarMessage(e.data);
 

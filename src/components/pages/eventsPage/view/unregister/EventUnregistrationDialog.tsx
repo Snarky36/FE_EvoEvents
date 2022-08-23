@@ -36,7 +36,7 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
       }, 2500);
     } catch (e) {
       if (e.errorCode === 409) {
-        setSnackbarMessage('An error occurred');
+        setSnackbarMessage(e.data);
       } else setSnackbarMessage(e.data);
 
       setShouldErrorSnackBarOpen(true);

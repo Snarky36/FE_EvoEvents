@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import { CardContent, Grid } from '@mui/material';
+import { CardContent, Grid, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import EventService from '../../../../api/EventService';
 import { EventContext } from '../../../contexts/EventContext';
@@ -12,6 +12,7 @@ import {
   CenteredButtonStyled,
   EventCardContentStyled,
   EventCardStyled,
+  EventDescriptionHeaderStyled,
   EventItemStyled,
   EventNameStyled,
   EventTypeStyled,
@@ -115,7 +116,9 @@ export function EventPage() {
                               <PermContactCalendarIconStyled />
                             </Grid>
                             <Grid item id='eventAttendeesDetails'>
-                              <EventItemStyled>{eventObject.currentNoAttendees}/{eventObject.maxNoAttendees} attendees</EventItemStyled>
+                              <EventItemStyled>
+                                {eventObject.currentNoAttendees}/{eventObject.maxNoAttendees} attendees
+                              </EventItemStyled>
                             </Grid>
                           </Grid>
                         </Grid>
@@ -152,10 +155,17 @@ export function EventPage() {
           <div>{renderElement(eventObject.attending)}</div>
         </CenteredButtonStyled>
 
-        <Grid item xs={4} id='emptyColumnLeft'></Grid>
-        <Grid item xs={4} sx={{ wordWrap: 'break-word' }} id='eventDescriptionWrapped'>
-          {eventObject.description}
+        <Grid item xs={8} sx={{ wordWrap: 'break-word' }} id='eventDescriptionWrappedCotnainer'>
+          <Grid container direction='column' spacing={4}>
+            <Grid item xs={6} id='eventDescriptionWrappedHeader'>
+              <EventDescriptionHeaderStyled>Description</EventDescriptionHeaderStyled>
+            </Grid>
+            <Grid item xs={6} id='eventDescriptionWrapped'>
+              {eventObject.description}
+            </Grid>
+          </Grid>
         </Grid>
+
         <Grid item xs={4} id='emptyColumnRight'></Grid>
       </MainGridStyled>
     </>

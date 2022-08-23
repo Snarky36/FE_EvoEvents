@@ -89,3 +89,13 @@ export const CenteredButtonStyled = styled(Grid)(() => {
     alignItems: 'center'
   };
 });
+
+export const EventDescriptionHeaderStyled = styled(Typography)(() => {
+  return {
+    fontWeight: 'bold',
+    fontSize: '25px',
+    color: '#446291',
+    fontFamily: 'Work Sans',
+    margintBottom: '10px'
+  };
+});
