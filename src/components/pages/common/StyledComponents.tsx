@@ -23,8 +23,9 @@ export const AppBarStyled = styled(AppBar)(() => {
   return {
     height: '8%',
     width: '100%',
-    position: 'sticky',
+    position: 'fixed',
     top: 0,
+    overflow: 'hidden',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between'
