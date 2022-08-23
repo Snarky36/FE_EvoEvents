@@ -16,11 +16,9 @@ import { CHARACTER_DESCRIPTION_LIMIT } from '../../../../constants/CommonConstan
 import { EventDescriptionHelperText } from '../view/register/EventDescriptionHelperText';
 import { AlertStyled, GridColorStyled, GridStyled } from '../../common/StyledComponents';
 import {
-  FormHelperTextStyled,
   ButtonStyled,
   TextFieldEventStyled,
   DescriptionTextFieldStyled,
-  FormHelperTextCapacityStyled,
   CreateEventGridStyled,
   MainInfoEventGridStyled,
   LocationGridStyled,
@@ -34,7 +32,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import useTimeframe from '../../../../hooks/UseTimeframe';
 import { DateRangeModel } from '../../../../interfaces/DateRangeModel';
-import { toDate } from 'date-fns';
 import EventObject from '../../../../interfaces/Event';
 
 enum AddEventFormFields {
