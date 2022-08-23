@@ -25,7 +25,8 @@ import {
   DescriptionGridStyled,
   DateGridStyled,
   StartingDateGridStyled,
-  EndingDateGridStyled
+  EndingDateGridStyled,
+  SaveButtonStyled
 } from './StyledComponents';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -33,7 +34,8 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import useTimeframe from '../../../../hooks/UseTimeframe';
 import { DateRangeModel } from '../../../../interfaces/DateRangeModel';
 import EventObject from '../../../../interfaces/Event';
-
+import { FileUploader } from '../../common/FileUploader';
+import { validateImage } from '../../../../hooks/UseFileErrors';
 enum AddEventFormFields {
   type = 'type',
   name = 'name',
@@ -53,7 +55,9 @@ export default function AddEventForm() {
   const [country, setCountry] = useState('');
   const location = useTextFieldErrors('', validateLocation);
   const [open, setOpen] = React.useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const currentDate = new Date();
+  currentDate.setHours(currentDate.getHours() + 1);
   const timeframe = useTimeframe(currentDate, currentDate);
   const eventTypesOptions = useMemo(() => {
     return filterIndexedEnumsKeys(EventTypes).map((typeName) => {
@@ -218,7 +222,7 @@ export default function AddEventForm() {
               {cityTypesOptions}
             </Select>
           </FormControl>
-          <br></br>
+          <br></br> <br></br>
           <FormControl fullWidth id='formForCountry'>
             <InputLabel>Country*</InputLabel>
             <Select
@@ -234,7 +238,6 @@ export default function AddEventForm() {
               {countryTypesOptions}
             </Select>
           </FormControl>
-
           <GridColorStyled id='gridForLocation'>
             <TextFieldEventStyled
               id='inputForLocation'
@@ -281,7 +284,11 @@ export default function AddEventForm() {
 
       <DateGridStyled container direction='row' id='containerForDateEvent'>
         <StartingDateGridStyled>
-          <LocalizationProvider dateAdapter={AdapterDateFns} id='providerForStartingDateEvent'>
+          <LocalizationProvider
+            dateAdapter={AdapterDateFns}
+            id='providerForStartingDateEvent'
+            sx={{ backgroundColor: 'transparent' }}
+          >
             <DateTimePicker
               label='Starting date'
               value={timeframe.firstValue}
@@ -305,8 +312,15 @@ export default function AddEventForm() {
         </EndingDateGridStyled>
       </DateGridStyled>
 
+      <FileUploader
+        successMessage='File uploaded successfully'
+        toolTipMessage='File cannot exceed more than 1MB, must be .png/.jpg./jpeg'
+        validator={validateImage}
+        onFileChange={setSelectedImage}
+      />
+
       <GridStyled>
-        <ButtonStyled
+        <SaveButtonStyled
           id='createEventButton'
           variant='contained'
           disabled={
@@ -325,7 +339,7 @@ export default function AddEventForm() {
           onClick={handleClick}
         >
           Save
-        </ButtonStyled>
+        </SaveButtonStyled>
       </GridStyled>
       <Snackbar
         id='snackbarForCreateEvent'

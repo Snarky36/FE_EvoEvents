@@ -1,6 +1,6 @@
 import { styled } from '@mui/system';
 import { Box, Button, FormHelperText, Grid, InputLabel, Typography } from '@mui/material';
-import { GridColorStyled, TextFieldStyled } from '../../common/StyledComponents';
+import { ButtonUploadImageEventStyled, GridColorStyled, TextFieldStyled } from '../../common/StyledComponents';
 
 export const FormBoxStyled = styled(Box)(() => {
   return {
@@ -33,7 +33,16 @@ export const ButtonStyled = styled(Button)(() => {
 export const TextFieldEventStyled = styled(TextFieldStyled)(() => {
   return {
     paddingTop: '0.5%',
-    width: '100%'
+    width: '100%',
+    input: {
+      '&::placeholder': {
+        textOverflow: 'ellipsis !important',
+        color: 'black'
+      },
+      color: 'black !important',
+      backgroundColor: 'transparent',
+      borderRadius: 9999
+    }
   };
 });
 export const DescriptionTextFieldStyled = styled(TextFieldStyled)(() => {
@@ -63,49 +72,45 @@ export const CreateEventStyled = styled(InputLabel)(({ theme }) => {
     width: '70%',
     minWidth: '100%',
     '& fieldset': {
-      borderColor: theme.palette.primary.light,
+      borderColor: theme.palette.primary.main,
       borderWidth: 2,
       borderRadius: 9999
     },
     '& label': {
-      color: 'white'
+      color: theme.palette.primary.main
     },
     input: {
       '&::placeholder': {
         textOverflow: 'ellipsis !important',
         color: 'white'
       },
-      color: 'white !important',
-      backgroundColor: '#64b5f6',
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.light,
       borderRadius: 9999
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: 'white'
+        borderColor: theme.palette.primary.main
       }
     },
     '& label.Mui-focused': {
-      color: 'white'
-    }
+      color: theme.palette.primary.main
+    },
+    borderColor: theme.palette.primary.main
   };
 });
 
 export const GridCreateEventStyled = styled(Grid)(({ theme }) => {
   return {
-    width: '35%',
-    height: '75%',
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.light,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginRight: '-50%',
+    width: '850px',
+    height: '1000px',
+    marginTop: '550px',
+    backgroundColor: '#e3f2fd',
     transform: 'translate(-50%, -50%)',
     display: 'flex',
     alignContent: 'center',
     justifyContent: 'justify',
-    marginTop: '4%',
-    marginBottom: '4%'
+    marginLeft: '700px'
   };
 });
 
@@ -154,7 +159,7 @@ export const LocationGridStyled = styled(Grid)(() => {
 export const DescriptionGridStyled = styled(GridColorStyled)(() => {
   return {
     marginLeft: '90px',
-    marginRight: '90px'
+    marginRight: '110px'
   };
 });
 
@@ -168,13 +173,22 @@ export const DateGridStyled = styled(Grid)(() => {
 
 export const StartingDateGridStyled = styled(Grid)(() => {
   return {
-    width: '400px'
+    width: '300px'
   };
 });
 
 export const EndingDateGridStyled = styled(Grid)(() => {
   return {
     width: '400px',
-    marginLeft: '20px'
+    marginLeft: '80px'
+  };
+});
+
+export const SaveButtonStyled = styled(ButtonUploadImageEventStyled)(() => {
+  return {
+    position: 'absolute',
+    bottom: '20px',
+    right: '0px',
+    marginRight: '20px'
   };
 });

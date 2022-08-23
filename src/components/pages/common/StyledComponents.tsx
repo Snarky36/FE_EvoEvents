@@ -108,7 +108,16 @@ export const GridStyled = styled(Grid)(() => {
   };
 });
 
-export const GridColorStyled = styled(Grid)(() => {
+export const GridColorStyled = styled(Grid)(({ theme }) => {
+  return {
+    textAlign: 'center',
+    color: 'black',
+    marginTop: '10px',
+    borderColor: theme.palette.primary.main
+  };
+});
+
+export const GridCreateEventStyled = styled(Grid)(({ theme }) => {
   return {
     textAlign: 'center',
     color: 'black'
@@ -155,5 +164,15 @@ export const EventTitleStyled = styled(Typography)(() => {
     color: 'white',
     fontFamily: 'Work Sans',
     marginTop: '50px'
+  };
+});
+
+export const ButtonUploadImageEventStyled = styled(Button)(() => {
+  return {
+    marginTop: '15px',
+    height: '50px',
+    width: '200px',
+    fontFamily: 'Work Sans',
+    borderWidth: 'thick'
   };
 });

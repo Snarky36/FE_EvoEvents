@@ -12,7 +12,7 @@ export function EventPage() {
         <GridCreateEventStyled>
           <CreateEventStyled>
             <GridColorStyled>
-              <EventTitleStyled variant='h4' id='addEventTitle'>
+              <EventTitleStyled variant='h4' id='addEventTitle' sx={{ color: '#1976d2' }}>
                 Create a new event
               </EventTitleStyled>
             </GridColorStyled>

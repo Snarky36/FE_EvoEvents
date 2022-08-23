@@ -38,4 +38,3 @@ export const validateDescription = (value: string) => {
 
   return '';
 };
-

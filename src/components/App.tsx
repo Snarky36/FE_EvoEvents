@@ -18,7 +18,7 @@ export const App = () => {
             contrastText: '#e3f2fd'
           },
           secondary: {
-            light: '#ff7961',
+            light: '#e3f2fd',
             main: '#42a5f5',
             dark: '#000000',
             contrastText: '#000'
