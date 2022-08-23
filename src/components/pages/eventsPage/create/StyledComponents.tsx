@@ -6,7 +6,8 @@ export const FormBoxStyled = styled(Box)(() => {
   return {
     display: 'flex',
     justifyContent: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
+    marginTop: '60px'
   };
 });
 

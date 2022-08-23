@@ -115,7 +115,9 @@ export function EventPage() {
                               <PermContactCalendarIconStyled />
                             </Grid>
                             <Grid item id='eventAttendeesDetails'>
-                              <EventItemStyled>{eventObject.currentNoAttendees}/{eventObject.maxNoAttendees} attendees</EventItemStyled>
+                              <EventItemStyled>
+                                {eventObject.currentNoAttendees}/{eventObject.maxNoAttendees} attendees
+                              </EventItemStyled>
                             </Grid>
                           </Grid>
                         </Grid>
