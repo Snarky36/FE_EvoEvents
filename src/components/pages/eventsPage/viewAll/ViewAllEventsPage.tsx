@@ -1,12 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Grid, PaginationItem } from '@mui/material';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import EventService from '../../../../api/EventService';
+import { Link, useParams } from 'react-router-dom';
 import { EventObjectTemp } from '../../../../interfaces/EventObject';
-import PaginatedEvents from '../../../../interfaces/PaginatedEvents';
-import { PaginatedRequest } from '../../../../interfaces/PaginatedRequest';
 import { FilterContext, FilterContextProvider } from '../../../contexts/FilterContext';
-import { UserContext } from '../../../contexts/UserContext';
 import ResponsiveAppBar from '../../common/NavBar';
 import { EventCard } from './EventCard';
 import { FilterMenu } from './FilterMenu';
@@ -17,79 +13,40 @@ import {
   MainGridStyled,
   StickyFilterMenuStyled
 } from './StyledComponents';
+import AllEventsFetchTrigger from './AllEventsFetchTrigger';
+import Mediator from '../../../../events/Mediator';
+import { MediatorEventsIdentifiers } from '../../../../events/EventsIdentifiers';
 
 export function ViewAllEventsPage() {
-  const { user } = useContext(UserContext);
   const { currentPage } = useParams();
   const ITEMS_PER_PAGE = 5;
   const [eventList, setEventList] = useState([]);
   const [totalNoEvents, setTotalNoEvents] = useState(0);
-  const [totalNoPages, setTotalNoPages] = useState(0);
-
-  const navigate = useNavigate();
-
-  const fetchAllEvents = useCallback(
-    async (currentPage) => {
-      try {
-        const paginationModel: PaginatedRequest = {
-          paginationModel: { pageNumber: Number(currentPage), itemsPerPage: ITEMS_PER_PAGE },
-          filters: { eventType: 0 }
-        };
-        const res = await EventService.viewAllEvents(paginationModel);
-        const eventListObject: PaginatedEvents = {
-          eventList: res.data.items,
-          totalNoEvents: res.data.totalNoItems
-        };
-        setEventList(eventListObject.eventList);
-        setTotalNoEvents(eventListObject.totalNoEvents);
-        setTotalNoPages(Math.ceil(eventListObject.totalNoEvents / ITEMS_PER_PAGE));
-      } catch (e) {
-        navigate('/error', { replace: true });
-      }
-    },
-    [currentPage]
-  );
 
   useEffect(() => {
-    fetchAllEvents(currentPage);
-  }, []);
-
-  const fetchFilteredEvents = async (paginationModel) => {
-    try {
-      const res = await EventService.viewAllEvents(paginationModel);
-      const eventListObject: PaginatedEvents = {
-        eventList: res.data.items,
-        totalNoEvents: res.data.totalNoItems
-      };
+    const subscriber = Mediator.subscribe(MediatorEventsIdentifiers.newEventsFetched, (eventListObject) => {
       setEventList(eventListObject.eventList);
       setTotalNoEvents(eventListObject.totalNoEvents);
-      setTotalNoPages(Math.ceil(eventListObject.totalNoEvents / ITEMS_PER_PAGE));
-    } catch (e) {
-      navigate('/error', { replace: true });
-    }
-  };
 
-  const handleClick = async (page: number, eventType: number, attending: boolean, viewAll: boolean) => {
-    const paginationModel: PaginatedRequest = {
-      paginationModel: { pageNumber: page, itemsPerPage: ITEMS_PER_PAGE },
-      filters: { eventType: eventType, attending: attending }
-    };
-
-    if (viewAll === false) {
-      paginationModel.filters.email = user.email;
-    }
-
-    fetchFilteredEvents(paginationModel);
-
-    document.body.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+      document.body.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-  };
+
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, []);
+
+  const totalNoPages = useMemo(() => {
+    return Math.ceil(totalNoEvents / ITEMS_PER_PAGE);
+  }, [totalNoEvents]);
 
   return (
     <>
       <FilterContextProvider>
+        <AllEventsFetchTrigger />
         <ResponsiveAppBar />
         <MainGridStyled container id='viewAllEventsPageContainer'>
           <StickyFilterMenuStyled item id='stickyFilterMenu'>
@@ -100,7 +57,7 @@ export function ViewAllEventsPage() {
               <Grid item id='filterMenuContentContainer'>
                 <Grid container direction='column'>
                   <Grid item id='filterMenuContent'>
-                    <FilterMenu email={user.email} fetchFilteredEvents={fetchFilteredEvents} />
+                    <FilterMenu />
                   </Grid>
                 </Grid>
               </Grid>
@@ -125,15 +82,14 @@ export function ViewAllEventsPage() {
               })}
             </EventsGridStyled>
             <FilterContext.Consumer>
-              {({ eventType, attending, viewAll }) => (
+              {() => (
                 <CenteredPaginationStyled
                   id='paginationElement'
                   page={Number(currentPage)}
                   count={totalNoPages}
-                  onChange={(_, page) => {
-                    handleClick(page, eventType, attending, viewAll);
-                  }}
                   renderItem={(item) => <PaginationItem component={Link} to={`/events/${item.page}`} {...item} />}
+                  hideNextButton={totalNoPages === 0}
+                  hidePrevButton={totalNoPages === 0}
                 />
               )}
             </FilterContext.Consumer>

@@ -1,4 +1,5 @@
 export enum MediatorEventsIdentifiers {
   changeColorTheme,
-  userLoggedIn
+  userLoggedIn,
+  newEventsFetched
 }
