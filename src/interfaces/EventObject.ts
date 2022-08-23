@@ -7,6 +7,7 @@ export interface EventObjectTemp {
   readonly name: string;
   readonly description?: string;
   readonly maxNoAttendees: number;
+  readonly currentNoAttendees: number;
   readonly address: Address;
   readonly fromDate?: Date;
   readonly toDate?: Date;
@@ -20,8 +21,9 @@ export const emptyEvent: EventObjectTemp = {
   name: '',
   description: '',
   maxNoAttendees: 0,
+  currentNoAttendees: 0,
   address: { city: 0, country: 0, location: '' },
-  fromDate: new Date(), 
+  fromDate: new Date(),
   toDate: new Date(),
-  attending: false 
+  attending: false
 };

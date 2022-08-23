@@ -78,7 +78,7 @@ export function EventCard({ event }: EventCardProps) {
                         <PermContactCalendarIconStyled />
                       </Grid>
                       <Grid item id='eventCardAttendeesDetails'>
-                        <EventItemStyled>{event.maxNoAttendees} attendees</EventItemStyled>
+                        <EventItemStyled>{event.currentNoAttendees}/{event.maxNoAttendees} attendees</EventItemStyled>
                       </Grid>
                     </Grid>
                   </Grid>

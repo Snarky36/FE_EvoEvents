@@ -42,6 +42,7 @@ export function EventPage() {
         eventType: res.data.eventType,
         description: res.data.description,
         maxNoAttendees: res.data.maxNoAttendees,
+        currentNoAttendees: res.data.currentNoAttendees,
         address: res.data.address,
         fromDate: res.data.fromDate,
         toDate: res.data.toDate,
@@ -114,7 +115,7 @@ export function EventPage() {
                               <PermContactCalendarIconStyled />
                             </Grid>
                             <Grid item id='eventAttendeesDetails'>
-                              <EventItemStyled>{eventObject.maxNoAttendees} attendees</EventItemStyled>
+                              <EventItemStyled>{eventObject.currentNoAttendees}/{eventObject.maxNoAttendees} attendees</EventItemStyled>
                             </Grid>
                           </Grid>
                         </Grid>
