@@ -29,6 +29,10 @@ export function EventCard({ event }: EventCardProps) {
   const navigate = useNavigate();
 
   const truncateDescription = (description) => {
+    if (description === null) {
+      return '';
+    }
+
     if (description.length === 150) {
       return description.substring(0, 146) + '...';
     }

@@ -16,11 +16,9 @@ import { CHARACTER_DESCRIPTION_LIMIT } from '../../../../constants/CommonConstan
 import { EventDescriptionHelperText } from '../view/register/EventDescriptionHelperText';
 import { AlertStyled, GridColorStyled, GridStyled } from '../../common/StyledComponents';
 import {
-  FormHelperTextStyled,
   ButtonStyled,
   TextFieldEventStyled,
   DescriptionTextFieldStyled,
-  FormHelperTextCapacityStyled,
   CreateEventGridStyled,
   MainInfoEventGridStyled,
   LocationGridStyled,
@@ -34,6 +32,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import useTimeframe from '../../../../hooks/UseTimeframe';
 import { DateRangeModel } from '../../../../interfaces/DateRangeModel';
+import EventObject from '../../../../interfaces/Event';
 
 enum AddEventFormFields {
   type = 'type',
@@ -122,17 +121,18 @@ export default function AddEventForm() {
   const handleClick = async () => {
     const descriptionToSend = trimDescriptionInput(description.value);
     const dateRangeModel: DateRangeModel = { fromDate: timeframe.firstValue, toDate: timeframe.secondValue };
-    await EventService.addEvent({
-      eventType: parseInt(type),
+    const eventObject: EventObject = {
       name: name.value,
-      description: descriptionToSend.substring(0, 2000),
-      maxNoAttendees: parseInt(capacity.value),
-      city: parseInt(city),
-      country: parseInt(country),
+      eventType: Number(type),
+      description: descriptionToSend,
+      maxNoAttendees: Number(capacity.value),
+      city: Number(city),
+      country: Number(country),
       location: location.value,
-      dateRangeModel: dateRangeModel,
-      eventImage: ''
-    });
+      dateRangeModel: { fromDate: dateRangeModel.fromDate, toDate: dateRangeModel.toDate },
+      eventImage: null
+    };
+    await EventService.addEvent(eventObject);
     setOpen(true);
   };
 

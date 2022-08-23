@@ -3,10 +3,16 @@
     "target": "es5",
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "esModuleInterop": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
     "noEmit": true,
+    "downlevelIteration": true
   },
   "exclude": [
     "node_modules",
