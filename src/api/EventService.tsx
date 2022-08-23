@@ -1,3 +1,4 @@
+import { EmailModel } from '../interfaces/EmailModel';
 import EventObject from '../interfaces/Event';
 import { PaginatedRequest } from '../interfaces/PaginatedRequest';
 import ReservationInfo from '../interfaces/ReservationInfo';
@@ -8,8 +9,8 @@ class EventService {
     return ApiService.postReq('/api/event/create-event', obj);
   }
 
-  viewEvent(id: number) {
-    return ApiService.getReq('/api/event/' + id);
+  viewEvent(id: number, obj: EmailModel) {
+    return ApiService.postReq('/api/event/' + id, obj);
   }
 
   registerToEvent(obj: ReservationInfo) {
@@ -20,6 +21,10 @@ class EventService {
 
   viewAllEvents(obj: PaginatedRequest) {
     return ApiService.postReq('api/event/view-all-events', obj);
+  }
+
+  unregisterFromEvent(id: number, obj: EmailModel) {
+    return ApiService.postReq('api/event/' + id + '/unregister', obj);
   }
 }
 

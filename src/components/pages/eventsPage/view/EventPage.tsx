@@ -22,15 +22,20 @@ import {
 } from './StyledComponents';
 import { EventObjectTemp } from '../../../../interfaces/EventObject';
 import RegisterToEventForm from './register/EventRegistrationDialog';
+import { UserContext } from '../../../contexts/UserContext';
+import { EmailModel } from '../../../../interfaces/EmailModel';
+import UnregisterFromEventForm from './unregister/EventUnregistrationDialog';
 
 export function EventPage() {
   const { eventObject, setEventObjectData } = useContext(EventContext);
+  const { user } = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
   const fetchEvent = useCallback(async () => {
     try {
-      const res = await EventService.viewEvent(Number(id));
+      const emailModel: EmailModel = { userEmail: user.email };
+      const res = await EventService.viewEvent(Number(id), emailModel);
       const currentEvent: EventObjectTemp = {
         name: res.data.name,
         eventType: res.data.eventType,
@@ -39,7 +44,8 @@ export function EventPage() {
         address: res.data.address,
         fromDate: res.data.fromDate,
         toDate: res.data.toDate,
-        eventImage: res.data.eventImage
+        eventImage: res.data.eventImage,
+        attending: res.data.attending
       };
       setEventObjectData(currentEvent);
     } catch (e) {
@@ -49,12 +55,19 @@ export function EventPage() {
 
   useEffect(() => {
     fetchEvent();
-  }, []);
+  }, [eventObject]);
 
   const addZ = (date) => {
     const utcDate = date + 'Z';
     const newDate = new Date(utcDate);
     return newDate;
+  };
+
+  const renderElement = (attending: boolean) => {
+    if (attending === false) {
+      return <RegisterToEventForm />;
+    }
+    return <UnregisterFromEventForm />;
   };
 
   return (
@@ -131,8 +144,9 @@ export function EventPage() {
           </Grid>
         </Grid>
         <CenteredButtonStyled item xs={4} id='registerToEventButton'>
-          <RegisterToEventForm />
+          <div>{renderElement(eventObject.attending)}</div>
         </CenteredButtonStyled>
+
         <Grid item xs={4} id='emptyColumnLeft'></Grid>
         <Grid item xs={4} sx={{ wordWrap: 'break-word' }} id='eventDescriptionWrapped'>
           {eventObject.description}

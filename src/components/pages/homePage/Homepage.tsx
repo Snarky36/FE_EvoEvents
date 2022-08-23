@@ -20,7 +20,7 @@ export function Homepage() {
       <ContainerStyled id='registerAndLoginContainer'>
         <TabContext value={selectedTab}>
           <TabBoxStyled id='currentTabSelector'>
-            <AuthTabs id='currentTab' currentTab={selectedTab} setSelectedTab={setSelectedTab} />
+            <AuthTabs id={selectedTab} currentTab={selectedTab} setSelectedTab={setSelectedTab} />
           </TabBoxStyled>
           <TabPanel value='register' id='registerTab'>
             <RegisterUser />

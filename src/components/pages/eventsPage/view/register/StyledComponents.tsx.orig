@@ -26,7 +26,9 @@ export const DialogLittleTitlesStyled = styled(DialogTitle)(() => {
 export const ButtonRegisterEventStyled = styled(Button)(() => {
   return {
     marginTop: '15px',
+<<<<<<< HEAD
     height: '50px',
+    weigth: '1000px',
     '&:hover': {
       backgroundColor: '#90caf9',
       boxShadow: 'none'
@@ -34,6 +36,9 @@ export const ButtonRegisterEventStyled = styled(Button)(() => {
     ':disabled': {
       backgroundColor: '#e0e0e0'
     }
+=======
+    height: '50px'
+>>>>>>> d00d356 (done)
   };
 });
 
