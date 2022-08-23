@@ -29,14 +29,13 @@ export interface SimpleDialogProps {
 }
 
 function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
-  const [hasAcompanyingPerson, setHasAcompanyingPerson] = useState('');
+  const [hasAcompanyingPerson, setHasAcompanyingPerson] = useState(false);
   const accompanyingPersonEmail = useTextFieldErrors('', validateEmailRegister);
   const { user } = React.useContext(UserContext);
   const { id } = useParams();
   const [shouldSuccessSnackBarOpen, setShouldSuccessSnackBarOpen] = React.useState(false);
   const [shouldErrorSnackBarOpen, setShouldErrorSnackBarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
-  const [severityType, setSeverityType] = React.useState('');
   const handleClick = async () => {
     const reservationInfo: ReservationInfo = {
       eventId: Number(id),
@@ -53,7 +52,8 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
     } catch (e) {
       if (e.errorCode === 409) {
         setSnackbarMessage('User is already registered to that event');
-      } else setSnackbarMessage(e.data);
+      } else if (e.errorCode === 400) setSnackbarMessage('Email should have a valid format');
+      else setSnackbarMessage(e.data);
 
       setShouldErrorSnackBarOpen(true);
       setTimeout(() => {
@@ -63,6 +63,8 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
   };
 
   const handleClose = () => {
+    if (hasAcompanyingPerson) setHasAcompanyingPerson(false);
+    accompanyingPersonEmail.setErrors('');
     accompanyingPersonEmail.setValue('');
     onClose();
   };
@@ -110,7 +112,7 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
             sx={{
               width: '65%',
               height: '3px',
-              background: 'radial-gradient(circle, rgba(249,183,0,1) 2%, rgba(255,255,255,1) 100%)',
+              background: 'radial-gradient(circle, #42a5f5 2%, rgba(255,255,255,1) 100%)',
               alignSelf: 'center'
             }}
           ></Box>
@@ -120,30 +122,30 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
               <PersonalInfoRegisterEventStyled
                 sx={{ marginBottom: '25px' }}
                 variant='outlined'
-                inputProps={{ readOnly: true }}
+                disabled
                 label='Last name'
                 value={`${user.lastName}`}
                 id='lastNameForRegistrationToEvent'
               />
               <PersonalInfoRegisterEventStyled
                 sx={{ marginBottom: '25px' }}
-                inputProps={{ readOnly: true }}
+                disabled
                 label='First name'
                 defaultValue={`${user.firstName}`}
                 id='firstNameForRegistrationToEvent'
               />
               <PersonalInfoRegisterEventStyled
                 sx={{ marginBottom: '25px' }}
-                inputProps={{ readOnly: true }}
+                disabled
                 label='Company'
                 defaultValue={`${user.company}`}
                 id='companyForRegistrationToEvent'
               />
               <PersonalInfoRegisterEventStyled
-                inputProps={{ readOnly: true }}
+                disabled
                 label='Email'
-                defaultValue={`${user.email}`}
                 id='emailForRegistrationToEvent'
+                defaultValue={`${user.email}`}
               />
             </PersonalInfoGridStyled>
 
@@ -167,9 +169,10 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
           </MainGridStyled>
           <DialogActions sx={{ marginRight: '70px' }} id='buttonsForSaveAndClose'>
             <ButtonRegisterEventStyled
-              sx={{ width: '100px', fontFamily: 'Work Sans', backgroundColor: 'rgba(249,183,0,1)', color: 'white' }}
-              variant='outlined'
-              disabled={accompanyingPersonEmail.hasErrors}
+              sx={{ width: '100px', fontFamily: 'Work Sans', backgroundColor: '#42a5f5', color: 'white' }}
+              disabled={
+                accompanyingPersonEmail.hasErrors || (hasAcompanyingPerson && accompanyingPersonEmail.value === '')
+              }
               onClick={handleClick}
               id='saveButtonRegisterToEvent'
             >
@@ -177,8 +180,7 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
             </ButtonRegisterEventStyled>
 
             <ButtonRegisterEventStyled
-              sx={{ width: '100px', fontFamily: 'Work Sans' }}
-              variant='outlined'
+              sx={{ width: '100px', fontFamily: 'Work Sans', backgroundColor: '#42a5f5', color: 'white' }}
               onClick={handleClose}
               id='closeButtonRegisterToEvent'
             >

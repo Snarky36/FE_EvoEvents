@@ -26,7 +26,14 @@ export const ButtonRegisterEventStyled = styled(Button)(() => {
   return {
     marginTop: '15px',
     height: '50px',
-    weigth: '1000px'
+    weigth: '1000px',
+    '&:hover': {
+      backgroundColor: '#90caf9',
+      boxShadow: 'none'
+    },
+    ':disabled': {
+      backgroundColor: '#e0e0e0'
+    }
   };
 });
 
@@ -76,11 +83,6 @@ export const PersonalInfoRegisterEventStyled = styled(TextField)(({ theme }) => 
     marginBottom: '7px',
     '& .MuiInputBase-input.Mui-disabled': {
       WebkitTextFillColor: 'theme.palette.primary.main'
-    },
-    '& .MuiInputBase-root.Mui-disabled': {
-      '& > fieldset': {
-        borderColor: theme.palette.primary.main
-      }
     },
 
     '& fieldset': {
