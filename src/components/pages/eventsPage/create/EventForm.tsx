@@ -172,7 +172,7 @@ export default function AddEventForm() {
               {eventTypesOptions}
             </Select>
           </FormControl>
-
+          <br></br>
           <GridColorStyled id='gridForEventName'>
             <TextFieldEventStyled
               id='inputForEventName'
@@ -222,12 +222,12 @@ export default function AddEventForm() {
               {cityTypesOptions}
             </Select>
           </FormControl>
-          <br></br> <br></br>
-          <FormControl fullWidth id='formForCountry'>
+          <br></br>
+          <FormControl sx={{ marginTop: '10px' }} fullWidth id='formForCountry'>
             <InputLabel>Country*</InputLabel>
             <Select
               id='dropdownForCountry'
-              label='Country'
+              label='Country*'
               required
               value={country}
               sx={{ width: '100%' }}

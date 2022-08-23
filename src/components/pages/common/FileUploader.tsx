@@ -26,10 +26,10 @@ export const FileUploader = ({ successMessage, toolTipMessage, validator, onFile
   return (
     <Box>
       <Box
-        sx={{ marginTop: '15px', height: '50px', width: '200px', fontFamily: 'Work Sans', borderWidth: 'thick' }}
+        sx={{ marginLeft: '322px', marginTop: '15px', height: '50px', width: '200px', fontFamily: 'Work Sans', borderWidth: 'thick' }}
         display='flex'
         justifyContent='center'
-        alignItems='center'
+        alignContent='center'
       >
         <Button id='buttonForUploadImg' variant='outlined' component='label'>
           Upload Image

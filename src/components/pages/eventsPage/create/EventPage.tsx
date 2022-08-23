@@ -8,18 +8,21 @@ export function EventPage() {
   return (
     <>
       <ResponsiveAppBar />
-      <FormBoxStyled>
-        <GridCreateEventStyled>
-          <CreateEventStyled>
-            <GridColorStyled>
-              <EventTitleStyled variant='h4' id='addEventTitle' sx={{ color: '#1976d2' }}>
-                Create a new event
-              </EventTitleStyled>
-            </GridColorStyled>
-            <AddEventForm />
-          </CreateEventStyled>
-        </GridCreateEventStyled>
-      </FormBoxStyled>
+      <div style={{ backgroundColor: '#e3f2fd' }}>
+        <FormBoxStyled>
+          <GridCreateEventStyled>
+            <CreateEventStyled>
+              <GridColorStyled>
+                <EventTitleStyled variant='h4' id='addEventTitle' sx={{ color: 'black' }}>
+                  Create a new event
+                </EventTitleStyled>
+              </GridColorStyled>
+
+              <AddEventForm />
+            </CreateEventStyled>
+          </GridCreateEventStyled>
+        </FormBoxStyled>
+      </div>
     </>
   );
 }

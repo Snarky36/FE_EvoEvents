@@ -33,6 +33,8 @@ export const EventCardStyled = styled(Card)(() => {
     flexDirection: 'column',
     justifyContent: 'justify',
     alignContent: 'left',
+    border: '1px solid #393C3F',
+    boxShadow: '4px 4px 10px 3px #393C3F',
     fontFamily: 'Work Sans',
     width: '750px',
     flexWrap: 'wrap'

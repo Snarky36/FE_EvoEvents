@@ -81,6 +81,7 @@ export function ViewAllEventsPage() {
                 );
               })}
             </EventsGridStyled>
+            <br></br>
             <FilterContext.Consumer>
               {() => (
                 <CenteredPaginationStyled
@@ -93,6 +94,7 @@ export function ViewAllEventsPage() {
                 />
               )}
             </FilterContext.Consumer>
+            <br></br>
           </Grid>
         </MainGridStyled>
       </FilterContextProvider>
