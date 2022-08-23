@@ -11,7 +11,7 @@ export default interface EventObject {
   readonly city: number;
   readonly location?: string;
   readonly dateRangeModel?: DateRangeModel;
-  readonly eventImage?: string;
+  readonly eventImage?: string | Blob;
 }
 
 export const emptyEvent: EventObject = {
