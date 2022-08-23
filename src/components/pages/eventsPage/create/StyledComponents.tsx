@@ -4,7 +4,6 @@ import { ButtonUploadImageEventStyled, GridColorStyled, TextFieldStyled } from '
 
 export const FormBoxStyled = styled(Box)(() => {
   return {
-    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center'
@@ -102,17 +101,12 @@ export const CreateEventStyled = styled(InputLabel)(({ theme }) => {
 
 export const GridCreateEventStyled = styled(Grid)(({ theme }) => {
   return {
-    width: '850px',
-    height: '1000px',
-    marginTop: '550px',
     backgroundColor: 'white',
-    transform: 'translate(-50%, -50%)',
     border: '1px solid',
     boxShadow: '5px 5px 20px 3px #393C3F',
     display: 'flex',
     alignContent: 'center',
     justifyContent: 'justify',
-    marginLeft: '700px',
     borderColor: theme.palette.primary.main
   };
 });
@@ -189,9 +183,8 @@ export const EndingDateGridStyled = styled(Grid)(() => {
 
 export const SaveButtonStyled = styled(ButtonUploadImageEventStyled)(() => {
   return {
-    //position: 'absolute',
     marginTop: '40px',
-    // right: '0px',
-    marginRight: '21px'
+    marginRight: '25px',
+    marginBottom: '30px'
   };
 });

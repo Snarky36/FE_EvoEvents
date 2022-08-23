@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, Tooltip } from '@mui/material';
 import { InfoButton } from './InfoButton';
 import { ButtonUploadImageEventStyled } from './StyledComponents';
+
 export const FileUploader = ({ successMessage, toolTipMessage, validator, onFileChange }) => {
   const [helperText, setHelperText] = useState('');
   const [hasError, setHasError] = useState(false);
@@ -26,7 +27,14 @@ export const FileUploader = ({ successMessage, toolTipMessage, validator, onFile
   return (
     <Box>
       <Box
-        sx={{ marginLeft: '322px', marginTop: '15px', height: '50px', width: '200px', fontFamily: 'Work Sans', borderWidth: 'thick' }}
+        sx={{
+          marginLeft: '332px',
+          marginTop: '30px',
+          height: '50px',
+          width: '200px',
+          fontFamily: 'Work Sans',
+          borderWidth: 'thick'
+        }}
         display='flex'
         justifyContent='center'
         alignContent='center'

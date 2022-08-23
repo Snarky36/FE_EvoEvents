@@ -18,7 +18,7 @@ class ApiService {
     try {
       const response = await this.axios.post(url, obj, {
         headers: {
-          "Content-type": "multipart/form-data"
+          'Content-type': 'multipart/form-data'
         }
       });
 

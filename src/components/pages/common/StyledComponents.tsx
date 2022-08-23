@@ -117,7 +117,7 @@ export const GridColorStyled = styled(Grid)(({ theme }) => {
   };
 });
 
-export const GridCreateEventStyled = styled(Grid)(({ theme }) => {
+export const GridCreateEventStyled = styled(Grid)(() => {
   return {
     textAlign: 'center',
     color: 'black'
