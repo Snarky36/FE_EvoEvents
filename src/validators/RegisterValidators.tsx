@@ -45,7 +45,8 @@ export const validateCompanyRegister = (value: string) => {
   const stringComparerTruncated = new StringComparer(stringComparer.truncateString());
 
   if (
-    (!value.match(validCompanyRegex) || stringComparer.hasLengthBetween(2, 100)) ||
+    !value.match(validCompanyRegex) ||
+    stringComparer.hasLengthBetween(2, 100) ||
     stringComparerTruncated.hasLengthBetween(2, 100)
   )
     return 'Company should have between 2 and 100 alphanumeric characters';
