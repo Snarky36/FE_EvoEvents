@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 import { EventTypes } from '../../../../enums/EventTypes';
 import EventService from '../../../../api/EventService';
 import useTextFieldErrors from '../../../../hooks/UseTextFieldErrors';
@@ -16,7 +16,6 @@ import { CHARACTER_DESCRIPTION_LIMIT } from '../../../../constants/CommonConstan
 import { EventDescriptionHelperText } from '../view/register/EventDescriptionHelperText';
 import { AlertStyled, GridColorStyled, GridStyled } from '../../common/StyledComponents';
 import {
-  ButtonStyled,
   TextFieldEventStyled,
   DescriptionTextFieldStyled,
   CreateEventGridStyled,
@@ -172,7 +171,7 @@ export default function AddEventForm() {
               {eventTypesOptions}
             </Select>
           </FormControl>
-
+          <br></br>
           <GridColorStyled id='gridForEventName'>
             <TextFieldEventStyled
               id='inputForEventName'
@@ -222,12 +221,12 @@ export default function AddEventForm() {
               {cityTypesOptions}
             </Select>
           </FormControl>
-          <br></br> <br></br>
-          <FormControl fullWidth id='formForCountry'>
+          <br></br>
+          <FormControl sx={{ marginTop: '10px' }} fullWidth id='formForCountry'>
             <InputLabel>Country*</InputLabel>
             <Select
               id='dropdownForCountry'
-              label='Country'
+              label='Country*'
               required
               value={country}
               sx={{ width: '100%' }}

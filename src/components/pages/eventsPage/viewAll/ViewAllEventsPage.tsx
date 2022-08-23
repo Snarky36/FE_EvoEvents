@@ -63,7 +63,7 @@ export function ViewAllEventsPage() {
               </Grid>
             </Grid>
           </StickyFilterMenuStyled>
-          <Grid item id='viewAllEventsContainer'>
+          <Grid item id='viewAllEventsContainer' sx={{ marginTop: '71px' }}>
             <CenteredTitlesStyled container id='viewAllEventsBasicInformation'>
               <Grid item id='allEventsHeader'>
                 <h1>All events</h1>
@@ -81,6 +81,7 @@ export function ViewAllEventsPage() {
                 );
               })}
             </EventsGridStyled>
+            <br></br>
             <FilterContext.Consumer>
               {() => (
                 <CenteredPaginationStyled
@@ -93,6 +94,7 @@ export function ViewAllEventsPage() {
                 />
               )}
             </FilterContext.Consumer>
+            <br></br>
           </Grid>
         </MainGridStyled>
       </FilterContextProvider>

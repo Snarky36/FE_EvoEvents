@@ -13,11 +13,10 @@ import {
   PersonalInfoRegisterEventStyled
 } from './StyledComponents';
 import { AccompanyingPerson } from './AccompanyingPerson';
-import { AlertStyled, GridStyled } from '../../../common/StyledComponents';
 import EventService from '../../../../../api/EventService';
 import ReservationInfo from '../../../../../interfaces/ReservationInfo';
 import { useParams } from 'react-router-dom';
-import { Alert, Box, DialogActions, Portal, Snackbar } from '@mui/material';
+import { Box, DialogActions } from '@mui/material';
 import useTextFieldErrors from '../../../../../hooks/UseTextFieldErrors';
 import { validateEmailRegister } from '../../../../../validators/RegisterValidators';
 import ErrorSnackbar from '../../../common/snackbars/ErrorSnackbar';
