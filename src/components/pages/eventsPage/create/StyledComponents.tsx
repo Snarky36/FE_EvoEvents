@@ -189,3 +189,11 @@ export const SaveButtonStyled = styled(ButtonUploadImageEventStyled)(() => {
     marginBottom: '30px'
   };
 });
+
+export const CenteredMessageStyled = styled(Typography)(() => {
+  return {
+    textAlign: 'center',
+    marginRight: '20px',
+    marginTop: '5px'
+  };
+});

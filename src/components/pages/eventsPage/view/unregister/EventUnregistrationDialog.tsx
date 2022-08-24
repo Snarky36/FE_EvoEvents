@@ -74,7 +74,6 @@ function SimpleDialog({ onClose, isDialogOpen }: SimpleDialogProps) {
           <CenteredTextStyled>Are you sure you want to unregister from this event?</CenteredTextStyled>
           <DialogActions sx={{ marginRight: '140px' }}>
             <ButtonUnregisterEventStyled
-              sx={{ backgroundColor: 'rgba(249,183,0,1)', color: 'white' }}
               variant='outlined'
               onClick={handleClick}
             >

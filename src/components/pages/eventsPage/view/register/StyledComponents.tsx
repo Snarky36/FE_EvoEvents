@@ -121,6 +121,7 @@ export const ButtonUnregisterEventStyled = styled(Button)(() => {
     marginTop: '30px',
     height: '50px',
     width: '100px',
-    fontFamily: 'Work Sans'
+    fontFamily: 'Work Sans',
+    backgroundColor: '#42a5f5', color: 'white'
   };
 });

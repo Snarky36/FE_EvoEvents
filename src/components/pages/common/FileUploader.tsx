@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, Tooltip } from '@mui/material';
 import { InfoButton } from './InfoButton';
 import { ButtonUploadImageEventStyled } from './StyledComponents';
+import { CenteredMessageStyled } from '../eventsPage/create/StyledComponents';
 
 export const FileUploader = ({ successMessage, toolTipMessage, validator, onFileChange }) => {
   const [helperText, setHelperText] = useState('');
@@ -48,9 +49,9 @@ export const FileUploader = ({ successMessage, toolTipMessage, validator, onFile
       </Box>
 
       {helperText && (
-        <Typography id='messageForUploadImg' variant='subtitle1'>
+        <CenteredMessageStyled id='messageForUploadImg' variant='subtitle1'>
           {helperText}
-        </Typography>
+        </CenteredMessageStyled>
       )}
     </Box>
   );
