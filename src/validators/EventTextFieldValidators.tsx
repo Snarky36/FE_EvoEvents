@@ -27,7 +27,7 @@ export const validateLocation = (value: string) => {
   const location = new StringComparer(value);
   if (location.isSmaller(1)) return 'Location is required';
 
-  if (location.hasLengthBetween(9, 50)) return 'Location should have between 10 and 50 characters';
+  if (location.hasLengthBetween(10, 50)) return 'Location should have between 10 and 50 characters';
 
   return '';
 };

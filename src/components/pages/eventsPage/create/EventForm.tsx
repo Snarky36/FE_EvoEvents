@@ -129,6 +129,8 @@ export default function AddEventForm() {
   }, []);
 
   const handleClick = async () => {
+    timeframe.validateStartingDate();
+    timeframe.validateEndingDate();
     const descriptionToSend = trimDescriptionInput(description.value);
     const dateRangeModel: DateRangeModel = { fromDate: timeframe.firstValue, toDate: timeframe.secondValue };
     const eventObject: EventObject = {

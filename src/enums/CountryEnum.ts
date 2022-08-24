@@ -1,5 +1,5 @@
 export enum CountryEnum {
   Romania = 1,
-  Germania,
-  Italia
+  Germany = 2,
+  Italy = 3
 }
