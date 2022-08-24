@@ -1,5 +1,5 @@
 import NumberComparer from '../utils/NumberComparer';
-import { validDescription } from '../utils/RegularExpressions';
+import { validCompanyRegex, validDescription } from '../utils/RegularExpressions';
 import StringComparer from '../utils/StringComparer';
 
 export const validateEventName = (value: string) => {
@@ -7,7 +7,8 @@ export const validateEventName = (value: string) => {
 
   if (name.isSmaller(1)) return 'Name is required';
 
-  if (name.hasLengthBetween(2, 100)) return 'Name should have between 2 and 100 characters';
+  if (!value.match(validCompanyRegex) || name.hasLengthBetween(2, 100))
+    return 'Name should have between 2 and 100 characters';
 
   return '';
 };
