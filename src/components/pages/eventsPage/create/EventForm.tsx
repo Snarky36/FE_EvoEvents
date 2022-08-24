@@ -7,7 +7,8 @@ import {
   validateEventName,
   validateEventCapacity,
   validateLocation,
-  validateDescription
+  validateDescription,
+  validateDate
 } from '../../../../validators/EventTextFieldValidators';
 import { filterIndexedEnumsKeys } from '../../../../utils/ObjectUtils';
 import { CityEnum } from '../../../../enums/CityEnum';
@@ -62,7 +63,7 @@ export default function AddEventForm() {
   const [open, setOpen] = React.useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const timeframe = useTimeframe(startingDate, endingDate);
+  const timeframe = useTimeframe(startingDate, endingDate, validateDate);
   const eventTypesOptions = useMemo(() => {
     return filterIndexedEnumsKeys(EventTypes).map((typeName) => {
       const typeId = EventTypes[typeName];
@@ -146,10 +147,12 @@ export default function AddEventForm() {
   };
 
   const handleStartingDateTimeChange = useCallback((newValue: Date | null) => {
+    timeframe.validateStartingDate();
     timeframe.setFirstValue(newValue);
   }, []);
 
   const handleEndingDateTimeChange = useCallback((newValue: Date | null) => {
+    timeframe.validateEndingDate();
     timeframe.setSecondValue(newValue);
   }, []);
 
@@ -158,7 +161,7 @@ export default function AddEventForm() {
       <CreateEventGridStyled container direction='row'>
         <MainInfoEventGridStyled>
           <FormControl fullWidth id='formForEventType'>
-            <InputLabel id='inputLabelForEventType'>Event type*</InputLabel>
+            <InputLabel id='inputLabelForEventType'>Type*</InputLabel>
             <Select
               required
               value={type}
@@ -174,7 +177,9 @@ export default function AddEventForm() {
           <br></br>
           <GridColorStyled id='gridForEventName'>
             <TextFieldEventStyled
+              sx={{ marginBottom: '0px' }}
               id='inputForEventName'
+              autoComplete='off'
               label='Event name*'
               name={AddEventFormFields.name}
               helperText={name.errors}
@@ -187,8 +192,9 @@ export default function AddEventForm() {
             />
           </GridColorStyled>
 
-          <GridColorStyled id='gridForEventCapacity'>
+          <GridColorStyled id='gridForEventCapacity' sx={{ marginTop: '10px' }}>
             <TextFieldEventStyled
+              sx={{ marginBottom: '0px' }}
               id='inputForCapacity'
               label='Capacity*'
               helperText={capacity.errors}
@@ -237,9 +243,10 @@ export default function AddEventForm() {
               {countryTypesOptions}
             </Select>
           </FormControl>
-          <GridColorStyled id='gridForLocation'>
+          <GridColorStyled id='gridForLocation' sx={{ marginBottom: '0px' }}>
             <TextFieldEventStyled
               id='inputForLocation'
+              autoComplete='off'
               label='Location*'
               name={AddEventFormFields.location}
               helperText={location.errors}
@@ -293,7 +300,17 @@ export default function AddEventForm() {
               value={timeframe.firstValue}
               disablePast
               onChange={handleStartingDateTimeChange}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  required
+                  helperText={timeframe.startingDateErrors}
+                  onBlur={timeframe.validateStartingDate}
+                  error={timeframe.hasStartingDateErrors}
+                  FormHelperTextProps={{ id: 'startDateError' }}
+                />
+              )}
+              InputProps={{ id: 'startDateField' }}
             />
           </LocalizationProvider>
         </StartingDateGridStyled>
@@ -305,7 +322,17 @@ export default function AddEventForm() {
               value={timeframe.secondValue}
               disablePast
               onChange={handleEndingDateTimeChange}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  required
+                  helperText={timeframe.endingDateErrors}
+                  onBlur={timeframe.validateEndingDate}
+                  error={timeframe.hasEndingDateErrors}
+                  FormHelperTextProps={{ id: 'endDateError' }}
+                />
+              )}
+              InputProps={{ id: 'endDateField' }}
             />
           </LocalizationProvider>
         </EndingDateGridStyled>
@@ -333,7 +360,9 @@ export default function AddEventForm() {
             name.value === '' ||
             capacity.value === '0' ||
             capacity.value === '' ||
-            timeframe.firstValue === timeframe.secondValue
+            timeframe.firstValue === timeframe.secondValue ||
+            timeframe.hasEndingDateErrors ||
+            timeframe.hasStartingDateErrors
           }
           onClick={handleClick}
         >

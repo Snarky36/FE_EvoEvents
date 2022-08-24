@@ -32,7 +32,7 @@ export const ButtonStyled = styled(Button)(() => {
 
 export const TextFieldEventStyled = styled(TextFieldStyled)(() => {
   return {
-    paddingTop: '0.5%',
+    marginBottom: '20px',
     width: '100%',
     input: {
       '&::placeholder': {

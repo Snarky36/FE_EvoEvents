@@ -38,3 +38,18 @@ export const validateDescription = (value: string) => {
 
   return '';
 };
+
+export const validateDate = (date: Date) => {
+  const currentDate = new Date();
+
+  try {
+    if (date.toISOString() == null) {
+      return 'Date is invalid';
+    }
+  } catch (e: any) {
+    return 'Date is invalid';
+  }
+
+  if (date < currentDate) return 'Date can not be before the current date';
+  return '';
+};
